@@ -1,0 +1,43 @@
+{
+  "name": "react-webshop-ts-template-nextjs",
+  "description": "En inlämningsuppgift där de studerande bygger en kalenderapplikation i javascript.",
+  "author": "Plugga Tech",
+  "license": "ISC",
+  "private": true,
+  "scripts": {
+    "postinstall": "plugga init && prisma db push",
+    "dev": "next dev --turbopack --port 5173",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "update": "plugga update",
+    "test": "plugga test",
+    "push": "prisma db push",
+    "seed": "prisma db seed",
+    "studio": "prisma studio"
+  },
+  "dependencies": {
+    "next": "15.2.1",
+    "react": "^19",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@plugga-tech/react-webshop-ts": "^1.1.12",
+    "@prisma/client": "^6.4.1",
+    "@types/node": "^22.13.9",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "eslint": "^9.21.0",
+    "eslint-config-next": "15.2.1",
+    "prisma": "^6.4.1",
+    "typescript": "^5.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plugga-tech/react-webshop-ts-template-nextjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/plugga-tech/react-webshop-ts-template-nextjs/issues"
+  },
+  "homepage": "https://github.com/plugga-tech/react-webshop-ts-template-nextjs#readme"
+}
