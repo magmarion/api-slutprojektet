@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { Toaster } from "../components/ui/toaster";
 import { toast } from "sonner";
 
 const products = [
@@ -87,9 +86,18 @@ export default function Home() {
                 className="object-cover w-full h-40 rounded-md cursor-pointer"
               />
             </Link>
-            <h2 className="text-lg font-semibold mt-2">{product.name}</h2>
+            <Link href={`/product/${product.id}`}>
+              <h2 className="text-lg font-semibold mt-2 hover:underline">
+                {product.name}
+              </h2>
+            </Link>
             <p className="text-gray-700">Price: {product.price} SEK</p>
-            <Button onClick={ () => toast.success("Added to cart!")} className="mt-3 w-full cursor-pointer">Add to cart</Button>
+            <Button
+              onClick={() => toast.success("Added to cart!")}
+              className="mt-3 w-full cursor-pointer"
+            >
+              Add to cart
+            </Button>
           </div>
         ))}
       </div>
