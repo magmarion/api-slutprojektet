@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 const products = [
     {
@@ -60,8 +61,15 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
     return (
         <main className="p-10">
             <h1 className="text-3xl font-bold">{product.name}</h1>
-            <img src={product.image} alt={product.name} className="w-96 rounded-lg my-4" />
-            <p className="text-gray-700 text-lg">Price: {product.price} SEK</p>
+            <Image
+                src={product.image}
+                alt={product.name}
+                width={240}
+                height={240}
+                className="rounded-lg my-4 border p-4 shadow-md bg-white"
+                priority
+            />
+            <p className="text-gray-700 text-lg ml-14">Price: {product.price} SEK</p>
         </main>
     );
 }

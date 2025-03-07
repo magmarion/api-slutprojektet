@@ -65,7 +65,7 @@ export default function Home() {
             <div className="flex flex-wrap justify-between items-center gap-4">
                 {products.map((product) => (
                     <div key={product.id} className="border rounded-lg p-4 shadow-md bg-white">
-                        <Link href={`/product-detail/${product.id}`}>
+                        <Link href={`/${product.id}`}>
                             <Image
                                 src={product.image}
                                 alt={product.name}

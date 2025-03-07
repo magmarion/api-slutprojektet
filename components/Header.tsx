@@ -16,7 +16,7 @@ export default function Header() {
                 </Link>
                 <Link href="/products" className="text-gray-600 hover:text-gray-800">Products
                 </Link>
-                <Link href="/admin" className="text-gray-600 hover:text-gray-800">Admin
+                <Link href="/admin" data-cy="admin-link" className="text-gray-600 hover:text-gray-800">Admin
                 </Link>
             </nav>
 
