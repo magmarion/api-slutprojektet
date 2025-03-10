@@ -96,7 +96,7 @@ export default function Home() {
               onClick={() => toast.success("Added to cart!")}
               className="mt-3 w-full cursor-pointer"
             >
-              Add to cart
+              Buy
             </Button>
           </div>
         ))}
