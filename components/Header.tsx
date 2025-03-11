@@ -6,26 +6,19 @@ import { useState } from "react";
 export default function Header() {
   const [cartCount, setCartCount] = useState(2);
 
-  return (
-    <header className="p-4 bg-gray-100 shadow-md flex justify-between items-center">
-      <Link href="/">
-        <h1 className="text-xl font-bold">The webshop logo</h1>
-      </Link>
-      <nav className="flex gap-4">
-        <Link href="/" className="text-gray-600 hover:text-gray-800">
-          Home
-        </Link>
-        <Link href="/products" className="text-gray-600 hover:text-gray-800">
-          Products
-        </Link>
-        <Link
-          href="/admin"
-          data-cy="admin-link"
-          className="text-gray-600 hover:text-gray-800"
-        >
-          Admin
-        </Link>
-      </nav>
+    return (
+        <header className="p-4 bg-gray-100 shadow-md flex justify-between items-center">
+            <Link href="/">
+                <h1 className="text-xl font-bold">The webshop logo</h1>
+            </Link>
+            <nav className="flex gap-4">
+                <Link href="/" className="text-gray-600 hover:text-gray-800">Home
+                </Link>
+                <Link href="/product" className="text-gray-600 hover:text-gray-800">Products
+                </Link>
+                <Link href="/admin" data-cy="admin-link" className="text-gray-600 hover:text-gray-800">Admin
+                </Link>
+            </nav>
 
       <Link
         href="/checkout"

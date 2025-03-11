@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 const products = [
     {
