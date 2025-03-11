@@ -1,4 +1,4 @@
-export default function Products() {
+export default function ProductsPage() {
     return (
         <main className="flex min-h-screen flex-col items-center p-10">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Products</h1>
