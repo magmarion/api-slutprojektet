@@ -18,7 +18,7 @@ export default async function Home() {
             <div className="flex flex-wrap justify-between items-center gap-4">
                 {products.map((products) => (
                     <div
-                        key={products.id}
+                        key={products.articleNumber}
                         className="border rounded-lg p-4 shadow-md bg-white"
                     >
                         <Link href={`/product/${products.articleNumber}/${products.title}`}>
@@ -30,7 +30,7 @@ export default async function Home() {
                                 className="object-cover w-full h-40 rounded-md cursor-pointer"
                             />
                         </Link>
-                        <Link href={`/product/${products.id}`}>
+                        <Link href={`/product/${products.articleNumber}/${products.title}`}>
                             <h2 className="text-lg font-semibold mt-2 hover:underline">
                                 {products.title}
                             </h2>

@@ -1,9 +1,12 @@
-import { products } from "@/data";
+import { db } from "@/prisma/db";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export default async function ProductDetail({ params }: { params: { id: string } }) {
-    const product = products.find((p) => p.id.toString() === params.id);
+export default async function ProductDetail({ params }: { params: { articleNumber: string, title: string } }) {
+
+    const product = await db.product.findUnique({
+        where: { articleNumber: params.articleNumber },
+    })
 
     if (!product) return notFound();
 
