@@ -1,6 +1,4 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 
 const products = [
@@ -55,11 +53,23 @@ const products = [
 ]
 
 
+export default function ProductDetail({ params }: { params: { id: string } }) {
+    const product = products.find((p) => p.id.toString() === params.id);
 
-export default function Home() {
-  return (
-    <main>
-      <p>Det här är startsidan. Här ska alla produkterna visas.</p>
-    </main>
-  );
+    if (!product) return notFound();
+
+    return (
+        <main className="p-10">
+            <h1 className="text-3xl font-bold">{product.name}</h1>
+            <Image
+                src={product.image}
+                alt={product.name}
+                width={240}
+                height={240}
+                className="rounded-lg my-4 border p-4 shadow-md bg-white"
+                priority
+            />
+            <p className="text-gray-700 text-lg ml-14">Price: {product.price} SEK</p>
+        </main>
+    );
 }
