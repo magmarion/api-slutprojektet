@@ -19,7 +19,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                 priority
             />
             {/* Product description */}
-            <p data-cy="product-description" className="text-gray-700"></p>
+            <p data-cy="product-description" className="text-gray-700 ml-14">{product.description}</p>
             <p data-cy="product-price" className="text-gray-700 text-lg ml-14">Price: {product.price} SEK</p>
         </main>
     );
