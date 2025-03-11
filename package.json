@@ -17,9 +17,12 @@
     "studio": "prisma studio"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.0.9",
     "next": "15.2.1",
+    "postcss": "^8.5.3",
     "react": "^19",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.9"
   },
   "devDependencies": {
     "@plugga-tech/react-webshop-ts": "^1.1.12",
