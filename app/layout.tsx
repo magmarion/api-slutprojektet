@@ -1,10 +1,9 @@
+import Layout from "@/components/Layout";
+import { Toaster } from "@/components/ui/toaster";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
 import "../app/global.css";
-import Layout from "@/components/Layout";
-
-
 const inter = Inter({ subsets: ["latin"] });
 
 /* Beskriv din hemsida för sökmotorerna */
@@ -18,6 +17,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en">
       <body className={inter.className}>
         <Layout>{children}</Layout>
+        <Toaster />
       </body>
     </html>
   );
