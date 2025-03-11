@@ -1,6 +1,7 @@
 import { products } from '@/data';
 import { db } from './db';
 
+
 async function main() {
   for (const { id, ...product } of products) {
     await db.product.upsert({
