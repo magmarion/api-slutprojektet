@@ -1,6 +1,7 @@
 export const products = [
     {
         id: 1,
+        articleNumber: "1234",
         name: "Trådlösa Hörlurar",
         price: 5500,
         description: "Trådlösa Hörlurar",
@@ -9,6 +10,7 @@ export const products = [
     },
     {
         id: 2,
+        articleNumber: "1235",
         name: "Smartklocka",
         price: 2490,
         description: "Smartklocka",
@@ -17,6 +19,7 @@ export const products = [
     },
     {
         id: 3,
+        articleNumber: "1236",
         name: "Laptop",
         price: 9999,
         description: "Laptop",
@@ -25,6 +28,7 @@ export const products = [
     },
     {
         id: 4,
+        articleNumber: "1237",
         name: "Elcykel",
         price: 25999,
         description: "Elcykel",
@@ -33,6 +37,7 @@ export const products = [
     },
     {
         id: 5,
+        articleNumber: "1238",
         name: "Trådlösa Hörlurar",
         price: 5500,
         description: "Trådlösa Hörlurar",
@@ -41,6 +46,7 @@ export const products = [
     },
     {
         id: 6,
+        articleNumber: "1239",
         name: "Smartklocka",
         price: 2490,
         description: "Smartklocka",
@@ -49,6 +55,7 @@ export const products = [
     },
     {
         id: 7,
+        articleNumber: "1240",
         name: "Laptop",
         price: 9999,
         description: "Laptop",
@@ -57,6 +64,7 @@ export const products = [
     },
     {
         id: 8,
+        articleNumber: "1241",
         name: "Elcykel",
         price: 25999,
         description: "Elcykel",
@@ -65,6 +73,7 @@ export const products = [
     },
     {
         id: 9,
+        articleNumber: "1242",
         name: "iPhone 15 pro",
         price: 10999,
         description: "iPhone 15 pro",
@@ -73,6 +82,7 @@ export const products = [
     },
     {
         id: 10,
+        articleNumber: "1243",
         name: "Samsung s24 Ultra",
         price: 8999,
         description: "Samsung s24 Ultra",
