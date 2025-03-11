@@ -14,7 +14,7 @@ export default function Header() {
             <nav className="flex gap-4">
                 <Link href="/" className="text-gray-600 hover:text-gray-800">Home
                 </Link>
-                <Link href="/products" className="text-gray-600 hover:text-gray-800">Products
+                <Link href="/product" className="text-gray-600 hover:text-gray-800">Products
                 </Link>
                 <Link href="/admin" data-cy="admin-link" className="text-gray-600 hover:text-gray-800">Admin
                 </Link>
