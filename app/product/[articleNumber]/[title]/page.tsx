@@ -28,13 +28,14 @@ export default async function ProductDetail({
             priority
           />
 
-        <div className="max-w-2xl">
+        <div className="max-w-xl lg:max-w-">
           <h1 data-cy="product-title" className="text-3xl font-bold p-5">
             {product.title}
           </h1>
           <p data-cy="product-description" className="text-gray-700 p-5 ">
             {product.description}
           </p>
+
           <p
             data-cy="product-price"
             className="text-gray-700 text-lg p-5 font-bold "
