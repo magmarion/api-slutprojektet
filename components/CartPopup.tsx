@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import useCartStore from "../stores/cartStore";
+import { X } from "lucide-react";
 
 interface CartItem {
     id: number;
@@ -31,12 +32,12 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50">
             <div className="bg-white w-96 h-full p-6 overflow-y-auto">
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-bold">Your Cart</h2>
+                    <h2 className="text-xl font-bold">Your Items</h2>
                     <button
                         onClick={onClose}
                         className="text-gray-600 hover:text-gray-800"
                     >
-                        &times; {/* Close icon */}
+                        < X className="w-6 h-6 cursor-pointer transition-transform duration-300 hover:scale-125" /> {/* Close icon */}
                     </button>
                 </div>
 
@@ -65,21 +66,21 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
                 {/* Right Side: Summary and Proceed to Checkout */}
                 <div className="mt-6">
                     <div className="flex justify-between">
-                        <p className="text-gray-600">Subtotal</p>
-                        <p className="font-semibold">${totalPrice}</p>
+                        <p className="text-gray-600">Subtotal:</p>
+                        <p className="font-semibold">{totalPrice} SEK</p>
                     </div>
                     <div className="flex justify-between">
-                        <p className="text-gray-600">Shipping</p>
-                        <p className="font-semibold">$0</p>
+                        <p className="text-gray-600">Shipping:</p>
+                        <p className="font-semibold">0 SEK</p>
                     </div>
                     <div className="flex justify-between border-t pt-4">
-                        <p className="text-gray-600">Total</p>
-                        <p className="font-semibold">${totalPrice}</p>
+                        <p className="text-gray-600">Total:</p>
+                        <p className="font-semibold">{totalPrice} SEK</p>
                     </div>
                     <Link
                         href="/checkout"
                         data-cy="proceed-to-checkout-button"
-                        className="mt-6 w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors block text-center"
+                        className="mt-6 w-full bg-slate-500 text-white py-2 px-4 rounded-lg hover:bg-slate-600 block text-center transition-all duration-300 hover:scale-105"
                     >
                         Go to checkout
                     </Link>
