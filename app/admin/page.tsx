@@ -1,16 +1,16 @@
 import { db } from "@/prisma/db";
 import { revalidatePath } from "next/cache";
-import { Product } from "../../data";        // Import the Product interface
+import { Product } from "../../data";       
 import AdminUI from "../../components/admin/AdminUI";
 
-// This is a server component by default (no "use client").
+
 export default async function AdminPage() {
-  // 1) Fetch products from DB
+
   const products = await db.product.findMany();
 
-  // 2) Define server actions here:
+ 
   async function createProduct(data: Partial<Product>) {
-    "use server"; // Tells Next.js this is a server action
+    "use server"; 
     await db.product.create({
       data: {
         articleNumber: data.articleNumber ?? `temp-${Date.now()}`,
@@ -20,7 +20,7 @@ export default async function AdminPage() {
         price: data.price ?? 0,
       },
     });
-    revalidatePath("/admin"); // Refresh data on this route
+    revalidatePath("/admin"); 
   }
 
   async function updateProduct(articleNumber: string, data: Partial<Product>) {
@@ -40,10 +40,10 @@ export default async function AdminPage() {
     revalidatePath("/admin");
   }
 
-  // 3) Render a minimal layout and pass everything to the client UI
+ 
   return (
     <div className="p-4 md:p-10">
-      {/* Note: No extra <h1> here to avoid a duplicate heading */}
+     
       <AdminUI
         products={products}
         createAction={createProduct}

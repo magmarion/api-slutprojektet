@@ -56,7 +56,7 @@ export default function AdminUI({
   // For React 18 transitions (optional)
   const [isPending, startTransition] = useTransition();
 
-  // ============ HANDLERS ============
+  
 
   // Show "Add Product" dialog
   const handleOpenAdd = () => {
