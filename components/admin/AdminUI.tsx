@@ -3,7 +3,6 @@
 import React, { useState, useTransition } from "react";
 import Image from "next/image";
 
-// Shadcn UI components
 import {
   Dialog,
   DialogContent,
@@ -17,11 +16,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-
-// Icons
 import { Plus, Edit, Trash } from "lucide-react";
 
-
+// Your product interface (matches the prisma schema)
 export interface Product {
   id: string;
   articleNumber: string;
@@ -33,7 +30,6 @@ export interface Product {
 
 interface AdminUIProps {
   products: Product[];
-  // Server actions that you created with "use server"
   createAction: (data: Partial<Product>) => Promise<void>;
   updateAction: (articleNumber: string, data: Partial<Product>) => Promise<void>;
   deleteAction: (articleNumber: string) => Promise<void>;
@@ -46,52 +42,52 @@ export default function AdminUI({
   updateAction,
   deleteAction,
 }: AdminUIProps) {
-  // ----- Dialog States -----
+  // Dialog states
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-  // Track which product is active for editing/deleting
+  // Track product being edited/deleted
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
 
-  // Form data for adding/editing
+  // Form data for add/edit
   const [formData, setFormData] = useState<Partial<Product>>({});
 
-  // For asynchronous transitions (optional)
+  // For React 18 transitions (optional)
   const [isPending, startTransition] = useTransition();
 
+  // ============ HANDLERS ============
 
-
-  // Opens the "Add Product" modal
-  const handleOpenAddModal = () => {
+  // Show "Add Product" dialog
+  const handleOpenAdd = () => {
     setFormData({});
     setActiveProduct(null);
     setShowAddDialog(true);
   };
 
-  // Opens the "Edit Product" modal
-  const handleOpenEditModal = (p: Product) => {
+  // Show "Edit Product" dialog
+  const handleOpenEdit = (p: Product) => {
     setActiveProduct(p);
-    setFormData(p); // pre-fill the form
+    setFormData(p); // pre-fill form
     setShowEditDialog(true);
   };
 
-  // Opens the "Delete Product" confirmation
-  const handleOpenDeleteModal = (p: Product) => {
+  // Show "Delete Product" dialog
+  const handleOpenDelete = (p: Product) => {
     setActiveProduct(p);
     setShowDeleteDialog(true);
   };
 
-  // CREATE product
-  const handleCreateProduct = () => {
+  // CREATE
+  const handleCreate = () => {
     startTransition(async () => {
       await createAction(formData);
       setShowAddDialog(false);
     });
   };
 
-  // UPDATE product
-  const handleUpdateProduct = () => {
+  // UPDATE
+  const handleUpdate = () => {
     if (!activeProduct) return;
     startTransition(async () => {
       await updateAction(activeProduct.articleNumber, formData);
@@ -99,8 +95,8 @@ export default function AdminUI({
     });
   };
 
-  // DELETE product
-  const handleDeleteProduct = () => {
+  // DELETE
+  const handleDelete = () => {
     if (!activeProduct) return;
     startTransition(async () => {
       await deleteAction(activeProduct.articleNumber);
@@ -108,113 +104,117 @@ export default function AdminUI({
     });
   };
 
-  // Render --------------------------------------------------
+    function handleDeleteProduct(event: MouseEvent<HTMLButtonElement, MouseEvent>): void {
+        throw new Error("Function not implemented.");
+    }
+
+
+
   return (
     <>
-      {/* ADD PRODUCT DIALOG */}
-      <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-        <DialogTrigger asChild>
-          <Button
-            variant="default"
-            onClick={handleOpenAddModal}
-            className="flex items-center gap-2"
-          >
-            <Plus size={16} />
-            Add Product
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add New Product</DialogTitle>
-            <DialogDescription>Fill in the details to create a new product.</DialogDescription>
-          </DialogHeader>
+      {/* HEADER with ADMIN left + Add Product right */}
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">ADMIN</h1>
 
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label>Title</Label>
-              <Input
-                value={formData.title || ""}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                placeholder="Product Title"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Image URL</Label>
-              <Input
-                value={formData.image || ""}
-                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                placeholder="https://example.com/image.jpg"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Price</Label>
-              <Input
-                type="number"
-                value={formData.price || ""}
-                onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-                placeholder="999"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Article Number</Label>
-              <Input
-                value={formData.articleNumber || ""}
-                onChange={(e) => setFormData({ ...formData, articleNumber: e.target.value })}
-                placeholder="test-1011"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Description</Label>
-              <Textarea
-                value={formData.description || ""}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Short description..."
-              />
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button onClick={handleCreateProduct} disabled={isPending}>
-              {isPending ? "Saving..." : "Save"}
+        {/* ADD PRODUCT DIALOG */}
+        <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
+          <DialogTrigger asChild>
+            <Button
+              variant="default"
+              onClick={handleOpenAdd}
+              className="flex items-center gap-2"
+            >
+              <Plus size={16} />
+              Add Product
             </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Add New Product</DialogTitle>
+              <DialogDescription>Fill in the details to create a new product.</DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="space-y-2">
+                <Label>Title</Label>
+                <Input
+                  value={formData.title || ""}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  placeholder="Product Title"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Image URL</Label>
+                <Input
+                  value={formData.image || ""}
+                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                  placeholder="https://example.com/image.jpg"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Price</Label>
+                <Input
+                  type="number"
+                  value={formData.price || ""}
+                  onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                  placeholder="999"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Article Number</Label>
+                <Input
+                  value={formData.articleNumber || ""}
+                  onChange={(e) => setFormData({ ...formData, articleNumber: e.target.value })}
+                  placeholder="test-1011"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Description</Label>
+                <Textarea
+                  value={formData.description || ""}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  placeholder="Short description..."
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button onClick={handleCreate} disabled={isPending}>
+                {isPending ? "Saving..." : "Save"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
 
       {/* PRODUCT GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
-        {products.map((product) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+        {products.map((p) => (
           <div
-            key={product.articleNumber}
+            key={p.articleNumber}
             className="border rounded-lg p-4 shadow-md bg-white flex flex-col"
           >
             <div className="flex-grow">
               <Image
-                src={product.image}
-                alt={product.title}
+                src={p.image}
+                alt={p.title}
                 width={200}
                 height={150}
                 className="object-cover w-full h-40 rounded-md"
               />
-              <h2 className="text-lg font-semibold mt-2">{product.title}</h2>
-              <p className="text-gray-700 mb-1">Price: {product.price} SEK</p>
+              <h2 className="text-lg font-semibold mt-2">{p.title}</h2>
+              <p className="text-gray-700 mb-1">Price: {p.price} SEK</p>
             </div>
 
-            {/* ACTION BUTTONS (EDIT/DELETE) */}
+            {/* EDIT & DELETE BUTTONS */}
             <div className="flex justify-end gap-2 mt-4">
               {/* EDIT DIALOG */}
               <Dialog
-                open={showEditDialog && product.articleNumber === activeProduct?.articleNumber}
+                open={showEditDialog && p.articleNumber === activeProduct?.articleNumber}
                 onOpenChange={setShowEditDialog}
               >
                 <DialogTrigger asChild>
                   <Button
                     variant="ghost"
-                    onClick={() => handleOpenEditModal(product)}
+                    onClick={() => handleOpenEdit(p)}
                     className="p-2 text-blue-600"
                   >
                     <Edit size={16} />
@@ -225,7 +225,6 @@ export default function AdminUI({
                     <DialogTitle>Edit Product</DialogTitle>
                     <DialogDescription>Modify the product details below.</DialogDescription>
                   </DialogHeader>
-
                   <div className="grid gap-4 py-4">
                     <div className="space-y-2">
                       <Label>Title</Label>
@@ -236,7 +235,6 @@ export default function AdminUI({
                         }
                       />
                     </div>
-
                     <div className="space-y-2">
                       <Label>Image URL</Label>
                       <Input
@@ -246,7 +244,6 @@ export default function AdminUI({
                         }
                       />
                     </div>
-
                     <div className="space-y-2">
                       <Label>Price</Label>
                       <Input
@@ -257,7 +254,6 @@ export default function AdminUI({
                         }
                       />
                     </div>
-
                     <div className="space-y-2">
                       <Label>Article Number</Label>
                       <Input
@@ -267,7 +263,6 @@ export default function AdminUI({
                         }
                       />
                     </div>
-
                     <div className="space-y-2">
                       <Label>Description</Label>
                       <Textarea
@@ -278,9 +273,8 @@ export default function AdminUI({
                       />
                     </div>
                   </div>
-
                   <DialogFooter>
-                    <Button onClick={handleUpdateProduct} disabled={isPending}>
+                    <Button onClick={handleUpdate} disabled={isPending}>
                       {isPending ? "Saving..." : "Save Changes"}
                     </Button>
                   </DialogFooter>
@@ -289,19 +283,18 @@ export default function AdminUI({
 
               {/* DELETE DIALOG */}
               <Dialog
-                open={showDeleteDialog && product.articleNumber === activeProduct?.articleNumber}
+                open={showDeleteDialog && p.articleNumber === activeProduct?.articleNumber}
                 onOpenChange={setShowDeleteDialog}
               >
                 <DialogTrigger asChild>
                   <Button
                     variant="ghost"
-                    onClick={() => handleOpenDeleteModal(product)}
+                    onClick={() => handleOpenDelete(p)}
                     className="p-2 text-red-600"
                   >
                     <Trash size={16} />
                   </Button>
                 </DialogTrigger>
-
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>Delete Product</DialogTitle>
