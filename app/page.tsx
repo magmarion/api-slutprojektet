@@ -1,9 +1,7 @@
-"use client";
-import { Button } from "@/components/ui/button";
+import AddToCartButton from "@/components/buttons/AddToCartButton";
 import { db } from "@/prisma/db";
 import Image from "next/image";
 import Link from "next/link";
-import { toast } from "sonner";
 
 
 export default async function Home() {
@@ -18,6 +16,7 @@ export default async function Home() {
             <div className="flex flex-wrap justify-between items-center gap-4">
                 {products.map((products) => (
                     <div
+                        data-cy="product"
                         key={products.articleNumber}
                         className="border rounded-lg p-4 shadow-md bg-white"
                     >
@@ -31,17 +30,16 @@ export default async function Home() {
                             />
                         </Link>
                         <Link href={`/product/${products.articleNumber}/${products.title}`}>
-                            <h2 className="text-lg font-semibold mt-2 hover:underline">
+                            <h2 
+                            data-cy="product-title" 
+                            className="text-lg font-semibold mt-2 hover:underline">
                                 {products.title}
                             </h2>
                         </Link>
-                        <p className="text-gray-700">Price: {products.price} SEK</p>
-                        <Button
-                            onClick={() => toast.success("Added to cart!")}
-                            className="mt-3 w-full cursor-pointer"
-                        >
-                            Buy
-                        </Button>
+                        <p
+                        data-cy="product-price"
+                        className="text-gray-700">Price: {products.price} SEK</p>
+                        <AddToCartButton/>
                     </div>
                 ))}
             </div>
