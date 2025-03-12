@@ -1,9 +1,7 @@
-"use client";
-import { Button } from "@/components/ui/button";
+import BuyButton from "@/components/buttons/BuyButton";
 import { db } from "@/prisma/db";
 import Image from "next/image";
 import Link from "next/link";
-import { toast } from "sonner";
 
 
 export default async function Home() {
@@ -36,12 +34,7 @@ export default async function Home() {
                             </h2>
                         </Link>
                         <p className="text-gray-700">Price: {products.price} SEK</p>
-                        <Button
-                            onClick={() => toast.success("Added to cart!")}
-                            className="mt-3 w-full cursor-pointer"
-                        >
-                            Buy
-                        </Button>
+                        <BuyButton/>
                     </div>
                 ))}
             </div>

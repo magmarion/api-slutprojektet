@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
