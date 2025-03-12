@@ -2,7 +2,7 @@
 
 import { db } from "@/prisma/db";
 import { revalidatePath } from "next/cache";
-import { Product } from "../../data/index"; // or wherever you keep this interface
+import { Product } from "../../data/index"; 
 
 export async function createProduct(data: Partial<Product>) {
   await db.product.create({

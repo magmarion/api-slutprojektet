@@ -21,7 +21,7 @@ import { Label } from "@/components/ui/label";
 // Icons
 import { Plus, Edit, Trash } from "lucide-react";
 
-// Match your actual "Product" type or schema
+
 export interface Product {
   id: string;
   articleNumber: string;
@@ -39,15 +39,7 @@ interface AdminUIProps {
   deleteAction: (articleNumber: string) => Promise<void>;
 }
 
-/**
- * AdminUI
- *
- * Client-only component that renders:
- * - A grid of product cards
- * - "Add Product" modal (creates a new Product)
- * - "Edit" and "Delete" modals for each product
- * Takes in your server actions as props, so it can call them.
- */
+
 export default function AdminUI({
   products,
   createAction,
@@ -68,7 +60,7 @@ export default function AdminUI({
   // For asynchronous transitions (optional)
   const [isPending, startTransition] = useTransition();
 
-  // Handlers ------------------------------------------------
+
 
   // Opens the "Add Product" modal
   const handleOpenAddModal = () => {
