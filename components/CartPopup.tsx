@@ -3,6 +3,7 @@
 import Link from "next/link";
 import useCartStore from "../stores/cartStore";
 import { X } from "lucide-react";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 interface CartItem {
     id: number;
@@ -29,17 +30,13 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
     );
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50">
-            <div className="bg-white w-96 h-full p-6 overflow-y-auto">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-bold">Your Items</h2>
-                    <button
-                        onClick={onClose}
-                        className="text-gray-600 hover:text-gray-800"
-                    >
-                        < X className="w-6 h-6 cursor-pointer transition-transform duration-300 hover:scale-125" /> {/* Close icon */}
-                    </button>
-                </div>
+        <Sheet open={isOpen} onOpenChange={onClose}>
+            {/* SheetTrigger is optional if you're controlling the state externally */}
+            <SheetTrigger aria-label="Open cart" className="hidden" />
+
+            <SheetContent className="bg-white w-96 p-6 overflow-y-auto">
+                <SheetTitle className="sr-only">Cart Items</SheetTitle>
+                <h2 className="text-xl font-bold">Your Items</h2>
 
                 {/* Left Side: List of Cart Items */}
                 <div className="space-y-4">
@@ -85,7 +82,7 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
                         Go to checkout
                     </Link>
                 </div>
-            </div>
-        </div>
+            </SheetContent>
+        </Sheet>
     );
 };
