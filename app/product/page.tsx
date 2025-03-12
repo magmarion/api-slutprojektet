@@ -1,9 +1,8 @@
-"use client"
-import { Button } from "@/components/ui/button";
+
+import AddToCartButton from "@/components/buttons/AddToCartButton";
 import { db } from "@/prisma/db";
-import Link from "next/link";
-import { toast } from "sonner";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function ProductsPage() {
   const products = await db.product.findMany();
@@ -34,12 +33,9 @@ export default async function ProductsPage() {
               </h2>
             </Link>
             <p className="text-gray-700">Price: {products.price} SEK</p>
-            <Button
-              onClick={() => toast.success("Added to cart!")}
-              className="mt-3 w-full cursor-pointer"
-            >
-              Buy
-            </Button>
+            <div>
+              <AddToCartButton />
+            </div>
           </div>
         ))}
       </div>

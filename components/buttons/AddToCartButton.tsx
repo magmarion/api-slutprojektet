@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { toast } from "sonner"
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function AddToCartButton() {
-    return (
-        <Button
-            data-cy="product-buy-button"
-            onClick={() => toast.success("Added to cart!")}
-            className="mt-3 w-full cursor-pointer"
-        >
-            Buy
-        </Button>
-    )
+  return (
+    <Button
+      data-cy="product-buy-button"
+      onClick={() => toast.success("Added to cart!")}
+      className="mt-3 w-full cursor-pointer "
+    >
+      Buy
+    </Button>
+  );
 }
