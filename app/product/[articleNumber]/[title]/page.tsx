@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 
 export default async function ProductDetail({ params }: { params: { articleNumber: string, title: string } }) {
 
+    const { articleNumber, title } = await params;
+
     const product = await db.product.findUnique({
-        where: { articleNumber: params.articleNumber },
+        where: { articleNumber },
     })
 
     if (!product) return notFound();
