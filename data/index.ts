@@ -67,7 +67,7 @@ export const products: Product[] = [
     articleNumber: "test-1006",
     title: "Smartklocka",
     price: 2490,
-    description: "Smartklocka",
+    description: "Smartklocka ",
     image:
       "https://www.elgiganten.se/image/dv_web_D180001280333226/786744/samsung-galaxy-watch-fe-bt-smartwatch-svart.jpg",
   },
