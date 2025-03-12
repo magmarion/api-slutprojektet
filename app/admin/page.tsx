@@ -1,19 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
-// Example Product interface; adjust or import from "@/data" if you have it there
-export interface Product {
-  id: string;
-  articleNumber: string;
-  image: string;
-  title: string;
-  description: string;
-  price: number;
-}
+import { Product, products as defaultProducts } from "@/data";
 
-// Shadcn UI components
 import {
   Dialog,
   DialogContent,
@@ -28,111 +19,80 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-// Icons from lucide-react (https://lucide.dev/icons/)
 import { Plus, Edit, Save, Trash } from "lucide-react";
 
 const AdminPage: React.FC = () => {
-  // Local state for all products
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>(defaultProducts);
 
-  // Dialog visibility states
   const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
 
-  // Track which product is currently selected for edit/delete
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
 
-  // Form data for add/edit
   const [formData, setFormData] = useState<Partial<Product>>({});
 
-  // Fetch existing products from your /api/products route on mount
-  useEffect(() => {
-    fetch("/api/products")
-      .then((res) => res.json())
-      .then((data: Product[]) => setProducts(data))
-      .catch((err) => console.error("Error fetching products:", err));
-  }, []);
 
-  // ------------- HANDLERS -------------
-
-  // 1. Open "Add Product" dialog
+  // Open add product dialog
   const handleOpenAddModal = () => {
     setFormData({});
     setActiveProduct(null);
     setShowAddDialog(true);
   };
 
-  // 2. Open "Edit Product" dialog
+  // edit product dialog
   const handleOpenEditModal = (p: Product) => {
     setActiveProduct(p);
-    setFormData(p);
+    setFormData(p); 
     setShowEditDialog(true);
   };
 
-  // 3. Open "Delete Product" dialog
+  // delete dialog
   const handleOpenDeleteModal = (p: Product) => {
     setActiveProduct(p);
     setShowDeleteDialog(true);
   };
 
-  // 4. CREATE a new product
-  const handleCreateProduct = async () => {
-    try {
-      const res = await fetch("/api/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      if (!res.ok) throw new Error("Failed to create product");
+  const handleCreateProduct = () => {
+    const newProduct: Product = {
+      id: crypto.randomUUID(),
+      articleNumber: formData.articleNumber || `temp-${Date.now()}`,
+      title: formData.title || "Untitled",
+      image: formData.image || "",
+      description: formData.description || "",
+      price: formData.price || 0,
+    };
 
-      // Replace the local product list with the updated list from server
-      const updated = await res.json();
-      setProducts(updated);
-
-      // Close the dialog
-      setShowAddDialog(false);
-    } catch (error) {
-      console.error(error);
-    }
+    setProducts((prev) => [...prev, newProduct]);
+    setShowAddDialog(false);
   };
 
-  // 5. UPDATE an existing product
-  const handleUpdateProduct = async () => {
+  const handleUpdateProduct = () => {
     if (!activeProduct) return;
-    try {
-      const res = await fetch(`/api/products?articleNumber=${activeProduct.articleNumber}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      if (!res.ok) throw new Error("Failed to update product");
 
-      const updated = await res.json();
-      setProducts(updated);
-
-      setShowEditDialog(false);
-    } catch (error) {
-      console.error(error);
-    }
+    setProducts((prev) =>
+      prev.map((prod) => {
+        if (prod.articleNumber === activeProduct.articleNumber) {
+          return {
+            ...prod,
+            ...formData,
+          };
+        }
+        return prod;
+      })
+    );
+    setShowEditDialog(false);
   };
 
-  // 6. DELETE a product
-  const handleDeleteProduct = async () => {
+  const handleDeleteProduct = () => {
     if (!activeProduct) return;
-    try {
-      const res = await fetch(`/api/products?articleNumber=${activeProduct.articleNumber}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) throw new Error("Failed to delete product");
 
-      const updated = await res.json();
-      setProducts(updated);
-
-      setShowDeleteDialog(false);
-    } catch (error) {
-      console.error(error);
-    }
+    setProducts((prev) =>
+      prev.filter(
+        (prod) => prod.articleNumber !== activeProduct.articleNumber
+      )
+    );
+    setShowDeleteDialog(false);
   };
 
   return (
@@ -141,7 +101,7 @@ const AdminPage: React.FC = () => {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">ADMIN</h1>
 
-        {/* ADD PRODUCT (Dialog) */}
+        {/* ADD PRODUCT */}
         <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
           <DialogTrigger asChild>
             <Button
@@ -184,7 +144,9 @@ const AdminPage: React.FC = () => {
                 <Input
                   type="number"
                   value={formData.price || ""}
-                  onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, price: Number(e.target.value) })
+                  }
                   placeholder="999"
                 />
               </div>
@@ -231,10 +193,9 @@ const AdminPage: React.FC = () => {
                 className="object-cover w-full h-40 rounded-md"
               />
               <h2 className="text-lg font-semibold mt-2">{product.title}</h2>
-              <p className="text-gray-700">Price: {product.price} SEK</p>
+              <p className="text-gray-700 mb-1">Price: {product.price} SEK</p>
             </div>
 
-            {/* ACTION BUTTONS */}
             <div className="flex justify-end gap-2 mt-4">
               {/* EDIT DIALOG */}
               <Dialog
@@ -267,6 +228,7 @@ const AdminPage: React.FC = () => {
                         }
                       />
                     </div>
+
                     <div className="space-y-2">
                       <Label>Image URL</Label>
                       <Input
@@ -276,6 +238,7 @@ const AdminPage: React.FC = () => {
                         }
                       />
                     </div>
+
                     <div className="space-y-2">
                       <Label>Price</Label>
                       <Input
@@ -286,6 +249,7 @@ const AdminPage: React.FC = () => {
                         }
                       />
                     </div>
+
                     <div className="space-y-2">
                       <Label>Article Number</Label>
                       <Input
@@ -295,6 +259,7 @@ const AdminPage: React.FC = () => {
                         }
                       />
                     </div>
+
                     <div className="space-y-2">
                       <Label>Description</Label>
                       <Textarea
@@ -312,7 +277,6 @@ const AdminPage: React.FC = () => {
                 </DialogContent>
               </Dialog>
 
-              {/* SAVE button (optional; can reuse the same edit modal or do something else) */}
               <Button
                 variant="ghost"
                 onClick={() => handleOpenEditModal(product)}
