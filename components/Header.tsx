@@ -10,10 +10,11 @@ export default function Header() {
     const { cartItems, cartCount } = useCartStore();
 
     return (
-        <header className="p-4 bg-gray-100 shadow-md flex justify-between items-center">
+        <header className="p-2 bg-gray-100 shadow-md flex justify-between items-center">
             <Link href="/">
-                <h1 className="text-xl font-bold">The webshop logo</h1>
+                <img src="/logo.png" alt="logo" className="h-20 w-25 p-0" />
             </Link>
+
             <nav className="flex gap-4">
                 <Link href="/" className="text-gray-600 hover:text-gray-800">Home
                 </Link>
