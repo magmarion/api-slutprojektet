@@ -277,13 +277,6 @@ const AdminPage: React.FC = () => {
                 </DialogContent>
               </Dialog>
 
-              <Button
-                variant="ghost"
-                onClick={() => handleOpenEditModal(product)}
-                className="p-2 text-green-600"
-              >
-                <Save size={16} />
-              </Button>
 
               {/* DELETE DIALOG */}
               <Dialog
