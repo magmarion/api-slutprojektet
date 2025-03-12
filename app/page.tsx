@@ -1,4 +1,4 @@
-import BuyButton from "@/components/buttons/BuyButton";
+import AddToCartButton from "@/components/buttons/AddToCartButton";
 import { db } from "@/prisma/db";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,7 +34,7 @@ export default async function Home() {
                             </h2>
                         </Link>
                         <p className="text-gray-700">Price: {products.price} SEK</p>
-                        <BuyButton/>
+                        <AddToCartButton/>
                     </div>
                 ))}
             </div>

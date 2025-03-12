@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 
-export default function BuyButton() {
+export default function AddToCartButton() {
     return (
         <Button
             onClick={() => toast.success("Added to cart!")}
