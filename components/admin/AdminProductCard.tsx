@@ -51,7 +51,7 @@ export default function ProductCard({
 
     return (
         <div className="border rounded-lg p-4 shadow-md bg-white flex flex-col">
-            <div className="flex-grow">
+            <div className="flex-grow" data-cy="product"> 
                 <Image
                     src={product.image}
                     alt={product.title}
@@ -59,8 +59,8 @@ export default function ProductCard({
                     height={150}
                     className="object-cover w-full h-40 rounded-md"
                 />
-                <h2 className="text-lg font-semibold mt-2">{product.title}</h2>
-                <p className="text-gray-700 mb-1">Price: {product.price} SEK</p>
+                <h2 className="text-lg font-semibold mt-2" data-cy="product-title">{product.title}</h2>
+                <p className="text-gray-700 mb-1" data-cy="product-price">Price: {product.price} SEK</p>
             </div>
 
             <div className="flex justify-end gap-2 mt-4">
