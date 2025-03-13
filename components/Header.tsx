@@ -22,7 +22,7 @@ export default function Header() {
                 </Link>
             </nav>
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 pr-4">
                 <Link href="/admin" data-cy="admin-link" className="text-gray-600 hover:text-gray-800">
                     <User />
                 </Link>
