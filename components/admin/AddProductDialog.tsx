@@ -93,19 +93,6 @@ export default function AddProductDialog({
                         />
                     </div>
                     <div className="space-y-2">
-                        <Label>Article Number</Label>
-                        <Input
-                            value={formData.articleNumber || ""}
-                            onChange={(e) =>
-                                setFormData({
-                                    ...formData,
-                                    articleNumber: e.target.value,
-                                })
-                            }
-                            placeholder="test-1011"
-                        />
-                    </div>
-                    <div className="space-y-2">
                         <Label>Description</Label>
                         <Textarea
                             value={formData.description || ""}

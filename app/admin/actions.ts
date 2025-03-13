@@ -2,12 +2,17 @@
 
 import { Product } from "@/data";
 import { db } from "@/prisma/db";
+import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
 
+
 export async function createProduct(data: Partial<Product>) {
+
+  const shortId = nanoid(8)
+
   await db.product.create({
     data: {
-      articleNumber: data.articleNumber ?? `temp-${Date.now()}`,
+      articleNumber: shortId,
       title: data.title ?? "Untitled",
       image: data.image ?? "",
       description: data.description ?? "",

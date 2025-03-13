@@ -51,7 +51,10 @@ export default function ProductCard({
 
     return (
         <div className="border rounded-lg p-4 shadow-md bg-white flex flex-col">
-            <div className="flex-grow" data-cy="product"> 
+            <div className="flex-grow" data-cy="product" > 
+                <div className="flex justify-between items-center">
+                    <span data-cy="product-id" className="text-gray-500">{product.articleNumber}</span>
+                </div>
                 <Image
                     src={product.image}
                     alt={product.title}
@@ -110,18 +113,6 @@ export default function ProductCard({
                                     value={formData.price || ""}
                                     onChange={(e) =>
                                         setFormData({ ...formData, price: Number(e.target.value) })
-                                    }
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label>Article Number</Label>
-                                <Input
-                                    value={formData.articleNumber || ""}
-                                    onChange={(e) =>
-                                        setFormData({
-                                            ...formData,
-                                            articleNumber: e.target.value,
-                                        })
                                     }
                                 />
                             </div>
