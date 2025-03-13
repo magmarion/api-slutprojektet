@@ -1,9 +1,9 @@
 "use client"
 
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import useCartStore from "../stores/cartStore";
-import { X } from "lucide-react";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 interface CartItem {
     id: number;
@@ -20,6 +20,19 @@ interface CartPopupProps {
 
 export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps) {
     const { removeFromCart } = useCartStore();
+    const [isClosing, setIsClosing] = useState(false);
+
+    const handleClose = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            onClose();
+            setIsClosing(false);
+        }, 300);
+    };
+
+    useEffect(() => {
+        if (isOpen) setIsClosing(false);
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -30,13 +43,13 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
     );
 
     return (
-        <Sheet open={isOpen} onOpenChange={onClose}>
-            {/* SheetTrigger is optional if you're controlling the state externally */}
-            <SheetTrigger aria-label="Open cart" className="hidden" />
-
-            <SheetContent className="bg-white w-96 p-6 overflow-y-auto">
+        <Sheet open={isOpen} onOpenChange={handleClose}>
+            <SheetContent className={`bg-white w-96 p-6 overflow-y-auto transform transition-all duration-200 ease ${isClosing ? "translate-x-full" : "translate-x-0"
+                }`}>
                 <SheetTitle className="sr-only">Cart Items</SheetTitle>
-                <h2 className="text-xl font-bold">Your Items</h2>
+                <div className="flex justify-between items-center">
+                    <h2 className="text-xl font-bold">Your Items</h2>
+                </div>
 
                 {/* Left Side: List of Cart Items */}
                 <div className="space-y-4">
@@ -77,6 +90,7 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
                     <Link
                         href="/checkout"
                         data-cy="proceed-to-checkout-button"
+                        onClick={handleClose}
                         className="mt-6 w-full bg-slate-500 text-white py-2 px-4 rounded-lg hover:bg-slate-600 block text-center transition-all duration-300 hover:scale-105"
                     >
                         Go to checkout
