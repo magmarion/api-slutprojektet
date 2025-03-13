@@ -44,7 +44,7 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
 
     return (
         <Sheet open={isOpen} onOpenChange={handleClose}>
-            <SheetContent className={`bg-white w-96 p-6 overflow-y-auto transform transition-all duration-200 ease ${isClosing ? "translate-x-full" : "translate-x-0"
+            <SheetContent className={`bg-white w-96 p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"
                 }`}>
                 <SheetTitle className="sr-only">Cart Items</SheetTitle>
                 <div className="flex justify-between items-center">
@@ -89,7 +89,7 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
                     </div>
                     <Link
                         href="/checkout"
-                        data-cy="proceed-to-checkout-button"
+                        data-cy="cart-link"
                         onClick={handleClose}
                         className="mt-6 w-full bg-slate-500 text-white py-2 px-4 rounded-lg hover:bg-slate-600 block text-center transition-all duration-300 hover:scale-105"
                     >
