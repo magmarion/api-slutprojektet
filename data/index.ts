@@ -31,7 +31,7 @@ export const products: Product[] = [
     articleNumber: "test-1002",
     title: "Smartklocka",
     price: 2490,
-    description: "Smartklocka",
+    description: "Upplev en kombination av elegant design och smart teknik som hjälper dig hålla koll på allt från notiser till träningsresultat. Med inbyggd pulsmätare, GPS och sömnanalys får du en heltäckande bild av din hälsa och aktivitet, samtidigt som du alltid är uppkopplad mot viktiga samtal och appar.",
     image:
       "https://www.elgiganten.se/image/dv_web_D180001280333226/786744/samsung-galaxy-watch-fe-bt-smartwatch-svart.jpg",
   },
@@ -67,7 +67,7 @@ export const products: Product[] = [
     articleNumber: "test-1006",
     title: "Smartklocka",
     price: 2490,
-    description: "Smartklocka ",
+    description: "Upplev en kombination av elegant design och smart teknik som hjälper dig hålla koll på allt från notiser till träningsresultat. Med inbyggd pulsmätare, GPS och sömnanalys får du en heltäckande bild av din hälsa och aktivitet, samtidigt som du alltid är uppkopplad mot viktiga samtal och appar.",
     image:
       "https://www.elgiganten.se/image/dv_web_D180001280333226/786744/samsung-galaxy-watch-fe-bt-smartwatch-svart.jpg",
   },
