@@ -64,7 +64,6 @@ export default function ProductCard({
                 />
                 <h2 className="text-lg font-semibold mt-2" data-cy="product-title">{product.title}</h2>
                 <p className="text-gray-700 mb-1" data-cy="product-price">Price: {product.price} SEK</p>
-            </div>
 
             <div className="flex justify-end gap-2 mt-4">
                 {/* EDIT DIALOG */}
@@ -173,6 +172,7 @@ export default function ProductCard({
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
+            </div>
             </div>
         </div>
     )
