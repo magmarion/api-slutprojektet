@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import useCartStore from "../stores/cartStore";
 
 interface CartItem {
-    id: number;
-    name: string;
+    id: string;
+    title: string;
     price: number;
     quantity: number;
 }
@@ -18,8 +18,8 @@ interface CartPopupProps {
     cartItems: CartItem[];
 }
 
-export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps) {
-    const { removeFromCart } = useCartStore();
+export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
+    const { cartItems, totalPrice, removeFromCart } = useCartStore();
     const [isClosing, setIsClosing] = useState(false);
 
     const handleClose = () => {
@@ -35,12 +35,6 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
     }, [isOpen]);
 
     if (!isOpen) return null;
-
-    // Calculate total price of all items in the cart
-    const totalPrice = cartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-    );
 
     return (
         <Sheet open={isOpen} onOpenChange={handleClose}>
@@ -60,7 +54,7 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
                             className="border-b py-4 flex justify-between"
                         >
                             <div>
-                                <h3 className="font-semibold">{item.name}</h3>
+                                <h3 className="font-semibold">{item.title}</h3>
                                 <p className="text-gray-600">Quantity: {item.quantity}</p>
                             </div>
                             <button
@@ -85,7 +79,7 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
                     </div>
                     <div className="flex justify-between border-t pt-4">
                         <p className="text-gray-600">Total:</p>
-                        <p className="font-semibold">{totalPrice} SEK</p>
+                        <p data-cy="total-price" className="font-semibold">{totalPrice} SEK</p>
                     </div>
                     <Link
                         href="/checkout"
