@@ -34,7 +34,12 @@ export default async function ProductsPage() {
             </Link>
             <p className="text-gray-700">Price: {products.price} SEK</p>
             <div>
-              <AddToCartButton />
+              <AddToCartButton
+                id={products.articleNumber}
+                title={products.title}
+                price={products.price}
+                image={products.image}
+              />
             </div>
           </div>
         ))}

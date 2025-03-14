@@ -10,6 +10,7 @@ interface CartItem {
     title: string;
     price: number;
     quantity: number;
+    image: string;
 }
 
 interface CartPopupProps {
@@ -53,6 +54,12 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                             data-cy="cart-item"
                             className="border-b py-4 flex justify-between"
                         >
+                            {/* Product Image */}
+                            <img
+                                src={item.image}
+                                alt={item.title}
+                                className="w-16 h-16 object-cover rounded-md"
+                            />
                             <div>
                                 <h3 className="font-semibold">{item.title}</h3>
                                 <p className="text-gray-600">Quantity: {item.quantity}</p>

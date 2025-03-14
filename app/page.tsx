@@ -39,7 +39,12 @@ export default async function Home() {
                         <p
                             data-cy="product-price"
                             className="text-gray-700">Price: {product.price} SEK</p>
-                        <AddToCartButton id={product.id} title={product.title} price={product.price} />
+                        <AddToCartButton
+                            id={product.id}
+                            title={product.title}
+                            price={product.price}
+                            image={product.image}
+                        />
                     </div>
                 ))}
             </div>
