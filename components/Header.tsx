@@ -32,7 +32,7 @@ export default function Header() {
                 <button
                     onClick={() => setIsCartOpen(true)}
                     className="relative cursor-pointer"
-                    data-cy="cart-link"
+                    data-cy="open-cart-sidebar"
                 >
                     <ShoppingCart />
                     {cartCount > 0 && (
