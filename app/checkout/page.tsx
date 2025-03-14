@@ -44,7 +44,7 @@ export default function CheckoutPage() {
   return (
     <div className="max-w-md mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6">Checkout</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         {/* Namn */}
         <div className="mb-4">
           <label className="block font-medium mb-1">Name</label>
