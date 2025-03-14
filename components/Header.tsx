@@ -1,7 +1,8 @@
 "use client";
-import { ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { FaShoppingCart } from "react-icons/fa";
+import { RiAdminFill } from "react-icons/ri";
 import useCartStore from "../stores/cartStore";
 import CartPopup from "./CartPopup";
 
@@ -24,7 +25,7 @@ export default function Header() {
 
             <div className="flex gap-4 pr-4">
                 <Link href="/admin" data-cy="admin-link" className="text-gray-600 hover:text-gray-800">
-                    <User />
+                    <RiAdminFill className="w-6 h-6 cursor-pointer text-gray-600 hover:text-gray-800" />
                 </Link>
 
 
@@ -34,11 +35,11 @@ export default function Header() {
                     className="relative cursor-pointer"
                     data-cy="open-cart-sidebar"
                 >
-                    <ShoppingCart />
+                    <FaShoppingCart className="w-6 h-6 text-gray-600 hover:text-gray-800"/>
                     {cartCount > 0 && (
                         <span
                             data-cy="cart-items-count-badge"
-                            className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
+                            className="absolute -top-2 -right-2 bg-red-700 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
                         >
                             {cartCount}
                         </span>
