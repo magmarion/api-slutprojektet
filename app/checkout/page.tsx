@@ -38,7 +38,7 @@ export default function CheckoutPage() {
   const router = useRouter();
   const onSubmit = (data: CheckoutFormData) => {
     console.log("Formulärdata:", data);
-    router.push("/checkout/success");
+    router.push("/checkout/confirmation");
   };
 
   return (
