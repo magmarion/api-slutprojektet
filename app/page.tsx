@@ -6,11 +6,6 @@ import Link from "next/link";
 
 export default async function Home() {
     const products = await db.product.findMany();
-
-    products.forEach((product) => {
-        console.log("Type of product.id:", typeof product.id, "Value:", product.id);
-    });
-
     return (
         <main className="flex min-h-screen flex-col items-center p-10">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">
