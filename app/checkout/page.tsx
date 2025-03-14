@@ -126,6 +126,9 @@ export default function CheckoutPage() {
           {errors.city && (
             <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
           )}
+          <div>
+            <img  className="pt-15" src="/Credit-Card-Icons.png" alt="credit cards" />
+          </div>
         </div>
 
         {/* Kortnummer */}
@@ -177,7 +180,7 @@ export default function CheckoutPage() {
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
         >
-          Betala
+          Confirm
         </button>
       </form>
     </div>
