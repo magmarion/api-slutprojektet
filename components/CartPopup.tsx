@@ -4,6 +4,8 @@ import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useCartStore from "../stores/cartStore";
+import { FaTrashAlt } from "react-icons/fa";
+
 
 interface CartItem {
     id: string;
@@ -52,7 +54,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                         <div
                             key={item.id}
                             data-cy="cart-item"
-                            className="border-b py-4 flex justify-between"
+                            className="border-b py-4 flex justify-between items-center"
                         >
                             {/* Product Image */}
                             <img
@@ -66,9 +68,9 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                             </div>
                             <button
                                 onClick={() => removeFromCart(item.id)}
-                                className="text-red-500 hover:text-red-700"
+                                className="text-slate-500 hover:text-slate-700"
                             >
-                                Remove
+                                <FaTrashAlt className="w-6 h-6 cursor-pointer transition-all duration-300 hover:scale-125" />
                             </button>
                         </div>
                     ))}
