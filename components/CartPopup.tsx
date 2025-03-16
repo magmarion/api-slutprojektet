@@ -4,12 +4,15 @@ import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useCartStore from "../stores/cartStore";
+import { FaTrashAlt } from "react-icons/fa";
+
 
 interface CartItem {
-    id: number;
-    name: string;
+    id: string;
+    title: string;
     price: number;
     quantity: number;
+    image: string;
 }
 
 interface CartPopupProps {
@@ -18,8 +21,8 @@ interface CartPopupProps {
     cartItems: CartItem[];
 }
 
-export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps) {
-    const { removeFromCart } = useCartStore();
+export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
+    const { cartItems, totalPrice, removeFromCart } = useCartStore();
     const [isClosing, setIsClosing] = useState(false);
 
     const handleClose = () => {
@@ -36,12 +39,6 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
 
     if (!isOpen) return null;
 
-    // Calculate total price of all items in the cart
-    const totalPrice = cartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-    );
-
     return (
         <Sheet open={isOpen} onOpenChange={handleClose}>
             <SheetContent className={`bg-white w-96 p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"
@@ -57,17 +54,23 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
                         <div
                             key={item.id}
                             data-cy="cart-item"
-                            className="border-b py-4 flex justify-between"
+                            className="border-b py-4 flex justify-between items-center"
                         >
+                            {/* Product Image */}
+                            <img
+                                src={item.image}
+                                alt={item.title}
+                                className="w-16 h-16 object-cover rounded-md"
+                            />
                             <div>
-                                <h3 className="font-semibold">{item.name}</h3>
+                                <h3 className="font-semibold">{item.title}</h3>
                                 <p className="text-gray-600">Quantity: {item.quantity}</p>
                             </div>
                             <button
                                 onClick={() => removeFromCart(item.id)}
-                                className="text-red-500 hover:text-red-700"
+                                className="text-slate-500 hover:text-slate-700"
                             >
-                                Remove
+                                <FaTrashAlt className="w-6 h-6 cursor-pointer transition-all duration-300 hover:scale-125" />
                             </button>
                         </div>
                     ))}
@@ -85,7 +88,7 @@ export default function CartPopup({ isOpen, onClose, cartItems }: CartPopupProps
                     </div>
                     <div className="flex justify-between border-t pt-4">
                         <p className="text-gray-600">Total:</p>
-                        <p className="font-semibold">{totalPrice} SEK</p>
+                        <p data-cy="total-price" className="font-semibold">{totalPrice} SEK</p>
                     </div>
                     <Link
                         href="/checkout"
