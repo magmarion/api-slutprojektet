@@ -11,7 +11,7 @@ const checkoutSchema = z.object({
     .min(1, { message: "Email is required" })
     .email("Email is invalid"),
   address: z.string().min(1, { message: "Address is required" }),
-  zip: z.string().min(1, { message: "Zip is required" }),
+  zip: z.number().min(1, "Zip is required" ),
   country: z.string().min(1, { message: "Country is required" }),
   city: z.string().min(1, { message: "City is required" }),
   phone: z.string().min(1, "Phone number is invalid"),
@@ -44,17 +44,18 @@ export default function CheckoutPage() {
   return (
     <div className="max-w-md mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6">Checkout</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+      <form onSubmit={handleSubmit(onSubmit)} data-cy="customer-form" className="flex flex-col">
         {/* Namn */}
         <div className="mb-4">
           <label className="block font-medium mb-1">Name</label>
           <input
             type="text"
+            data-cy="customer-name"
             {...register("name")}
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+            <p data-cy="customer-name-error" className="text-red-500 text-sm mt-1">{errors.name.message}</p>
           )}
         </div>
 
@@ -63,11 +64,12 @@ export default function CheckoutPage() {
           <label className="block font-medium mb-1">E-mail</label>
           <input
             type="email"
+            data-cy="customer-email"
             {...register("email")}
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+            <p data-cy="customer-email-error" className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
         </div>
 
@@ -77,10 +79,11 @@ export default function CheckoutPage() {
           <input
             type="tel"
             {...register("phone")}
+            data-cy="customer-phone"
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.phone && (
-            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+            <p data-cy="customer-phone-error" className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
           )}
         </div>
         <div className="mb-4">
@@ -88,10 +91,11 @@ export default function CheckoutPage() {
           <input
             type="text"
             {...register("address")}
+            data-cy="customer-address"
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.address && (
-            <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>
+            <p data-cy="customer-address-error" className="text-red-500 text-sm mt-1">{errors.address.message}</p>
           )}
         </div>
         <div className="mb-4">
@@ -99,10 +103,11 @@ export default function CheckoutPage() {
           <input
             type="text"
             {...register("zip")}
+            data-cy="customer-zipcode"
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.zip && (
-            <p className="text-red-500 text-sm mt-1">{errors.zip.message}</p>
+            <p data-cy="customer-zipcode-error" className="text-red-500 text-sm mt-1">{errors.zip.message}</p>
           )}
         </div>
         <div className="mb-4">
@@ -121,10 +126,11 @@ export default function CheckoutPage() {
           <input
             type="text"
             {...register("city")}
+            data-cy="customer-city"
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.city && (
-            <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
+            <p data-cy="customer-city-error" className="text-red-500 text-sm mt-1">{errors.city.message}</p>
           )}
           <div>
             <img  className="pt-15" src="/Credit-Card-Icons.png" alt="credit cards" />
