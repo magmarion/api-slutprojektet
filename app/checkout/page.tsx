@@ -1,9 +1,10 @@
 "use client";
 import useCartStore from "@/stores/cartStore";
-import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { FaMinus, FaPlus } from "react-icons/fa";
 import { z } from "zod";
 
 const checkoutSchema = z.object({
@@ -27,7 +28,7 @@ const checkoutSchema = z.object({
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
 export default function CheckoutPage() {
-    const { cartItems, totalPrice } = useCartStore();
+    const { cartItems, totalPrice, increaseQuantity, decreaseQuantity } = useCartStore();
 
     // 3. Använd zodResolver för att koppla schemat till React Hook Form
     const {
@@ -51,7 +52,6 @@ export default function CheckoutPage() {
                 <div className="bg-gray-100 p-4 rounded-md mb-6">
                     <h1 className="text-2xl font-bold mb-2">Checkout</h1>
                     <div className="bg-gray-100 p-4 rounded-md mb-2">
-
                         {cartItems.length > 0 ? (
                             cartItems.map((item) => (
                                 <div
@@ -59,28 +59,60 @@ export default function CheckoutPage() {
                                     data-cy="cart-item"
                                     className="flex items-center justify-between border-b pb-8 mb-2"
                                 >
-                                    <Image
-                                        src={item.image}
-                                        alt={item.title}
-                                        width={50}
-                                        height={50}
-                                        className="rounded-md"
-                                    />
-
-                                    <div className="flex flex-col items-start ml-20">
-                                        <p className="font-semibold">{item.title}</p>
-                                        <p className="text-gray-600">Quantity: {item.quantity}</p>
+                                    <div className="flex flex-col max-[440px]:items-center max-[440px]:mr-4">
+                                        <Image
+                                            src={item.image}
+                                            alt={item.title}
+                                            width={50}
+                                            height={50}
+                                            className="rounded-md mr-4 max-[440px]:mb-2"
+                                        />
+                                        {/* Price (under the image on screens < 440px) */}
+                                        <p data-cy="product-price" className="font-semibold text-sm sm:text-base max-[440px]:block hidden">
+                                            {item.price} SEK
+                                        </p>
                                     </div>
-                                    <p className="font-semibold ml-auto">{item.price} SEK</p>
+
+                                    <div className="flex flex-col items-start flex-1 min-w-0">
+                                        {/* Title */}
+                                        <p className="font-semibold text-sm sm:text-base max-[440px]:mb-8">
+                                            {item.title}
+                                        </p>
+
+                                        <div className="flex items-center space-x-2 mt-2">
+                                            <p data-cy="product-quantity" className="text-gray-600 text-xs sm:text-base w-24">
+                                                Quantity: {item.quantity}
+                                            </p>
+                                            <button
+                                                data-cy="increase-quantity-button"
+                                                onClick={() => increaseQuantity(item.id)}
+                                                className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                            >
+                                                <FaPlus className="w-3 h-3" />
+                                            </button>
+                                            <button
+                                                data-cy="decrease-quantity-button"
+                                                onClick={() => decreaseQuantity(item.id)}
+                                                className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                            >
+                                                <FaMinus className="w-3 h-3" />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <p className="font-semibold text-sm sm:text-base ml-4 max-[440px]:hidden">
+                                        {item.price} SEK
+                                    </p>
                                 </div>
                             ))
                         ) : (
                             <p>No items in cart.</p>
                         )}
-
-                        <div className="mt-4 border-t pt-2 flex justify-between">
-                            <p className="text-gray-600">Total Price:</p>
-                            <p data-cy="total-price" className="font-semibold">{totalPrice} SEK</p>
+                        <div className="mt-5 border-t pt-2 flex justify-between">
+                            <p className="text-gray-600 text-sm sm:text-base">Total Price:</p>
+                            <p data-cy="total-price" className="font-semibold text-sm md:text-base">
+                                {totalPrice} SEK
+                            </p>
                         </div>
                     </div>
                 </div>
