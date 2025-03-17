@@ -50,11 +50,11 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                 </div>
 
                 {/* Left Side: List of Cart Items */}
-                <div className="space-y-4">
+                <div data-cy="cart-item"
+                    className="space-y-4">
                     {cartItems.map((item) => (
                         <div
                             key={item.id}
-                            data-cy="cart-item"
                             className="border-b py-4 flex justify-between items-center flex-wrap"
                         >
                             {/* Product Image */}
@@ -64,7 +64,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                 className="w-16 h-16 object-contain rounded-md mb-4 sm:mb-0"
                             />
                             <div className="flex flex-col items-start ml-10 flex-1 min-w-0">
-                                <h3 className="font-semibold text-sm md:text-base">{item.title}</h3>
+                                <h3 data-cy="product-title" className="font-semibold text-sm md:text-base">{item.title}</h3>
                                 <div className="flex items-center space-x-2 mt-2">
                                     <p className="text-gray-600 text-xs md:text-base w-24">Quantity: {item.quantity}</p>
                                     <button
