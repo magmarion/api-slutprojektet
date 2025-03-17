@@ -49,7 +49,7 @@ export default function CheckoutPage() {
         <div className="flex flex-col lg:flex-row justify-evenly items-start w-full p-4">
             <div className="w-full lg:w-1/2 lg:pr-4 mb-8 lg:mb-0">
                 <div className="bg-gray-100 p-4 rounded-md mb-6">
-                    <h1 className="text-2xl font-bold mb-6">Checkout</h1>
+                    <h1 className="text-2xl font-bold mb-2">Checkout</h1>
                     <div className="bg-gray-100 p-4 rounded-md mb-2">
 
                         {cartItems.length > 0 ? (
@@ -58,11 +58,11 @@ export default function CheckoutPage() {
                                     <Image src={item.image} alt={item.title} width={50} height={50} className="rounded-md"
                                     />
 
-                                    <div>
+                                    <div className="flex flex-col items-start ml-20">
                                         <p className="font-semibold">{item.title}</p>
                                         <p className="text-gray-600">Quantity: {item.quantity}</p>
                                     </div>
-                                    <p className="font-semibold">{item.price * item.quantity} SEK</p>
+                                    <p className="font-semibold ml-auto">{item.price} SEK</p>
                                 </div>
                             ))
                         ) : (

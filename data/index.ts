@@ -105,6 +105,6 @@ export const products: Product[] = [
     price: 8999,
     description: "Samsung S24 Ultra kombinerar proffsfotografering med en omslutande skärm och hög prestanda. Med dess avancerade kamerasystem, förbättrad batteriteknik och stilrena form blir den en kraftfull följeslagare för både produktivitet och underhållning i vardagen.",
     image:
-      "https://www.elgiganten.se/image/dv_web_D1800010021349704/575790/samsung-galaxy-s23-ultra-5g-smartphone-12512gb-gron.jpg",
+      "https://img.etimg.com/photo/msid-98945112,imgsize-13860/SamsungGalaxyS23Ultra.jpg",
   },
 ];
