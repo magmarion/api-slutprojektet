@@ -54,7 +54,7 @@ export default function Header() {
         >
           <FaShoppingCart className="w-6 h-6 text-white hover:text-gray-400 " />
           {cartCount > 0 && (
-            <span data-cy="cart-items-count-badge">{cartCount}</span>
+            <span data-cy="cart-items-count-badge" className="text-white">{cartCount}</span>
           )}
         </button>
 
