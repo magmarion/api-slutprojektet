@@ -2,7 +2,6 @@
 
 import type { Product } from "@/data";
 
-// UI components from shadcn
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,9 +14,8 @@ import { z } from "zod";
 
 import { updateProductAction } from "@/app/admin/actionsForm";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner"; // Sonner for notifications
+import { toast } from "sonner";
 
-/** Zod schema for client-side validation */
 const productSchema = z.object({
     title: z.string().nonempty("Title is required"),
     image: z
@@ -34,15 +32,10 @@ interface EditProductFormProps {
     product: Product;
 }
 
-/**
- * Edit an existing product with client-side validation and a
- * server action for the final database update. A success toast
- * is shown upon completion.
- */
+
 export default function EditProductForm({ product }: EditProductFormProps) {
     const router = useRouter();
 
-    // Initialize react-hook-form using the product as the defaultValues
     const {
         register,
         handleSubmit,
@@ -57,23 +50,18 @@ export default function EditProductForm({ product }: EditProductFormProps) {
         },
     });
 
-    /** Called when the form is submitted and passes client checks */
     const onSubmit = async (data: FormData) => {
         try {
-            // Convert to FormData for the server action
             const formData = new FormData();
             formData.append("title", data.title);
             formData.append("image", data.image);
             formData.append("price", data.price.toString());
             formData.append("description", data.description);
 
-            // Call the server action with the existing articleNumber
             await updateProductAction(formData, product.articleNumber);
 
-            // Show a success toast
             toast.success("Product updated successfully!");
 
-            // Redirect or refresh, as needed
             router.push("/admin");
         } catch (error) {
             console.error(error);
@@ -88,12 +76,6 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             </CardHeader>
 
             <CardContent>
-                {/*
-          We no longer use:
-            action={async (formData) => {...}}
-            method="post"
-          Instead, we let react-hook-form handle submission in the client.
-        */}
                 <form onSubmit={handleSubmit(onSubmit)} data-cy="product-form" className="space-y-6">
                     {/* Title */}
                     <div>
