@@ -46,14 +46,14 @@ export default async function Home({
           </Link>
         </div>
       </section>
-      <h1 className="text-xl font-bold text-gray-800 m-6">Trending Products</h1>
+      <h1 className="text-2xl font-bold text-gray-800 m-10">Trending Products</h1>
 
-      <div className="flex flex-col w-full md:flex-row md:flex-wrap gap-2 md:gap-5 lg:w-[45%]  ">
+      <div className="flex flex-col w-full md:justify-center md:flex-row md:flex-wrap  gap-2 md:gap-5 md:w-[55%] lg:w-[40%]  ">
         {products.map((product) => (
           <div
             data-cy="product"
             key={product.articleNumber}
-            className="border rounded-xs p-4 shadow-md bg-white flex md:flex-col items-center lg:mt-20 "
+            className="border rounded-xs p-4 shadow-md bg-white flex md:flex-col items-center lg:mt-5 "
           >
             <Link href={`/product/${product.articleNumber}/${product.title}`}>
               <Image
@@ -97,12 +97,12 @@ export default async function Home({
             <div className="flex gap-4 my-8">
         {currentPage > 1 && (
           <Link href={`/?page=${currentPage - 1}`}>
-            <Button variant="outline">Föregående</Button>
+            <Button className="rounded-xs">Previous</Button>
           </Link>
         )}
         {currentPage < totalPages && (
           <Link href={`/?page=${currentPage + 1}`}>
-            <Button variant="outline">Nästa</Button>
+            <Button className="rounded-xs ">Next</Button>
           </Link>
         )}
       </div>

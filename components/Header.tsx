@@ -11,21 +11,21 @@ export default function Header() {
     const { cartItems, cartCount } = useCartStore();
 
     return (
-        <header className="p-2 bg-gray-100 shadow-md flex justify-between items-center">
+        <header className=" bg-slate-900 shadow-md flex justify-between items-center md:pl-5 md:pr-5">
             <Link href="/">
-                <img src="/logo.png" alt="logo" className="h-20 w-25 p-0" />
+                <img src="/logo.png" alt="logo" className="size-20 p-0 " />
             </Link>
 
             <nav className="flex gap-4">
-                <Link href="/" className="text-gray-600 hover:text-gray-800">Home
+                <Link href="/" className="text-white font-bold hover:text-gray-800">Home
                 </Link>
-                <Link href="/product" className="text-gray-600 hover:text-gray-800">Products
+                <Link href="/product" className="text-white hover:text-gray-400 font-bold ">Products
                 </Link>
             </nav>
 
             <div className="flex gap-4 pr-4">
-                <Link href="/admin" data-cy="admin-link" className="text-gray-600 hover:text-gray-800">
-                    <RiAdminFill className="w-6 h-6 cursor-pointer text-gray-600 hover:text-gray-800" />
+                <Link href="/admin" data-cy="admin-link" className="text-gray-600 hover:text-gray-400 ">
+                    <RiAdminFill className="w-6 h-6 cursor-pointer text-white hover:text-gray-400 " />
                 </Link>
 
 
@@ -35,7 +35,7 @@ export default function Header() {
                     className="relative cursor-pointer"
                     data-cy="open-cart-sidebar"
                 >
-                    <FaShoppingCart className="w-6 h-6 text-gray-600 hover:text-gray-800"/>
+                    <FaShoppingCart className="w-6 h-6 text-white hover:text-gray-400 "/>
                     {cartCount > 0 && (
                         <span
                             data-cy="cart-items-count-badge"
