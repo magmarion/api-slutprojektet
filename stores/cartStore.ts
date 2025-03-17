@@ -14,6 +14,8 @@ interface CartStore {
     totalPrice: number;
     addToCart: (item: CartItem) => void;
     removeFromCart: (itemId: string) => void;
+    increaseQuantity: (id: string) => void;
+    decreaseQuantity: (id: string) => void;
 }
 
 const useCartStore = create<CartStore>((set) => ({
@@ -23,7 +25,7 @@ const useCartStore = create<CartStore>((set) => ({
 
     addToCart: (item: CartItem) =>
         set((state) => {
-            
+
             console.log("Adding to cart:", item); // ✅ Debugging log
             if (!item.image) {
                 console.error("Missing image property in cart item:", item);
@@ -57,6 +59,36 @@ const useCartStore = create<CartStore>((set) => ({
                     : item
             )
                 .filter((item) => item.quantity > 0); // Remove if quantity is 0
+
+            return {
+                cartItems: updatedCartItems,
+                cartCount: updatedCartItems.reduce((count, i) => count + i.quantity, 0),
+                totalPrice: updatedCartItems.reduce((total, i) => total + i.price * i.quantity, 0),
+            };
+        }),
+
+    increaseQuantity: (itemId: string) =>
+        set((state) => {
+            const updatedCartItems = state.cartItems.map((item) =>
+                item.id === itemId
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+            );
+
+            return {
+                cartItems: updatedCartItems,
+                cartCount: updatedCartItems.reduce((count, i) => count + i.quantity, 0),
+                totalPrice: updatedCartItems.reduce((total, i) => total + i.price * i.quantity, 0),
+            };
+        }),
+
+    decreaseQuantity: (itemId: string) =>
+        set((state) => {
+            const updatedCartItems = state.cartItems.map((item) =>
+                item.id === itemId && item.quantity > 1
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+            );
 
             return {
                 cartItems: updatedCartItems,
