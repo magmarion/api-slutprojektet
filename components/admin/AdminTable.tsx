@@ -10,22 +10,22 @@ import { toast } from "sonner";
 import type { Product } from "@/data";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 import { Edit, Trash } from "lucide-react";
-import ConfirmDeleteDialog from "./ConfirmDeleteDialog"; // <--- Our new component
+import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 
-interface AdminTableProps {
-    products: Product[];
-}
-
-export default function AdminTable({ products }: AdminTableProps) {
+export default function AdminProductsGrid({ products }: { products: Product[] }) {
     const router = useRouter();
     const [openDeleteDialog, setOpenDeleteDialog] = useState<string | null>(null);
     const [isPending, startTransition] = useTransition();
 
-    /**
-     * Delete a product by its articleNumber, show a toast, and refresh.
-     */
     async function handleDelete(articleNumber: string) {
         try {
             const formData = new FormData();
@@ -44,99 +44,73 @@ export default function AdminTable({ products }: AdminTableProps) {
     }
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>All Products</CardTitle>
-            </CardHeader>
+        <section className="space-y-4">
+            <header className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">All Products</h2>
+            </header>
 
-            <CardContent>
-                {/* Make table responsive */}
-                <div className="w-full overflow-x-auto">
-                    <table className="w-full table-auto border-collapse">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Article Number
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Title
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Image
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Price
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                            {products.map((product) => (
-                                <tr key={product.articleNumber} data-cy="product">
-                                    <td
-                                        data-cy="product-id"
-                                        className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                    >
-                                        {product.articleNumber}
-                                    </td>
-                                    <td
-                                        data-cy="product-title"
-                                        className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                                    >
-                                        {product.title}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <Image
-                                            src={product.image}
-                                            alt={product.title}
-                                            width={64}
-                                            height={64}
-                                            className="rounded-md object-cover"
-                                        />
-                                    </td>
-                                    <td
-                                        data-cy="product-price"
-                                        className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                    >
-                                        {product.price} SEK
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap space-x-2">
-                                        {/* Edit Button */}
-                                        <Link href={`/admin/product/${product.articleNumber}`}>
-                                            <Button variant="ghost" data-cy="admin-edit-product">
-                                                <Edit size={16} />
-                                            </Button>
-                                        </Link>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {products.map((product) => (
+                    <Card
+                        key={product.articleNumber}
+                        data-cy="product"
+                        className="border hover:shadow-md transition-shadow ease-in-out"
+                    >
+                        <CardHeader>
+                            <CardTitle data-cy="product-title">{product.title}</CardTitle>
+                            <CardDescription data-cy="product-id">
+                                Article #: {product.articleNumber}
+                            </CardDescription>
+                        </CardHeader>
 
-                                        {/* Delete - using our new ConfirmDeleteDialog */}
-                                        <ConfirmDeleteDialog
-                                            open={openDeleteDialog === product.articleNumber}
-                                            onOpenChange={(open) => {
-                                                if (!open) setOpenDeleteDialog(null);
-                                            }}
-                                            onConfirm={() => {
-                                                handleDelete(product.articleNumber);
-                                                setOpenDeleteDialog(null);
-                                            }}
-                                            productTitle={product.title}
-                                        >
-                                            <Button
-                                                variant="ghost"
-                                                data-cy="admin-remove-product"
-                                                onClick={() => setOpenDeleteDialog(product.articleNumber)}
-                                            >
-                                                <Trash size={16} />
-                                            </Button>
-                                        </ConfirmDeleteDialog>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </CardContent>
-        </Card>
+                        <CardContent className="flex flex-col items-start space-y-3">
+                            <Image
+                                src={product.image}
+                                alt={product.title}
+                                width={96}
+                                height={96}
+                                className="w-32 h-32 object-fit rounded-md r"
+                            />
+                            <p
+                                data-cy="product-price"
+                                className="text-sm text-gray-700 font-semibold"
+                            >
+                                {product.price} SEK
+                            </p>
+                        </CardContent>
+
+                        <CardFooter className="flex items-center justify-between space-x-2">
+                            <Link href={`/admin/product/${product.articleNumber}`}>
+                                <Button variant="outline" data-cy="admin-edit-product" className="flex items-center gap-1">
+                                    <Edit size={16} />
+                                    Edit
+                                </Button>
+                            </Link>
+
+                            {/* Delete button & confirm dialog */}
+                            <ConfirmDeleteDialog
+                                open={openDeleteDialog === product.articleNumber}
+                                onOpenChange={(open) => !open && setOpenDeleteDialog(null)}
+                                onConfirm={() => {
+                                    handleDelete(product.articleNumber);
+                                    setOpenDeleteDialog(null);
+                                }}
+                                productTitle={product.title}
+                            >
+                                <Button
+                                    variant="destructive"
+                                    data-cy="admin-remove-product"
+                                    className="flex items-center gap-1"
+                                    onClick={() => setOpenDeleteDialog(product.articleNumber)}
+                                >
+                                    <Trash size={16} />
+                                    Delete
+                                </Button>
+                            </ConfirmDeleteDialog>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+        </section>
     );
 }
