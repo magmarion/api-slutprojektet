@@ -65,8 +65,16 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                             />
                             <div className="flex flex-col items-start ml-10 flex-1 min-w-0">
                                 <h3 data-cy="product-title" className="font-semibold text-sm md:text-base">{item.title}</h3>
-                                <div className="flex items-center space-x-2 mt-2">
-                                    <p className="text-gray-600 text-xs md:text-base w-24">Quantity: {item.quantity}</p>
+                                <div className="flex items-center space-x-2 mt-2"> 
+                                    <p className="text-gray-600 text-xs md:text-base w-24">Quantity:</p>
+                                    <button
+                                        data-cy="decrease-quantity-button"
+                                        onClick={() => decreaseQuantity(item.id)}
+                                        className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                    >
+                                        < FaMinus className="w-3 h-3" />
+                                    </button>
+                                    <span className="text-sm md:text-base">{item.quantity}</span>
                                     <button
                                         data-cy="increase-quantity-button"
                                         onClick={() => increaseQuantity(item.id)}
@@ -75,13 +83,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                         < FaPlus className="w-3 h-3" />
                                     </button>
 
-                                    <button
-                                        data-cy="decrease-quantity-button"
-                                        onClick={() => decreaseQuantity(item.id)}
-                                        className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer transition-all duration-300 hover:scale-125"
-                                    >
-                                        < FaMinus className="w-3 h-3" />
-                                    </button>
+                                    
                                 </div>
                             </div>
 
