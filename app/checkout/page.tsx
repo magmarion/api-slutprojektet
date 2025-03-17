@@ -1,12 +1,13 @@
 "use client";
 import CheckoutForm from "@/components/checkout/CheckoutForm";
 import useCartStore from "@/stores/cartStore";
+import { Trash } from "lucide-react";
 import Image from "next/image";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
 
 export default function CheckoutPage() {
-    const { cartItems, totalPrice, increaseQuantity, decreaseQuantity } = useCartStore();
+    const { cartItems, totalPrice, increaseQuantity, decreaseQuantity, removeFromCart } = useCartStore();
 
 
     return (
@@ -61,7 +62,15 @@ export default function CheckoutPage() {
                                             >
                                                 <FaPlus className="w-3 h-3" />
                                             </button>
+
+                                            <button
+                                                onClick={() => removeFromCart(item.id)}
+                                                className="flex items-center gap-1 text-red-600 hover:text-red-800 transition-colors text-sm"
+                                            >
+                                                <Trash className="w-4 h-4" />
+                                            </button>
                                         </div>
+
                                     </div>
 
                                     <p className="font-semibold text-sm sm:text-base ml-4 max-[440px]:hidden">

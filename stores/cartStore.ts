@@ -58,14 +58,9 @@ const useCartStore = create<CartStore>()(
 
             removeFromCart: (itemId) =>
                 set((state) => {
-                    const updatedCartItems = state.cartItems
-                        .map((item) =>
-                            item.id === itemId
-                                ? { ...item, quantity: item.quantity - 1 }
-                                : item
-                        )
-                        .filter((item) => item.quantity > 0); // Remove if quantity is 0
-
+                    const updatedCartItems = state.cartItems.filter(
+                        (item) => item.id !== itemId
+                    );
                     return {
                         cartItems: updatedCartItems,
                         cartCount: updatedCartItems.reduce(
