@@ -1,4 +1,3 @@
-// app/admin/add/page.tsx
 import AddProductForm from "@/components/admin/AddProductForm";
 
 export default function AddProductPage() {
