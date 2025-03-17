@@ -41,8 +41,9 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
 
     return (
         <Sheet open={isOpen} onOpenChange={handleClose}>
-            <SheetContent className={`bg-white w-96 p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"
-                }`}>
+            <SheetContent className={`bg-white w-full max-w-[400px] p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"} sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px]`}
+            >
+
                 <SheetTitle className="sr-only">Cart Items</SheetTitle>
                 <div className="flex justify-between items-center">
                     <h2 className="text-xl font-bold">Your Items</h2>
@@ -54,21 +55,21 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                         <div
                             key={item.id}
                             data-cy="cart-item"
-                            className="border-b py-4 flex justify-between items-center"
+                            className="border-b py-4 flex justify-between items-center flex-wrap"
                         >
                             {/* Product Image */}
                             <img
                                 src={item.image}
                                 alt={item.title}
-                                className="w-16 h-16 object-cover rounded-md"
+                                className="w-16 h-16 object-contain rounded-md mb-4 sm:mb-0"
                             />
-                            <div className="flex flex-col items-start ml-10">
-                                <h3 className="font-semibold">{item.title}</h3>
-                                <p className="text-gray-600">Quantity: {item.quantity}</p>
+                            <div className="flex flex-col items-start ml-10 flex-1 min-w-0">
+                                <h3 className="font-semibold text-sm md:text-base">{item.title}</h3>
+                                <p className="text-gray-600 text-xs md:text-base">Quantity: {item.quantity}</p>
                             </div>
                             <button
                                 onClick={() => removeFromCart(item.id)}
-                                className="text-slate-500 hover:text-slate-700 ml-auto"
+                                className="text-slate-500 hover:text-slate-700 ml-auto mt-4 md:mt-0"
                             >
                                 <FaTrashAlt className="w-6 h-6 cursor-pointer transition-all duration-300 hover:scale-125" />
                             </button>
@@ -79,16 +80,16 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                 {/* Right Side: Summary and Proceed to Checkout */}
                 <div className="mt-6">
                     <div className="flex justify-between">
-                        <p className="text-gray-600">Subtotal:</p>
-                        <p className="font-semibold">{totalPrice} SEK</p>
+                        <p className="text-gray-600 text-sm md:text-base">Subtotal:</p>
+                        <p className="font-semibold text-sm md:text-base">{totalPrice} SEK</p>
                     </div>
                     <div className="flex justify-between">
-                        <p className="text-gray-600">Shipping:</p>
-                        <p className="font-semibold">0 SEK</p>
+                        <p className="text-gray-600 text-sm md:text-base">Shipping:</p>
+                        <p className="font-semibold text-sm md:text-base">0 SEK</p>
                     </div>
                     <div className="flex justify-between border-t pt-4">
-                        <p className="text-gray-600">Total:</p>
-                        <p data-cy="total-price" className="font-semibold">{totalPrice} SEK</p>
+                        <p className="text-gray-600 text-sm md:text-base">Total:</p>
+                        <p data-cy="total-price" className="font-semibold text-sm md:text-base">{totalPrice} SEK</p>
                     </div>
                     <Link
                         href="/checkout"
