@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
@@ -9,6 +10,7 @@ import CartPopup from "./CartPopup";
 export default function Header() {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const { cartItems, cartCount } = useCartStore();
+    const pathname = usePathname();
 
     return (
         <header className="p-2 bg-gray-100 shadow-md flex justify-between items-center">
@@ -17,9 +19,23 @@ export default function Header() {
             </Link>
 
             <nav className="flex gap-4">
-                <Link href="/" className="text-gray-600 hover:text-gray-800">Home
+                <Link
+                    href="/"
+                    className={
+                        "text-gray-600 hover:text-gray-800 " +
+                        (pathname === "/" ? "border-b-2 border-gray-800" : "")
+                    }
+                >
+                    Home
                 </Link>
-                <Link href="/product" className="text-gray-600 hover:text-gray-800">Products
+                <Link
+                    href="/product"
+                    className={
+                        "text-gray-600 hover:text-gray-800 " +
+                        (pathname === "/product" ? "border-b-2 border-gray-800" : "")
+                    }
+                >
+                    Products
                 </Link>
             </nav>
 
@@ -35,7 +51,7 @@ export default function Header() {
                     className="relative cursor-pointer"
                     data-cy="open-cart-sidebar"
                 >
-                    <FaShoppingCart className="w-6 h-6 text-gray-600 hover:text-gray-800"/>
+                    <FaShoppingCart className="w-6 h-6 text-gray-600 hover:text-gray-800" />
                     {cartCount > 0 && (
                         <span
                             data-cy="cart-items-count-badge"

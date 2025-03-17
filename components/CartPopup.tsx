@@ -3,8 +3,8 @@
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FaMinus, FaPlus, FaTrashAlt } from "react-icons/fa";
 import useCartStore from "../stores/cartStore";
-import { FaTrashAlt } from "react-icons/fa";
 
 
 interface CartItem {
@@ -22,7 +22,7 @@ interface CartPopupProps {
 }
 
 export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
-    const { cartItems, totalPrice, removeFromCart } = useCartStore();
+    const { cartItems, totalPrice, removeFromCart, increaseQuantity, decreaseQuantity } = useCartStore();
     const [isClosing, setIsClosing] = useState(false);
 
     const handleClose = () => {
@@ -50,11 +50,11 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                 </div>
 
                 {/* Left Side: List of Cart Items */}
-                <div className="space-y-4">
+                <div data-cy="cart-item"
+                    className="space-y-4">
                     {cartItems.map((item) => (
                         <div
                             key={item.id}
-                            data-cy="cart-item"
                             className="border-b py-4 flex justify-between items-center flex-wrap"
                         >
                             {/* Product Image */}
@@ -64,10 +64,29 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                 className="w-16 h-16 object-contain rounded-md mb-4 sm:mb-0"
                             />
                             <div className="flex flex-col items-start ml-10 flex-1 min-w-0">
-                                <h3 className="font-semibold text-sm md:text-base">{item.title}</h3>
-                                <p className="text-gray-600 text-xs md:text-base">Quantity: {item.quantity}</p>
+                                <h3 data-cy="product-title" className="font-semibold text-sm md:text-base">{item.title}</h3>
+                                <div className="flex items-center space-x-2 mt-2">
+                                    <p className="text-gray-600 text-xs md:text-base w-24">Quantity: {item.quantity}</p>
+                                    <button
+                                        data-cy="increase-quantity-button"
+                                        onClick={() => increaseQuantity(item.id)}
+                                        className="text-slate-500 hover:text-slate-700 sm:text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                    >
+                                        < FaPlus className="w-3 h-3" />
+                                    </button>
+
+                                    <button
+                                        data-cy="decrease-quantity-button"
+                                        onClick={() => decreaseQuantity(item.id)}
+                                        className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                    >
+                                        < FaMinus className="w-3 h-3" />
+                                    </button>
+                                </div>
                             </div>
-                            <button
+
+                            {/* Remove Button */}
+                            < button
                                 onClick={() => removeFromCart(item.id)}
                                 className="text-slate-500 hover:text-slate-700 ml-auto mt-4 md:mt-0"
                             >
@@ -97,10 +116,10 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                         onClick={handleClose}
                         className="mt-6 w-full bg-slate-500 text-white py-2 px-4 rounded-lg hover:bg-slate-600 block text-center transition-all duration-300 hover:scale-105"
                     >
-                        Go to checkout
+                        To the checkout
                     </Link>
                 </div>
-            </SheetContent>
-        </Sheet>
+            </SheetContent >
+        </Sheet >
     );
 };
