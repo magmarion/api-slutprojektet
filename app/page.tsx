@@ -41,14 +41,17 @@ export default async function Home({
           <p className="text-[0.7rem] md:text-[1rem]">
           ✔ Fast delivery
           </p>
+          <p className="text-[0.7rem] md:text-[1rem]">
+          ✔ 24/7 support
+          </p>
           <Link href={"/product"}>
           <Button variant={"ghost"} className="w-[55px] h-[30px] text-xs font-bold mt-3  md:w-[100px] md:h-[35px] rounded-xs cursor-pointer border border-gray-900 ">Browse</Button>
           </Link>
         </div>
       </section>
-      <h1 className="text-2xl font-bold text-gray-800 m-10">Supa Dupa Fire Hot Deals Right Now</h1>
+      <h1 className="text-2xl font-bold text-gray-800 m-10">Supah Dupah Hot Deals Right Now</h1>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <div
             data-cy="product"

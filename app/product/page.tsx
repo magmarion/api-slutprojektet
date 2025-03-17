@@ -9,7 +9,7 @@ export default async function ProductsPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center  ">
-      <h1 className="text-2xl font-bold text-gray-800 m-10">All Products</h1>
+      <h1 className="text-2xl font-bold text-gray-800 m-10">all products</h1>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <div
