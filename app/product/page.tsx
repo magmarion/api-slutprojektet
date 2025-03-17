@@ -10,7 +10,7 @@ export default async function ProductsPage() {
   return (
     <main className="flex min-h-screen flex-col items-center  ">
       <h1 className="text-2xl font-bold text-gray-800 m-10">All Products</h1>
-      <div className="flex flex-col w-full md:justify-center md:flex-row md:flex-wrap  gap-2 md:gap-5 md:w-[55%] lg:w-[40%]  ">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <div
             data-cy="product"

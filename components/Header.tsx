@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
@@ -7,6 +8,7 @@ import useCartStore from "../stores/cartStore";
 import CartPopup from "./CartPopup";
 
 export default function Header() {
+  const pathname = usePathname();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cartItems, cartCount } = useCartStore();
 
@@ -17,14 +19,21 @@ export default function Header() {
       </Link>
 
       <nav className="flex gap-4">
-        <Link href="/" className="text-white font-bold hover:text-gray-800">
-          Home
+        <Link
+          href="/"
+          className={`text-white tracking-widest hover:text-gray-400 ${
+            pathname === "/" ? "font-bold" : ""
+          }`}
+        >
+          home
         </Link>
         <Link
           href="/product"
-          className="text-white hover:text-gray-400 font-bold "
+          className={`text-white tracking-widest  hover:text-gray-400 ${
+            pathname === "/product" ? "font-bold" : ""
+          }`}
         >
-          Products
+          products
         </Link>
       </nav>
 

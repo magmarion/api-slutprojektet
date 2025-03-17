@@ -34,21 +34,21 @@ export default async function Home({
           className="object-center object-cover"
         />
         <div className="absolute inset-0 font-bold text-gray-800 flex flex-col justify-center text-sm md:text-3xl lg:text-4xl md:pl-10 lg:pl-30 ml-3 ">
-          <p>Tech You Need.</p>
-          <p className="lg:mt-3">When You Need.</p>
+          <p>tech you need,</p>
+          <p className="lg:mt-3">when you need.</p>
 
-          <p className="text-[0.7rem] mt-2 md:mt-5 md:text-[1rem]">✅ In stock</p>
+          <p className="text-[0.7rem] mt-2 md:mt-5 md:text-[1rem]">✔ In stock</p>
           <p className="text-[0.7rem] md:text-[1rem]">
-            🚛 Fast delivery
+          ✔ Fast delivery
           </p>
           <Link href={"/product"}>
-          <Button className="w-[55px] h-[30px] text-xs mt-3 bg-slate-500 md:w-[100px] md:h-[35px] rounded-xs">Browse</Button>
+          <Button variant={"ghost"} className="w-[55px] h-[30px] text-xs font-bold mt-3  md:w-[100px] md:h-[35px] rounded-xs cursor-pointer border border-gray-900 ">Browse</Button>
           </Link>
         </div>
       </section>
-      <h1 className="text-2xl font-bold text-gray-800 m-10">Trending Products</h1>
+      <h1 className="text-2xl font-bold text-gray-800 m-10">Supa Dupa Fire Hot Deals Right Now</h1>
 
-      <div className="flex flex-col w-full md:justify-center md:flex-row md:flex-wrap  gap-2 md:gap-5 md:w-[55%] lg:w-[40%]  ">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {products.map((product) => (
           <div
             data-cy="product"
