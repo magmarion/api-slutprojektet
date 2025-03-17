@@ -23,6 +23,12 @@ const useCartStore = create<CartStore>((set) => ({
 
     addToCart: (item: CartItem) =>
         set((state) => {
+            
+            console.log("Adding to cart:", item); // ✅ Debugging log
+            if (!item.image) {
+                console.error("Missing image property in cart item:", item);
+            }
+
             const existingItem = state.cartItems.find((cartItem) => cartItem.id === item.id);
             let updatedCartItems;
 
