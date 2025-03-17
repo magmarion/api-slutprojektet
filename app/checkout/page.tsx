@@ -59,22 +59,26 @@ export default function CheckoutPage() {
                                     data-cy="cart-item"
                                     className="flex items-center justify-between border-b pb-8 mb-2"
                                 >
-                                    {/* Image */}
-                                    <Image
-                                        src={item.image}
-                                        alt={item.title}
-                                        width={50}
-                                        height={50}
-                                        className="rounded-md mr-4"
-                                    />
+                                    <div className="flex flex-col max-[440px]:items-center max-[440px]:mr-4">
+                                        <Image
+                                            src={item.image}
+                                            alt={item.title}
+                                            width={50}
+                                            height={50}
+                                            className="rounded-md mr-4 max-[440px]:mb-2"
+                                        />
+                                        {/* Price (under the image on screens < 440px) */}
+                                        <p className="font-semibold text-sm sm:text-base max-[440px]:block hidden">
+                                            {item.price} SEK
+                                        </p>
+                                    </div>
 
                                     {/* Product Info and Quantity */}
                                     <div className="flex flex-col items-start flex-1 min-w-0">
                                         {/* Title */}
-                                        <p className="font-semibold text-sm sm:text-base">
+                                        <p className="font-semibold text-sm sm:text-base max-[440px]:mb-8">
                                             {item.title}
                                         </p>
-
                                         {/* Quantity with Increase and Decrease Buttons */}
                                         <div className="flex items-center space-x-2 mt-2">
                                             <p className="text-gray-600 text-xs sm:text-base w-24">
@@ -98,7 +102,7 @@ export default function CheckoutPage() {
                                     </div>
 
                                     {/* Price */}
-                                    <p className="font-semibold text-sm sm:text-base ml-4">
+                                    <p className="font-semibold text-sm sm:text-base ml-4 max-[440px]:hidden">
                                         {item.price} SEK
                                     </p>
                                 </div>
@@ -108,9 +112,9 @@ export default function CheckoutPage() {
                         )}
 
                         {/* Total Price */}
-                        <div className="mt-4 border-t pt-2 flex justify-between">
-                            <p className="text-gray-600 text-xs sm:text-base">Total Price:</p>
-                            <p data-cy="total-price" className="font-semibold text-xs sm:text-base">
+                        <div className="mt-5 border-t pt-2 flex justify-between">
+                            <p className="text-gray-600 text-sm sm:text-base">Total Price:</p>
+                            <p data-cy="total-price" className="font-semibold text-sm md:text-base">
                                 {totalPrice} SEK
                             </p>
                         </div>
