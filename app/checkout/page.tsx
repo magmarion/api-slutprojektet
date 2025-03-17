@@ -68,20 +68,19 @@ export default function CheckoutPage() {
                                             className="rounded-md mr-4 max-[440px]:mb-2"
                                         />
                                         {/* Price (under the image on screens < 440px) */}
-                                        <p className="font-semibold text-sm sm:text-base max-[440px]:block hidden">
+                                        <p data-cy="product-price" className="font-semibold text-sm sm:text-base max-[440px]:block hidden">
                                             {item.price} SEK
                                         </p>
                                     </div>
 
-                                    {/* Product Info and Quantity */}
                                     <div className="flex flex-col items-start flex-1 min-w-0">
                                         {/* Title */}
                                         <p className="font-semibold text-sm sm:text-base max-[440px]:mb-8">
                                             {item.title}
                                         </p>
-                                        {/* Quantity with Increase and Decrease Buttons */}
+
                                         <div className="flex items-center space-x-2 mt-2">
-                                            <p className="text-gray-600 text-xs sm:text-base w-24">
+                                            <p data-cy="product-quantity" className="text-gray-600 text-xs sm:text-base w-24">
                                                 Quantity: {item.quantity}
                                             </p>
                                             <button
@@ -101,7 +100,6 @@ export default function CheckoutPage() {
                                         </div>
                                     </div>
 
-                                    {/* Price */}
                                     <p className="font-semibold text-sm sm:text-base ml-4 max-[440px]:hidden">
                                         {item.price} SEK
                                     </p>
@@ -110,8 +108,6 @@ export default function CheckoutPage() {
                         ) : (
                             <p>No items in cart.</p>
                         )}
-
-                        {/* Total Price */}
                         <div className="mt-5 border-t pt-2 flex justify-between">
                             <p className="text-gray-600 text-sm sm:text-base">Total Price:</p>
                             <p data-cy="total-price" className="font-semibold text-sm md:text-base">
