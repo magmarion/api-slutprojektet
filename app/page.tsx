@@ -86,7 +86,7 @@ export default async function Home({
                 image={product.image}
               />
               <Link href={`/product/${product.articleNumber}/${product.title}`}>
-                <Button className="bg-slate-500 w-full rounded-xs  ">Info</Button>
+                <Button className="bg-slate-500 w-full rounded-xs cursor-pointer  ">Info</Button>
               </Link>
             </div>
           </div>
@@ -97,12 +97,12 @@ export default async function Home({
             <div className="flex gap-4 my-8">
         {currentPage > 1 && (
           <Link href={`/?page=${currentPage - 1}`}>
-            <Button className="rounded-xs">Previous</Button>
+            <Button className="rounded-xs cursor-pointer">Previous</Button>
           </Link>
         )}
         {currentPage < totalPages && (
           <Link href={`/?page=${currentPage + 1}`}>
-            <Button className="rounded-xs ">Next</Button>
+            <Button className="rounded-xs cursor-pointer ">Next</Button>
           </Link>
         )}
       </div>

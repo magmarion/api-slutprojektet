@@ -48,7 +48,7 @@ export default async function ProductsPage() {
                 image={product.image}
               />
               <Link href={`/product/${product.articleNumber}/${product.title}`}>
-                <Button className="bg-slate-500 w-full rounded-xs  ">
+                <Button className="bg-slate-500 w-full rounded-xs cursor-pointer ">
                   Info
                 </Button>
               </Link>
