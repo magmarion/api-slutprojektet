@@ -59,7 +59,7 @@ export default function AdminProductsGrid({ products }: { products: Product[] })
                         <CardHeader>
                             <CardTitle data-cy="product-title">{product.title}</CardTitle>
                             <CardDescription data-cy="product-id">
-                                Article #: {product.articleNumber}
+                                {product.articleNumber}
                             </CardDescription>
                         </CardHeader>
 
