@@ -52,7 +52,6 @@ export default function CheckoutPage() {
                 <div className="bg-gray-100 p-4 rounded-md mb-6">
                     <h1 className="text-2xl font-bold mb-2">Checkout</h1>
                     <div className="bg-gray-100 p-4 rounded-md mb-2">
-
                         {cartItems.length > 0 ? (
                             cartItems.map((item) => (
                                 <div
@@ -60,22 +59,27 @@ export default function CheckoutPage() {
                                     data-cy="cart-item"
                                     className="flex items-center justify-between border-b pb-8 mb-2"
                                 >
+                                    {/* Image */}
                                     <Image
                                         src={item.image}
                                         alt={item.title}
                                         width={50}
                                         height={50}
-                                        className="rounded-md"
+                                        className="rounded-md mr-4"
                                     />
 
                                     {/* Product Info and Quantity */}
-                                    <div className="flex flex-col items-start ml-20">
-                                        <p className="font-semibold">{item.title}</p>
+                                    <div className="flex flex-col items-start flex-1 min-w-0">
+                                        {/* Title */}
+                                        <p className="font-semibold text-sm sm:text-base">
+                                            {item.title}
+                                        </p>
 
                                         {/* Quantity with Increase and Decrease Buttons */}
                                         <div className="flex items-center space-x-2 mt-2">
-                                            <p className="text-gray-600 text-xs md:text-base flex-shrink-0">{item.quantity}</p>
-
+                                            <p className="text-gray-600 text-xs sm:text-base w-24">
+                                                Quantity: {item.quantity}
+                                            </p>
                                             <button
                                                 data-cy="increase-quantity-button"
                                                 onClick={() => increaseQuantity(item.id)}
@@ -83,7 +87,6 @@ export default function CheckoutPage() {
                                             >
                                                 <FaPlus className="w-3 h-3" />
                                             </button>
-
                                             <button
                                                 data-cy="decrease-quantity-button"
                                                 onClick={() => decreaseQuantity(item.id)}
@@ -94,18 +97,22 @@ export default function CheckoutPage() {
                                         </div>
                                     </div>
 
-
                                     {/* Price */}
-                                    <p className="font-semibold ml-auto">{item.price} SEK</p>
+                                    <p className="font-semibold text-sm sm:text-base ml-4">
+                                        {item.price} SEK
+                                    </p>
                                 </div>
                             ))
                         ) : (
                             <p>No items in cart.</p>
                         )}
 
+                        {/* Total Price */}
                         <div className="mt-4 border-t pt-2 flex justify-between">
-                            <p className="text-gray-600">Total Price:</p>
-                            <p data-cy="total-price" className="font-semibold">{totalPrice} SEK</p>
+                            <p className="text-gray-600 text-xs sm:text-base">Total Price:</p>
+                            <p data-cy="total-price" className="font-semibold text-xs sm:text-base">
+                                {totalPrice} SEK
+                            </p>
                         </div>
                     </div>
                 </div>
