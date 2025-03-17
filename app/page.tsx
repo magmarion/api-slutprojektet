@@ -5,24 +5,24 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function Home({
-    searchParams,
-  }: {
-    searchParams: { page?: string };
-  }) {
-    const pageSize = 8;
-    // Läs av nuvarande sida från query-parametrarna, defaulta till 1 om inget anges
-    const currentPage = parseInt(searchParams.page ?? "1", 10);
-    const skip = (currentPage - 1) * pageSize;
-  
-    // Hämta bara de produkter som ska visas på den aktuella sidan
-    const products = await db.product.findMany({
-      skip,
-      take: pageSize,
-    });
-  
-    // Om du vill ha totala antalet produkter för att kunna räkna ut antalet sidor:
-    const totalProducts = await db.product.count();
-    const totalPages = Math.ceil(totalProducts / pageSize);
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
+  const pageSize = 8;
+  // Läs av nuvarande sida från query-parametrarna, defaulta till 1 om inget anges
+  const currentPage = parseInt(searchParams.page ?? "1", 10);
+  const skip = (currentPage - 1) * pageSize;
+
+  // Hämta bara de produkter som ska visas på den aktuella sidan
+  const products = await db.product.findMany({
+    skip,
+    take: pageSize,
+  });
+
+  // Om du vill ha totala antalet produkter för att kunna räkna ut antalet sidor:
+  const totalProducts = await db.product.count();
+  const totalPages = Math.ceil(totalProducts / pageSize);
   return (
     <main className="flex min-h-screen flex-col items-center  ">
       <section className="relative w-full h-[20vh] md:h-[40vh]">
@@ -37,19 +37,24 @@ export default async function Home({
           <p>tech you need,</p>
           <p className="lg:mt-3">when you need.</p>
 
-          <p className="text-[0.7rem] mt-2 md:mt-5 md:text-[1rem]">✔ In stock</p>
-          <p className="text-[0.7rem] md:text-[1rem]">
-          ✔ Fast delivery
+          <p className="text-[0.7rem] mt-2 md:mt-5 md:text-[1rem]">
+            ✔ In stock
           </p>
-          <p className="text-[0.7rem] md:text-[1rem]">
-          ✔ 24/7 support
-          </p>
+          <p className="text-[0.7rem] md:text-[1rem]">✔ Fast delivery</p>
+          <p className="text-[0.7rem] md:text-[1rem]">✔ 24/7 support</p>
           <Link href={"/product"}>
-          <Button variant={"ghost"} className="w-[55px] h-[30px] text-xs font-bold mt-3  md:w-[100px] md:h-[35px] rounded-xs cursor-pointer border border-gray-900 ">Browse</Button>
+            <Button
+              variant={"ghost"}
+              className="w-[55px] h-[30px] text-xs font-bold mt-3  md:w-[100px] md:h-[35px] rounded-xs cursor-pointer border border-gray-900 "
+            >
+              Browse
+            </Button>
           </Link>
         </div>
       </section>
-      <h1 className="text-2xl font-bold text-gray-800 m-10">Supah Dupah Hot Deals Right Now</h1>
+      <h1 className="text-2xl font-bold text-gray-800 m-10">
+        Supah Dupah Hot Deals Right Now
+      </h1>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
@@ -71,14 +76,14 @@ export default async function Home({
               <Link href={`/product/${product.articleNumber}/${product.title}`}>
                 <h2
                   data-cy="product-title"
-                  className="text-lg font-semibold mt-2 hover:underline"
+                  className="text-lg font-semibold mt-2 hover:underline flex justify-center"
                 >
                   {product.title}
                 </h2>
+              </Link>
                 <div className="flex md:justify-center">
                   <p>Apple</p>
                 </div>
-              </Link>
               <p data-cy="product-price" className="text-gray-700">
                 Price: {product.price} SEK
               </p>
@@ -89,15 +94,17 @@ export default async function Home({
                 image={product.image}
               />
               <Link href={`/product/${product.articleNumber}/${product.title}`}>
-                <Button className="bg-slate-500 w-full rounded-xs cursor-pointer  ">Info</Button>
+                <Button className="bg-slate-500 w-full rounded-xs cursor-pointer  ">
+                  Info
+                </Button>
               </Link>
             </div>
           </div>
         ))}
       </div>
 
-            {/* Pagination-länkar */}
-            <div className="flex gap-4 my-8">
+      {/* Pagination-länkar */}
+      <div className="flex gap-4 my-8">
         {currentPage > 1 && (
           <Link href={`/?page=${currentPage - 1}`}>
             <Button className="rounded-xs cursor-pointer">Previous</Button>
@@ -109,8 +116,6 @@ export default async function Home({
           </Link>
         )}
       </div>
-
-      
     </main>
   );
 }

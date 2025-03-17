@@ -30,14 +30,14 @@ export default async function ProductsPage() {
               <Link href={`/product/${product.articleNumber}/${product.title}`}>
                 <h2
                   data-cy="product-title"
-                  className="text-lg font-semibold mt-2 hover:underline"
+                  className="text-lg font-semibold mt-2 hover:underline flex justify-center"
                 >
                   {product.title}
                 </h2>
+              </Link>
                 <div className="flex md:justify-center">
                   <p>Apple</p>
                 </div>
-              </Link>
               <p data-cy="product-price" className="text-gray-700">
                 Price: {product.price} SEK
               </p>
