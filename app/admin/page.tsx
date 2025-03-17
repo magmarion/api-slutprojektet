@@ -11,7 +11,7 @@ export default async function AdminPage() {
     <div className="p-4 md:p-10">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">ADMIN DASHBOARD</h1>
-        <Link href="/admin/add/product/new">
+        <Link href="/admin/product/new">
           <Button data-cy="admin-add-product">
             Add Product
           </Button>

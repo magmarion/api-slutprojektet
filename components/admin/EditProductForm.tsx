@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -22,7 +21,7 @@ const productSchema = z.object({
         .string()
         .nonempty("Image URL is required")
         .url("Please enter a valid URL"),
-    price: z.coerce.number().min(0, "Price must be at least 0"),
+    price: z.coerce.number().min(1, "Price must be at least 1"),
     description: z.string().nonempty("Description is required"),
 });
 
@@ -129,7 +128,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
                     {/* Description */}
                     <div>
                         <Label htmlFor="description">Description</Label>
-                        <Textarea
+                        <Input
                             id="description"
                             placeholder="Short description..."
                             {...register("description")}
