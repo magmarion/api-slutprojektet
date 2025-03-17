@@ -13,9 +13,13 @@ export default function Header() {
   const { cartItems, cartCount } = useCartStore();
 
   return (
-    <header className=" bg-slate-900 shadow-md flex justify-between items-center md:pl-5 md:pr-5">
-      <Link href="/">
-        <img src="/logo.png" alt="logo" className="size-20 p-0 " />
+    <header className=" bg-slate-900 shadow-md flex justify-between items-center md:pl-5 md:pr-5 h-15 md:h-20">
+      <Link
+        href="/"
+        className="leading-none p-2 text-white tracking-wide   hover:text-gray-400  "
+      >
+        <p className="text-xl ">TECH</p>
+        <p className="font-extrabold -mt-3 text-xl">GEAR</p>
       </Link>
 
       <nav className="flex gap-4">
@@ -38,28 +42,19 @@ export default function Header() {
       </nav>
 
       <div className="flex gap-4 pr-4">
-        <Link
-          href="/admin"
-          data-cy="admin-link"
-          className="text-gray-600 hover:text-gray-400 "
-        >
+        <Link href="/admin" data-cy="admin-link">
           <RiAdminFill className="w-6 h-6 cursor-pointer text-white hover:text-gray-400 " />
         </Link>
 
         {/* Cart Icon */}
         <button
           onClick={() => setIsCartOpen(true)}
-          className="relative cursor-pointer"
+          className="relative cursor-pointer "
           data-cy="open-cart-sidebar"
         >
           <FaShoppingCart className="w-6 h-6 text-white hover:text-gray-400 " />
           {cartCount > 0 && (
-            <span
-              data-cy="cart-items-count-badge"
-              className="absolute -top-2 -right-2 bg-red-700 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
-            >
-              {cartCount}
-            </span>
+            <span data-cy="cart-items-count-badge">{cartCount}</span>
           )}
         </button>
 
