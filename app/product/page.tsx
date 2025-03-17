@@ -16,7 +16,7 @@ export default async function ProductsPage() {
         {products.map((products) => (
           <div
             key={products.articleNumber}
-            className="border rounded-lg p-4 shadow-md bg-white"
+            className="border rounded-xs p-4 shadow-md bg-white"
           >
             <Link href={`/product/${products.articleNumber}/${products.title}`}>
               <Image
@@ -24,7 +24,7 @@ export default async function ProductsPage() {
                 alt={products.title}
                 width={200}
                 height={150}
-                className="object-cover w-full h-40 rounded-md cursor-pointer"
+                className="object-cover w-full h-40 rounded-xs cursor-pointer"
               />
             </Link>
             <Link href={`/product/${products.articleNumber}/${products.title}`}>
