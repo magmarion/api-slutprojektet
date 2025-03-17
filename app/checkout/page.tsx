@@ -1,9 +1,8 @@
 "use client";
 import CheckoutForm from "@/components/checkout/CheckoutForm";
 import useCartStore from "@/stores/cartStore";
-import { Trash } from "lucide-react";
 import Image from "next/image";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { FaMinus, FaPlus, FaTrashAlt } from "react-icons/fa";
 
 
 export default function CheckoutPage() {
@@ -50,7 +49,7 @@ export default function CheckoutPage() {
                                             <button
                                                 data-cy="decrease-quantity-button"
                                                 onClick={() => decreaseQuantity(item.id)}
-                                                className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                                className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer"
                                             >
                                                 <FaMinus className="w-3 h-3" />
                                             </button>
@@ -58,16 +57,16 @@ export default function CheckoutPage() {
                                             <button
                                                 data-cy="increase-quantity-button"
                                                 onClick={() => increaseQuantity(item.id)}
-                                                className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                                className="text-slate-500 hover:text-slate-800 text-sm cursor-pointer"
                                             >
                                                 <FaPlus className="w-3 h-3" />
                                             </button>
 
                                             <button
                                                 onClick={() => removeFromCart(item.id)}
-                                                className="flex items-center gap-1 text-red-600 hover:text-red-800 transition-colors text-sm"
+                                                className="flex items-center gap-1 text-slate-500 hover:text-slate-800 transition-all text-sm"
                                             >
-                                                <Trash className="w-4 h-4" />
+                                                <FaTrashAlt className="w-4 h-4 cursor-pointer transition-all duration-300 hover:scale-125" />
                                             </button>
                                         </div>
 
