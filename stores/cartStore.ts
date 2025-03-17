@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface CartItem {
     id: string;
@@ -18,84 +19,112 @@ interface CartStore {
     decreaseQuantity: (id: string) => void;
 }
 
-const useCartStore = create<CartStore>((set) => ({
-    cartItems: [],
-    cartCount: 0,
-    totalPrice: 0,
+const useCartStore = create<CartStore>()(
+    persist(
+        (set) => ({
+            cartItems: [],
+            cartCount: 0,
+            totalPrice: 0,
 
-    addToCart: (item: CartItem) =>
-        set((state) => {
+            addToCart: (item: CartItem) =>
+                set((state) => {
+                    const existingItem = state.cartItems.find(
+                        (cartItem) => cartItem.id === item.id
+                    );
+                    let updatedCartItems;
 
-            console.log("Adding to cart:", item); // ✅ Debugging log
-            if (!item.image) {
-                console.error("Missing image property in cart item:", item);
-            }
+                    if (existingItem) {
+                        updatedCartItems = state.cartItems.map((cartItem) =>
+                            cartItem.id === item.id
+                                ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                                : cartItem
+                        );
+                    } else {
+                        updatedCartItems = [...state.cartItems, { ...item, quantity: 1 }];
+                    }
 
-            const existingItem = state.cartItems.find((cartItem) => cartItem.id === item.id);
-            let updatedCartItems;
+                    return {
+                        cartItems: updatedCartItems,
+                        cartCount: updatedCartItems.reduce(
+                            (count, i) => count + i.quantity,
+                            0
+                        ),
+                        totalPrice: updatedCartItems.reduce(
+                            (total, i) => total + i.price * i.quantity,
+                            0
+                        ),
+                    };
+                }),
 
-            if (existingItem) {
-                updatedCartItems = state.cartItems.map((cartItem) =>
-                    cartItem.id === item.id
-                        ? { ...cartItem, quantity: cartItem.quantity + 1 }
-                        : cartItem
-                );
-            } else {
-                updatedCartItems = [...state.cartItems, { ...item, quantity: 1 }];
-            }
+            removeFromCart: (itemId) =>
+                set((state) => {
+                    const updatedCartItems = state.cartItems
+                        .map((item) =>
+                            item.id === itemId
+                                ? { ...item, quantity: item.quantity - 1 }
+                                : item
+                        )
+                        .filter((item) => item.quantity > 0); // Remove if quantity is 0
 
-            return {
-                cartItems: updatedCartItems,
-                cartCount: updatedCartItems.reduce((count, i) => count + i.quantity, 0),
-                totalPrice: updatedCartItems.reduce((total, i) => total + i.price * i.quantity, 0),
-            };
+                    return {
+                        cartItems: updatedCartItems,
+                        cartCount: updatedCartItems.reduce(
+                            (count, i) => count + i.quantity,
+                            0
+                        ),
+                        totalPrice: updatedCartItems.reduce(
+                            (total, i) => total + i.price * i.quantity,
+                            0
+                        ),
+                    };
+                }),
+
+            increaseQuantity: (itemId: string) =>
+                set((state) => {
+                    const updatedCartItems = state.cartItems.map((item) =>
+                        item.id === itemId
+                            ? { ...item, quantity: item.quantity + 1 }
+                            : item
+                    );
+
+                    return {
+                        cartItems: updatedCartItems,
+                        cartCount: updatedCartItems.reduce(
+                            (count, i) => count + i.quantity,
+                            0
+                        ),
+                        totalPrice: updatedCartItems.reduce(
+                            (total, i) => total + i.price * i.quantity,
+                            0
+                        ),
+                    };
+                }),
+
+            decreaseQuantity: (itemId: string) =>
+                set((state) => {
+                    const updatedCartItems = state.cartItems.map((item) =>
+                        item.id === itemId && item.quantity > 1
+                            ? { ...item, quantity: item.quantity - 1 }
+                            : item
+                    );
+
+                    return {
+                        cartItems: updatedCartItems,
+                        cartCount: updatedCartItems.reduce(
+                            (count, i) => count + i.quantity,
+                            0
+                        ),
+                        totalPrice: updatedCartItems.reduce(
+                            (total, i) => total + i.price * i.quantity,
+                            0
+                        ),
+                    };
+                }),
         }),
-
-    removeFromCart: (itemId) =>
-        set((state) => {
-            const updatedCartItems = state.cartItems.map((item) =>
-                item.id === itemId
-                    ? { ...item, quantity: item.quantity - 1 }
-                    : item
-            )
-                .filter((item) => item.quantity > 0); // Remove if quantity is 0
-
-            return {
-                cartItems: updatedCartItems,
-                cartCount: updatedCartItems.reduce((count, i) => count + i.quantity, 0),
-                totalPrice: updatedCartItems.reduce((total, i) => total + i.price * i.quantity, 0),
-            };
-        }),
-
-    increaseQuantity: (itemId: string) =>
-        set((state) => {
-            const updatedCartItems = state.cartItems.map((item) =>
-                item.id === itemId
-                    ? { ...item, quantity: item.quantity + 1 }
-                    : item
-            );
-
-            return {
-                cartItems: updatedCartItems,
-                cartCount: updatedCartItems.reduce((count, i) => count + i.quantity, 0),
-                totalPrice: updatedCartItems.reduce((total, i) => total + i.price * i.quantity, 0),
-            };
-        }),
-
-    decreaseQuantity: (itemId: string) =>
-        set((state) => {
-            const updatedCartItems = state.cartItems.map((item) =>
-                item.id === itemId && item.quantity > 1
-                    ? { ...item, quantity: item.quantity - 1 }
-                    : item
-            );
-
-            return {
-                cartItems: updatedCartItems,
-                cartCount: updatedCartItems.reduce((count, i) => count + i.quantity, 0),
-                totalPrice: updatedCartItems.reduce((total, i) => total + i.price * i.quantity, 0),
-            };
-        }),
-}));
+        {
+            name: "cart-storage",
+        }
+    )
+);
 
 export default useCartStore;
