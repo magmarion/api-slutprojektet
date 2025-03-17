@@ -1,9 +1,10 @@
 "use client";
 import useCartStore from "@/stores/cartStore";
-import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { FaMinus, FaPlus } from "react-icons/fa";
 import { z } from "zod";
 
 const checkoutSchema = z.object({
@@ -27,7 +28,7 @@ const checkoutSchema = z.object({
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
 export default function CheckoutPage() {
-    const { cartItems, totalPrice } = useCartStore();
+    const { cartItems, totalPrice, increaseQuantity, decreaseQuantity } = useCartStore();
 
     // 3. Använd zodResolver för att koppla schemat till React Hook Form
     const {
@@ -67,10 +68,34 @@ export default function CheckoutPage() {
                                         className="rounded-md"
                                     />
 
+                                    {/* Product Info and Quantity */}
                                     <div className="flex flex-col items-start ml-20">
                                         <p className="font-semibold">{item.title}</p>
-                                        <p className="text-gray-600">Quantity: {item.quantity}</p>
+
+                                        {/* Quantity with Increase and Decrease Buttons */}
+                                        <div className="flex items-center space-x-2 mt-2">
+                                            <p className="text-gray-600 text-xs md:text-base flex-shrink-0">{item.quantity}</p>
+
+                                            <button
+                                                data-cy="increase-quantity-button"
+                                                onClick={() => increaseQuantity(item.id)}
+                                                className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                            >
+                                                <FaPlus className="w-3 h-3" />
+                                            </button>
+
+                                            <button
+                                                data-cy="decrease-quantity-button"
+                                                onClick={() => decreaseQuantity(item.id)}
+                                                className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                            >
+                                                <FaMinus className="w-3 h-3" />
+                                            </button>
+                                        </div>
                                     </div>
+
+
+                                    {/* Price */}
                                     <p className="font-semibold ml-auto">{item.price} SEK</p>
                                 </div>
                             ))
