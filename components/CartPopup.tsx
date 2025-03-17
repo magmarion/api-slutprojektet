@@ -62,13 +62,13 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                 alt={item.title}
                                 className="w-16 h-16 object-cover rounded-md"
                             />
-                            <div>
+                            <div className="flex flex-col items-start ml-10">
                                 <h3 className="font-semibold">{item.title}</h3>
                                 <p className="text-gray-600">Quantity: {item.quantity}</p>
                             </div>
                             <button
                                 onClick={() => removeFromCart(item.id)}
-                                className="text-slate-500 hover:text-slate-700"
+                                className="text-slate-500 hover:text-slate-700 ml-auto"
                             >
                                 <FaTrashAlt className="w-6 h-6 cursor-pointer transition-all duration-300 hover:scale-125" />
                             </button>
