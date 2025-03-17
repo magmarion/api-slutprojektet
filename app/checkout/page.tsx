@@ -52,10 +52,19 @@ export default function CheckoutPage() {
                     <h1 className="text-2xl font-bold mb-2">Checkout</h1>
                     <div className="bg-gray-100 p-4 rounded-md mb-2">
 
-                        {cartItems.length > 0 ? (
+                        {cartItems?.length > 0 ? (
                             cartItems.map((item) => (
-                                <div key={item.id} data-cy="cart-item" className="flex items-center justify-between border-b pb-8 mb-2">
-                                    <Image src={item.image} alt={item.title} width={50} height={50} className="rounded-md"
+                                <div
+                                    key={item.id}
+                                    data-cy="cart-item"
+                                    className="flex items-center justify-between border-b pb-8 mb-2">
+
+                                    <Image
+                                        src={item.image}
+                                        alt={item.title}
+                                        width={50}
+                                        height={50}
+                                        className="rounded-md"
                                     />
 
                                     <div className="flex flex-col items-start ml-20">
