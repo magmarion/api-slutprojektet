@@ -13,7 +13,7 @@ const checkoutSchema = z.object({
         .min(1, { message: "Email is required" })
         .email("Email is invalid"),
     address: z.string().min(1, { message: "Address is required" }),
-    zip: z.number().min(1, "Zip is required"),
+    zip: z.string().min(1, "Zip is required"),
     country: z.string().min(1, { message: "Country is required" }),
     city: z.string().min(1, { message: "City is required" }),
     phone: z.string().min(1, "Phone number is invalid"),
