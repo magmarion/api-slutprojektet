@@ -62,3 +62,22 @@ import {
                   </p>
                 </div>
               ))}     
+           {/* TOTAL */}
+           <div className="mt-5 border-t pt-2 flex justify-between">
+                <p className="text-gray-600 text-sm sm:text-base">
+                  Total Price:
+                </p>
+                <p className="font-semibold text-sm md:text-base">
+                  {totalPrice} SEK
+                </p>
+              </div>
+            </div>
+          ) : (
+            <p className="text-sm">
+              Looks like your cart is empty. Please visit the shop to add more
+              items.
+            </p>
+          )}
+        </CardContent>
+      </Card>
+   
