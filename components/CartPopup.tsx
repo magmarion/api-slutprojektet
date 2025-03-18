@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import Link from "next/link";
@@ -8,46 +8,48 @@ import useCartStore from "../stores/cartStore";
 
 
 interface CartItem {
-    id: string;
-    title: string;
-    price: number;
-    quantity: number;
-    image: string;
+  id: string;
+  title: string;
+  price: number;
+  quantity: number;
+  image: string;
 }
 
 interface CartPopupProps {
-    isOpen: boolean;
-    onClose: () => void;
-    cartItems: CartItem[];
+  isOpen: boolean;
+  onClose: () => void;
+  cartItems: CartItem[];
 }
 
 export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
     const { cartItems, totalPrice, removeFromCart, increaseQuantity, decreaseQuantity } = useCartStore();
     const [isClosing, setIsClosing] = useState(false);
 
-    const handleClose = () => {
-        setIsClosing(true);
-        setTimeout(() => {
-            onClose();
-            setIsClosing(false);
-        }, 300);
-    };
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+      setIsClosing(false);
+    }, 300);
+  };
 
-    useEffect(() => {
-        if (isOpen) setIsClosing(false);
-    }, [isOpen]);
+  useEffect(() => {
+    if (isOpen) setIsClosing(false);
+  }, [isOpen]);
 
-    if (!isOpen) return null;
+  if (!isOpen) return null;
 
-    return (
-        <Sheet open={isOpen} onOpenChange={handleClose}>
-            <SheetContent className={`bg-white w-full max-w-[400px] p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"} sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px]`}
-            >
-
-                <SheetTitle className="sr-only">Cart Items</SheetTitle>
-                <div className="flex justify-between items-center">
-                    <h2 className="text-xl font-bold">Your Items</h2>
-                </div>
+  return (
+    <Sheet open={isOpen} onOpenChange={handleClose}>
+      <SheetContent
+        className={`bg-white w-full max-w-[400px] p-6 overflow-y-auto transform transition-all ease ${
+          isClosing ? "translate-x-full" : "translate-x-0"
+        } sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px]`}
+      >
+        <SheetTitle className="sr-only">Cart Items</SheetTitle>
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-bold">Your Items</h2>
+        </div>
 
                 {/* Left Side: List of Cart Items */}
                 <div data-cy="cart-item"
