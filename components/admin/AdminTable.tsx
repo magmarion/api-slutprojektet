@@ -81,7 +81,7 @@ export default function AdminProductsGrid({ products }: { products: Product[] })
 
                         <CardFooter className="flex items-center justify-between space-x-2">
                             <Link href={`/admin/product/${product.articleNumber}`}>
-                                <Button variant="outline" data-cy="admin-edit-product" className="flex items-center gap-1">
+                                <Button variant="outline" data-cy="admin-edit-product" className="flex items-center gap-1 cursor-pointer">
                                     <Edit size={16} />
                                     Edit
                                 </Button>
@@ -100,7 +100,7 @@ export default function AdminProductsGrid({ products }: { products: Product[] })
                                 <Button
                                     variant="destructive"
                                     data-cy="admin-remove-product"
-                                    className="flex items-center gap-1"
+                                    className="flex items-center gap-1 cursor-pointer"
                                     onClick={() => setOpenDeleteDialog(product.articleNumber)}
                                 >
                                     <Trash size={16} />
