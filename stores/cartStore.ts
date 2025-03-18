@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, PersistStorage } from "zustand/middleware";
 
 interface CartItem {
     id: string;
@@ -18,6 +18,20 @@ interface CartStore {
     increaseQuantity: (id: string) => void;
     decreaseQuantity: (id: string) => void;
 }
+
+const customStorage: PersistStorage<CartStore> = {
+    getItem: (name) => {
+        const storedValue = localStorage.getItem(name);
+        console.log(storedValue);
+        return { state: { cartItems: storedValue ? JSON.parse(storedValue) : [] } } as any;
+    },
+    setItem: (name, value) => {
+        localStorage.setItem(name, JSON.stringify(value.state.cartItems));
+    },
+    removeItem: (name) => {
+        localStorage.removeItem(name);
+    },
+};
 
 const useCartStore = create<CartStore>()(
     persist(
@@ -117,7 +131,8 @@ const useCartStore = create<CartStore>()(
                 }),
         }),
         {
-            name: "cart-storage",
+            name: "cart",
+            // storage: customStorage,
         }
     )
 );

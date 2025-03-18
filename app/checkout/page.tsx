@@ -20,7 +20,7 @@ export default function CheckoutPage() {
                                 <div
                                     key={item.id}
                                     data-cy="cart-item"
-                                    className="flex items-center justify-between border-b pb-8 mb-2"
+                                    className="flex items-center justify-between border-b pb-8 mb-2 relative"
                                 >
                                     <div className="flex flex-col max-[440px]:items-center max-[440px]:mr-4">
                                         <Image
@@ -31,19 +31,19 @@ export default function CheckoutPage() {
                                             className="rounded-md mr-4 max-[440px]:mb-2"
                                         />
                                         {/* Price (under the image on screens < 440px) */}
-                                        <p data-cy="product-price" className="font-semibold text-sm sm:text-base max-[440px]:block hidden">
-                                            {item.price} SEK
+                                        <p data-cy="product-price" className="font-semibold text-sm sm:text-base min-[440px]:absolute right-0">
+                                            {item.price * item.quantity} SEK
                                         </p>
                                     </div>
 
                                     <div className="flex flex-col items-start flex-1 min-w-0">
                                         {/* Title */}
-                                        <p className="font-semibold text-sm sm:text-base max-[440px]:mb-8">
+                                        <p data-cy="product-title" className="font-semibold text-sm sm:text-base max-[440px]:mb-8">
                                             {item.title}
                                         </p>
 
                                         <div className="flex items-center space-x-2 mt-2">
-                                            <p data-cy="product-quantity" className="text-gray-600 text-xs sm:text-base w-24">
+                                            <p className="text-gray-600 text-xs sm:text-base w-24">
                                                 Quantity:
                                             </p>
                                             <button
@@ -53,7 +53,7 @@ export default function CheckoutPage() {
                                             >
                                                 <FaMinus className="w-3 h-3" />
                                             </button>
-                                            <span className="text-gray-600 text-sm sm:text-base">{item.quantity}</span>
+                                            <span data-cy="product-quantity" className="text-gray-600 text-sm sm:text-base">{item.quantity}</span>
                                             <button
                                                 data-cy="increase-quantity-button"
                                                 onClick={() => increaseQuantity(item.id)}
@@ -72,9 +72,9 @@ export default function CheckoutPage() {
 
                                     </div>
 
-                                    <p className="font-semibold text-sm sm:text-base ml-4 max-[440px]:hidden">
+                                    {/* <p className="font-semibold text-sm sm:text-base ml-4 max-[440px]:hidden">
                                         {item.price} SEK
-                                    </p>
+                                    </p> */}
                                 </div>
                             ))
                         ) : (
