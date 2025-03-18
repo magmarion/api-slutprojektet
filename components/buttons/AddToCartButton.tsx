@@ -9,17 +9,18 @@ interface AddToCartButtonProps {
   title: string;
   price: number;
   image: string;
+  articleNumber: string;
 }
 
-export default function AddToCartButton({ id, title, price, image }: AddToCartButtonProps) {
+export default function AddToCartButton({ id, title, price, image, articleNumber }: AddToCartButtonProps) {
 
   const { addToCart } = useCartStore();
 
   const handleAddToCart = () => {
-    addToCart({ id, title, price, quantity: 1, image });
+    addToCart({ id, articleNumber, title, price, quantity: 1, image });
     toast.success(
       <span data-cy="added-to-cart-toast">
-        <strong>{title}</strong> added to cart!
+        <strong>{title}</strong> has been added
       </span>
     );
   };
