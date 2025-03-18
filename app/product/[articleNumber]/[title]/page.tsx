@@ -17,7 +17,7 @@ export default async function ProductDetail({
   if (!product) return notFound();
 
   return (
-    <main>
+    <main className="flex min-h-screen flex-col items-center bg-slate-200 ">
       <div data-cy="product" className="pt-30 lg:flex justify-center ">
         <Image
           src={product.image}

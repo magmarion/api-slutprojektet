@@ -24,7 +24,7 @@ export default async function Home({
   const totalProducts = await db.product.count();
   const totalPages = Math.ceil(totalProducts / pageSize);
   return (
-    <main className="flex min-h-screen flex-col items-center bg-slate-200 ">
+    <main className="flex min-h-screen flex-col items-center bg-slate-200  ">
       <section className="relative w-full h-[20vh] md:h-[40vh]">
         <Image
           src="/heroimage.jpg"
@@ -36,7 +36,9 @@ export default async function Home({
         <div className="absolute inset-0 font-extrabold text-gray-800 flex flex-col justify-center text-[16px] md:text-3xl lg:text-5xl md:pl-10 lg:pl-30 ml-3 ">
           <div className="  text-slate-900 md:tracking-wide text-[11px]  hover:text-gray-400 w-fit ">
             <p className="   font-medium md:text-[14px]">TECH</p>
-            <p className="font-extrabold -mt-1.5 lg:-mt-0.5   md:text-[14px]">GEAR</p>
+            <p className="font-extrabold -mt-1.5 lg:-mt-0.5   md:text-[14px]">
+              GEAR
+            </p>
           </div>
 
           <div className="leading-none ">
@@ -44,16 +46,15 @@ export default async function Home({
             <p className="">when you need.</p>
           </div>
           <div className="leading-none">
-
-          <p className="text-[0.7rem] mt-1 md:mt-2 md:text-[1rem] font-bold">
-            ✔ In stock
-          </p>
-          <p className="text-[0.7rem] md:text-[1rem] font-bold">
-            ✔ Fast delivery
-          </p>
-          <p className="text-[0.7rem] md:text-[1rem] font-bold">
-            ✔ 24/7 support
-          </p>
+            <p className="text-[0.7rem] mt-1 md:mt-2 md:text-[1rem] font-bold">
+              ✔ In stock
+            </p>
+            <p className="text-[0.7rem] md:text-[1rem] font-bold">
+              ✔ Fast delivery
+            </p>
+            <p className="text-[0.7rem] md:text-[1rem] font-bold">
+              ✔ 24/7 support
+            </p>
           </div>
           <Link href={"/product"} className="w-fit">
             <Button
