@@ -33,16 +33,17 @@ export default async function Home({
           priority
           className="object-center object-cover"
         />
-        <div className="absolute inset-0 font-extrabold text-gray-800 flex flex-col justify-center text-sm md:text-3xl lg:text-5xl md:pl-10 lg:pl-30 ml-3 ">
-          <div className="leading-none  text-slate-900 tracking-wide   hover:text-gray-400 w-fit ">
-            <p className="text-xs">TECH</p>
-            <p className="font-extrabold -mt-1.5 text-xs">GEAR</p>
+        <div className="absolute inset-0 font-extrabold text-gray-800 flex flex-col justify-center text-[16px] md:text-3xl lg:text-5xl md:pl-10 lg:pl-30 ml-3 ">
+          <div className="  text-slate-900 md:tracking-wide text-[11px]  hover:text-gray-400 w-fit ">
+            <p className="   font-medium md:text-[14px]">TECH</p>
+            <p className="font-extrabold -mt-1.5 lg:-mt-0.5   md:text-[14px]">GEAR</p>
           </div>
 
-          <div className="">
+          <div className="leading-none ">
             <p>tech you need,</p>
-            <p className="lg:mt-3">when you need.</p>
+            <p className="">when you need.</p>
           </div>
+          <div className="leading-none">
 
           <p className="text-[0.7rem] mt-1 md:mt-2 md:text-[1rem] font-bold">
             ✔ In stock
@@ -53,7 +54,8 @@ export default async function Home({
           <p className="text-[0.7rem] md:text-[1rem] font-bold">
             ✔ 24/7 support
           </p>
-          <Link href={"/product"}>
+          </div>
+          <Link href={"/product"} className="w-fit">
             <Button
               variant={"ghost"}
               className="w-[55px] h-[30px] text-xs font-bold mt-3  md:w-[100px] md:h-[35px] rounded-xs cursor-pointer border border-gray-900 "
@@ -63,7 +65,7 @@ export default async function Home({
           </Link>
         </div>
       </section>
-      <h1 className="text-2xl font-bold text-gray-900 m-10">
+      <h1 className="text-2xl font-bold text-center text-gray-900 m-10">
         Supah Dupah Hot Deals Right Now
       </h1>
 
@@ -95,7 +97,10 @@ export default async function Home({
               <div className="flex md:justify-center">
                 <p>Apple</p>
               </div>
-              <p data-cy="product-price" className="text-gray-700 flex md:justify-center">
+              <p
+                data-cy="product-price"
+                className="text-gray-700 flex md:justify-center"
+              >
                 {product.price} SEK
               </p>
               <AddToCartButton
