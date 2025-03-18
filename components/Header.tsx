@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
