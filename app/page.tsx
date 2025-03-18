@@ -56,7 +56,7 @@ export default async function Home({
               ✔ 24/7 support
             </p>
           </div>
-          <Link href={"/product"} className="w-fit">
+          <Link href="/product" className="w-fit">
             <Button
               variant={"ghost"}
               className="w-[55px] h-[30px] text-xs font-bold mt-3  md:w-[100px] md:h-[35px] rounded-xs cursor-pointer border border-gray-900 "
