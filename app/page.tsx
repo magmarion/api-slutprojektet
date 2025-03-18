@@ -33,7 +33,7 @@ export default async function Home({
           priority
           className="object-center object-cover"
         />
-        <div className="absolute inset-0 font-extrabold text-gray-800 flex flex-col justify-center text-[16px] md:text-3xl lg:text-5xl md:pl-10 lg:pl-30 ml-3 ">
+        <div className="absolute inset-0 font-extrabold text-gray-800 flex flex-col justify-center text-[16px] md:text-3xl lg:text-5xl md:pl-10 lg:pl-30 ml-3 shadow-md ">
           <div className="  text-slate-900 md:tracking-wide text-[11px]  hover:text-gray-400 w-fit ">
             <p className="   font-medium md:text-[14px]">TECH</p>
             <p className="font-extrabold -mt-1.5 lg:-mt-0.5   md:text-[14px]">
@@ -90,7 +90,7 @@ export default async function Home({
               <Link href={`/product/${product.articleNumber}/${product.title}`}>
                 <h2
                   data-cy="product-title"
-                  className="text-lg font-semibold mt-2 hover:underline flex justify-center"
+                  className="text-lg font-semibold mt-2 hover:underline flex md:justify-center "
                 >
                   {product.title}
                 </h2>
