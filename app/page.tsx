@@ -106,6 +106,7 @@ export default async function Home({
                             </p>
                             <AddToCartButton
                                 id={product.id}
+                                articleNumber={product.articleNumber}
                                 title={product.title}
                                 price={product.price}
                                 image={product.image}
