@@ -38,4 +38,27 @@ import {
                   key={item.id}
                   className="flex items-center justify-between border-b pb-4 mb-4"
                 >
-                    
+               {/* Item Info */}
+               <div className="flex items-center">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      width={50}
+                      height={50}
+                      className="rounded-md mr-4"
+                    />
+                    <div>
+                      <p className="font-semibold text-sm sm:text-base">
+                        {item.title}
+                      </p>
+                      <p className="text-gray-600 text-sm sm:text-base">
+                        Quantity: {item.quantity}
+                      </p>
+                    </div>
+                  </div>
+                  {/* Price */}
+                  <p className="font-semibold text-sm sm:text-base ml-4">
+                    {item.price} SEK
+                  </p>
+                </div>
+              ))}     
