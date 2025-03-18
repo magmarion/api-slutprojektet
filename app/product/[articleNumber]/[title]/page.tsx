@@ -43,7 +43,13 @@ export default async function ProductDetail({
             Price: {product.price} SEK
           </p>
           <div className="w-64 p-5">
-            <AddToCartButton id={""} title={""} price={0} image={""} />
+            <AddToCartButton
+              id={product.id}
+              articleNumber={product.articleNumber}
+              title={product.title}
+              price={product.price}
+              image={product.image}
+            />
           </div>
         </div>
       </div>
