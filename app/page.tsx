@@ -75,7 +75,7 @@ export default async function Home({
                     <div
                         data-cy="product"
                         key={product.articleNumber}
-                        className="border rounded-xs p-4 shadow-md bg-white flex md:flex-col items-center  "
+                        className="border rounded-md p-4 shadow-md bg-white flex md:flex-col items-center  "
                     >
                         <Link href={`/product/${product.articleNumber}/${product.title}`}>
                             <Image
