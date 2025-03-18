@@ -30,3 +30,12 @@ import {
           </CardDescription>
         </CardHeader>
         <CardContent></CardContent>
+         {/* Order Summary */}
+         {cartItems.length > 0 ? (
+            <div className="bg-gray-100 p-4 rounded-md">
+              {cartItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between border-b pb-4 mb-4"
+                >
+                    
