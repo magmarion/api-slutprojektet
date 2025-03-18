@@ -17,7 +17,11 @@ export default function AddToCartButton({ id, title, price, image }: AddToCartBu
 
   const handleAddToCart = () => {
     addToCart({ id, title, price, quantity: 1, image });
-    toast.success("Added to cart!");
+    toast.success(
+      <span data-cy="added-to-cart-toast">
+        <strong>{title}</strong> added to cart!
+      </span>
+    );
   };
 
   return (
