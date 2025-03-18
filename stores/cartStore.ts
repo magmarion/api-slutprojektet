@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, PersistStorage } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 
 interface CartItem {
     id: string;
@@ -18,20 +18,6 @@ interface CartStore {
     increaseQuantity: (id: string) => void;
     decreaseQuantity: (id: string) => void;
 }
-
-const customStorage: PersistStorage<CartStore> = {
-    getItem: (name) => {
-        const storedValue = localStorage.getItem(name);
-        console.log(storedValue);
-        return { state: { cartItems: storedValue ? JSON.parse(storedValue) : [] } } as any;
-    },
-    setItem: (name, value) => {
-        localStorage.setItem(name, JSON.stringify(value.state.cartItems));
-    },
-    removeItem: (name) => {
-        localStorage.removeItem(name);
-    },
-};
 
 const useCartStore = create<CartStore>()(
     persist(
@@ -98,35 +84,25 @@ const useCartStore = create<CartStore>()(
 
                     return {
                         cartItems: updatedCartItems,
-                        cartCount: updatedCartItems.reduce(
-                            (count, i) => count + i.quantity,
-                            0
-                        ),
-                        totalPrice: updatedCartItems.reduce(
-                            (total, i) => total + i.price * i.quantity,
-                            0
-                        ),
+                        cartCount: state.cartCount + 1, // Increment directly instead of recalculating
+                        totalPrice: state.totalPrice + (state.cartItems.find(i => i.id === itemId)?.price || 0) // Update only affected total
                     };
                 }),
 
             decreaseQuantity: (itemId: string) =>
                 set((state) => {
-                    const updatedCartItems = state.cartItems.map((item) =>
-                        item.id === itemId && item.quantity > 1
-                            ? { ...item, quantity: item.quantity - 1 }
-                            : item
-                    );
+                    const updatedCartItems = state.cartItems
+                        .map((item) =>
+                            item.id === itemId
+                                ? { ...item, quantity: item.quantity - 1 } // Decrease quantity
+                                : item
+                        )
+                        .filter((item) => item.quantity > 0); // Remove item if quantity is 0
 
                     return {
                         cartItems: updatedCartItems,
-                        cartCount: updatedCartItems.reduce(
-                            (count, i) => count + i.quantity,
-                            0
-                        ),
-                        totalPrice: updatedCartItems.reduce(
-                            (total, i) => total + i.price * i.quantity,
-                            0
-                        ),
+                        cartCount: updatedCartItems.reduce((count, i) => count + i.quantity, 0),
+                        totalPrice: updatedCartItems.reduce((total, i) => total + i.price * i.quantity, 0),
                     };
                 }),
         }),
