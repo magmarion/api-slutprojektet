@@ -45,7 +45,6 @@ export default async function ProductDetail({
           <div className="w-64 p-5">
             <AddToCartButton
               id={product.id}
-              articleNumber={product.articleNumber}
               title={product.title}
               price={product.price}
               image={product.image}
