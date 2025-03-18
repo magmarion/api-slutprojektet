@@ -24,7 +24,7 @@ export default async function Home({
   const totalProducts = await db.product.count();
   const totalPages = Math.ceil(totalProducts / pageSize);
   return (
-    <main className="flex min-h-screen flex-col items-center  ">
+    <main className="flex min-h-screen flex-col items-center bg-slate-200 ">
       <section className="relative w-full h-[20vh] md:h-[40vh]">
         <Image
           src="/heroimage.jpg"
@@ -33,15 +33,26 @@ export default async function Home({
           priority
           className="object-center object-cover"
         />
-        <div className="absolute inset-0 font-bold text-gray-800 flex flex-col justify-center text-sm md:text-3xl lg:text-4xl md:pl-10 lg:pl-30 ml-3 ">
-          <p>tech you need,</p>
-          <p className="lg:mt-3">when you need.</p>
+        <div className="absolute inset-0 font-extrabold text-gray-800 flex flex-col justify-center text-sm md:text-3xl lg:text-5xl md:pl-10 lg:pl-30 ml-3 ">
+          <div className="leading-none  text-slate-900 tracking-wide   hover:text-gray-400 w-fit ">
+            <p className="text-xs">TECH</p>
+            <p className="font-extrabold -mt-1.5 text-xs">GEAR</p>
+          </div>
 
-          <p className="text-[0.7rem] mt-2 md:mt-5 md:text-[1rem]">
+          <div className="">
+            <p>tech you need,</p>
+            <p className="lg:mt-3">when you need.</p>
+          </div>
+
+          <p className="text-[0.7rem] mt-1 md:mt-2 md:text-[1rem] font-bold">
             ✔ In stock
           </p>
-          <p className="text-[0.7rem] md:text-[1rem]">✔ Fast delivery</p>
-          <p className="text-[0.7rem] md:text-[1rem]">✔ 24/7 support</p>
+          <p className="text-[0.7rem] md:text-[1rem] font-bold">
+            ✔ Fast delivery
+          </p>
+          <p className="text-[0.7rem] md:text-[1rem] font-bold">
+            ✔ 24/7 support
+          </p>
           <Link href={"/product"}>
             <Button
               variant={"ghost"}
@@ -52,16 +63,16 @@ export default async function Home({
           </Link>
         </div>
       </section>
-      <h1 className="text-2xl font-bold text-gray-800 m-10">
+      <h1 className="text-2xl font-bold text-gray-900 m-10">
         Supah Dupah Hot Deals Right Now
       </h1>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 ">
         {products.map((product) => (
           <div
             data-cy="product"
             key={product.articleNumber}
-            className="border rounded-xs p-4 shadow-md bg-white flex md:flex-col items-center lg:mt-5 "
+            className="border rounded-xs p-4 shadow-md bg-white flex md:flex-col items-center  "
           >
             <Link href={`/product/${product.articleNumber}/${product.title}`}>
               <Image
@@ -72,7 +83,7 @@ export default async function Home({
                 className="object-cover w-[150px] h-[150px] rounded-md cursor-pointer"
               />
             </Link>
-            <div className=" flex flex-col justify-between items-stretch md:w-full gap-2 ml-3">
+            <div className=" flex flex-col justify-between items-stretch md:w-full gap-2 ml-5 md:ml-0">
               <Link href={`/product/${product.articleNumber}/${product.title}`}>
                 <h2
                   data-cy="product-title"
@@ -81,11 +92,11 @@ export default async function Home({
                   {product.title}
                 </h2>
               </Link>
-                <div className="flex md:justify-center">
-                  <p>Apple</p>
-                </div>
-              <p data-cy="product-price" className="text-gray-700">
-                Price: {product.price} SEK
+              <div className="flex md:justify-center">
+                <p>Apple</p>
+              </div>
+              <p data-cy="product-price" className="text-gray-700 flex md:justify-center">
+                {product.price} SEK
               </p>
               <AddToCartButton
                 id={product.id}
