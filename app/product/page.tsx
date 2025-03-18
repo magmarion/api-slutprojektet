@@ -35,9 +35,6 @@ export default async function ProductsPage() {
                   {product.title}
                 </h2>
               </Link>
-                <div className="flex md:justify-center">
-                  <p>Apple</p>
-                </div>
               <p data-cy="product-price" className="text-gray-700">
                 Price: {product.price} SEK
               </p>
