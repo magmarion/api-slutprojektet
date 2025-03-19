@@ -15,9 +15,14 @@ import Image from "next/image";
 
 
 export default function ConfirmationPage() {
-  // 1) Pull cart items, total price, and checkout data (customer info) from your store
-  const { cartItems, totalPrice, checkoutInfo } = useCartStore();
+  const { checkoutItems, checkoutInfo } = useCartStore();
 
+
+  const orderTotal = checkoutItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  
   return (
     <div className="flex flex-col min-h-screen">
       {/* MAIN CONTENT */}
@@ -35,10 +40,10 @@ export default function ConfirmationPage() {
           </CardHeader>
           <CardContent>
             {/* If there are items in the cart, show the summary */}
-            {cartItems.length > 0 ? (
+            {checkoutItems.length > 0 ? (
               <div className="bg-gray-100 p-4 rounded-md">
                 {/* Cart Items */}
-                {cartItems.map((item) => (
+                {checkoutItems.map((item) => (
                   <div
                     key={item.id}
                     data-cy="cart-item"
@@ -81,7 +86,7 @@ export default function ConfirmationPage() {
                     Total Price:
                   </p>
                   <p className="font-semibold text-sm md:text-base">
-                    {totalPrice} SEK
+                    {orderTotal} SEK
                   </p>
                 </div>
               </div>

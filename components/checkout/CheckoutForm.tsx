@@ -46,8 +46,15 @@ export default function CheckoutForm() {
 
     const orderNumber = nanoid(8);
 
+    const { cartItems, setCheckoutItems, clearCart } = useCartStore.getState();
+
+    setCheckoutItems(cartItems);
+
+    clearCart();
+
     router.push(`/confirmation/${orderNumber}`);
-  };
+
+    };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} data-cy="customer-form" className="flex flex-col">
