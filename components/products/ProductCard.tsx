@@ -43,10 +43,10 @@ export default function ProductCard({ product }: ProductCardProps) {
                     price={product.price}
                     image={product.image}
                 />
-
-                <Button className="bg-slate-500 w-full rounded-xs cursor-pointer">
+                <Button className="bg-slate-500 w-[170px] h-[40px] rounded-xs cursor-pointer">
                     Info
                 </Button>
+
             </div>
         </Link>
     );

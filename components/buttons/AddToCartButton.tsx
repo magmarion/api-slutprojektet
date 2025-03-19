@@ -27,9 +27,10 @@ export default function AddToCartButton({ id, title, price, image }: AddToCartBu
     <Button
       data-cy="product-buy-button"
       onClick={handleAddToCart}
-      className="mt-3 w-full cursor-pointer rounded-xs"
+      className="mt-3 w-[170px] h-[40px] cursor-pointer rounded-xs"
     >
       Buy
     </Button>
+
   );
 }
