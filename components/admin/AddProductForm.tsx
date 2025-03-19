@@ -61,7 +61,6 @@ export default function AddProductForm() {
         }
     };
 
-
     return (
         <Card>
             <CardHeader>

@@ -40,7 +40,6 @@ export default function CheckoutForm() {
   const onSubmit = (data: CheckoutFormData) => {
     console.log("Form data:", data);
 
-
     setCheckoutInfo({
       name: data.name,
       email: data.email,
@@ -51,8 +50,6 @@ export default function CheckoutForm() {
       country: data.country,
 
     });
-
-
     router.push("/checkout/confirmation");
   };
 

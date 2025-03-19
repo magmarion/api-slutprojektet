@@ -12,7 +12,6 @@ interface AddToCartButtonProps {
 }
 
 export default function AddToCartButton({ id, title, price, image }: AddToCartButtonProps) {
-
   const { addToCart } = useCartStore();
 
   const handleAddToCart = () => {
