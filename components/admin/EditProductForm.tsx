@@ -31,7 +31,6 @@ interface EditProductFormProps {
     product: Product;
 }
 
-
 export default function EditProductForm({ product }: EditProductFormProps) {
     const router = useRouter();
 

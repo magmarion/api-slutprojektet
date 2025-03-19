@@ -36,7 +36,6 @@ export default function CheckoutForm() {
   const onSubmit = (data: CheckoutFormData) => {
     console.log("Form data:", data);
 
-
     setCheckoutInfo({
       name: data.name,
       email: data.email,
@@ -45,8 +44,6 @@ export default function CheckoutForm() {
       zip: data.zip,
       city: data.city,
     });
-
-
     router.push("/confirmation");
   };
 

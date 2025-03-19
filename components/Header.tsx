@@ -16,9 +16,9 @@ export default function Header() {
     <header className=" bg-slate-900 shadow-md flex justify-between items-center md:pl-5 md:pr-5 h-15 md:h-20">
       <Link
         href="/"
-        className="leading-none p-2 text-white tracking-wide   hover:text-gray-400  "
+        className="leading-none p-2 text-white tracking-wide hover:text-gray-400  "
       >
-        <p className="text-xl ">TECH</p>
+        <p className="text-xl">TECH</p>
         <p className="font-extrabold -mt-3 text-xl">GEAR</p>
       </Link>
 
@@ -47,19 +47,17 @@ export default function Header() {
         {/* Cart Icon */}
         <button
           onClick={() => setIsCartOpen(true)}
-          className="relative cursor-pointer"
+          className="relative cursor-pointer group"
           data-cy="open-cart-sidebar"
         >
           <span
             data-cy="cart-items-count-badge"
-            className="absolute -top-3 -right-3 w-[20px] h-[20px] bg-slate-200 text-slate-900 text-xs flex justify-center items-center font-semibold rounded-full z-0"
+            className="absolute -top-3 -right-3 w-[20px] h-[20px] bg-slate-200 text-slate-900 text-xs flex justify-center items-center font-semibold rounded-full group-hover:bg-gray-400 transition-colors"
           >
             {cartCount}
           </span>
-          <FaShoppingCart className="w-6 h-6 text-slate-200 hover:text-gray-400 relative" />
+          <FaShoppingCart className="w-6 h-6 text-slate-200 group-hover:text-slate-200 hover:text-gray-400 transition-colors" />
         </button>
-
-
 
         <CartPopup
           isOpen={isCartOpen}
