@@ -1,4 +1,3 @@
-"use client";
 import ProductCard from "@/components/products/ProductCard";
 import { db } from "@/prisma/db";
 
