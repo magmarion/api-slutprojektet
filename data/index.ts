@@ -20,27 +20,27 @@ export const products: Product[] = [
   {
     id: "",
     articleNumber: "1001",
-    title: "Headphones",
+    title: "Bowers & Wilkins PX8",
     price: 5500,
-    description: "Upplev friheten med trådlösa hörlurar som levererar klart och kraftfullt ljud helt utan sladdar. Med bekväm passform, lång batteritid och brusreducerande teknik kan du njuta av musik och samtal i högsta kvalitet, oavsett om du är på språng eller kopplar av hemma.",
+    description: "Bowers & Wilkins PX8 McLaren Edition is a premium wireless headphone that combines elegant design with advanced technology. With noise-cancelling technology, high-resolution audio and long battery life, it offers an immersive listening experience wherever you go.",
     image:
-      "https://soundium.se/media/catalog/product/cache/705b44c076ccef27260ea5d687f0f9cb/p/x/px8darkforest.jpg",
+      "https://www.westcoasthifi.com.au/wp-content/uploads/2024/10/BW-Px8-McLaren-Edition_12.png",
   },
   {
     id: "",
     articleNumber: "1002",
-    title: "Smart Watch",
+    title: "Smartwatch",
     price: 2490,
-    description: "Upplev en kombination av elegant design och smart teknik som hjälper dig hålla koll på allt från notiser till träningsresultat. Med inbyggd pulsmätare, GPS och sömnanalys får du en heltäckande bild av din hälsa och aktivitet, samtidigt som du alltid är uppkopplad mot viktiga samtal och appar.",
+    description: "Experience a combination of elegant design and smart technology that helps you keep track of everything from notifications to workout results. With built-in heart rate monitor, GPS and sleep analysis, you get a comprehensive picture of your health and activity, while always being connected to important calls and apps.",
     image:
-      "https://www.elgiganten.se/image/dv_web_D180001280333226/786744/samsung-galaxy-watch-fe-bt-smartwatch-svart.jpg",
+      "https://www.leafstudios.in/cdn/shop/files/1_1099cd20-7237-4bdf-a180-b7126de5ef3d_1024x1024.png?v=1722230645",
   },
   {
     id: "",
     articleNumber: "1003",
     title: "Laptop",
     price: 9999,
-    description: "En bärbar dator som förenar prestanda och stil. Den tunna designen, högupplösta skärmen och det responsiva tangentbordet gör att du smidigt kan jobba, studera eller strömma underhållning. Tack vare kraftfull processor och generöst batteri är den redo för dina dagliga utmaningar.",
+    description: "A laptop that combines performance and style. Its slim design, high-resolution display, and responsive keyboard let you work, study, or stream entertainment with ease. Thanks to a powerful processor and generous battery, it's ready for your daily challenges.",
     image:
       "https://www.jbhifi.com.au/cdn/shop/files/749929-Product-0-I-638518544407964431.jpg?v=1718771855",
   },
@@ -49,27 +49,80 @@ export const products: Product[] = [
     articleNumber: "1004",
     title: "Electric Bike",
     price: 25999,
-    description: "En lättanvänd elcykel som kombinerar bekväm trampning med kraftfull elassistans. Perfekt för både korta pendlingssträckor och längre utflykter, med en robust ram och pålitlig motor för en smidig cykelupplevelse.",
+    description: "An easy-to-use electric bike that offers a smooth and comfortable ride. With a powerful motor, long-lasting battery and durable frame, it's perfect for commuting, running errands or exploring the great outdoors. The adjustable seat and handlebars ensure a custom fit for riders of all sizes.",
     image:
       "https://images-cdn.ubuy.co.in/636326cdb789336d02347545-electric-bike-totguard-electric-bike.jpg",
   },
-
   {
     id: "",
-    articleNumber: "1009",
+    articleNumber: "1005",
+    title: "Intelligent Robot",
+    price: 2100,
+    description: "Eilik Intelligent Desktop Robot | for Kids and Adults, with Emotions, Interactions and Animations, Toy Entertainment Companion Pet Robot Personal Assistant for More Fun.",
+    image:
+      "https://m.media-amazon.com/images/I/51DBd7O6GEL.jpg",
+  },
+  {
+    id: "",
+    articleNumber: "1006",
     title: "iPhone 15 Pro",
     price: 10999,
-    description: "iPhone 15 Pro erbjuder en förstklassig användarupplevelse med fantastisk kamera, blixtsnabb prestanda och elegant design i tåligt material. Uppgraderade batterifunktioner och banbrytande mjukvara gör det till ett kraftpaket i fickformat, perfekt för både arbete och nöje.",
+    description: "iPhone 15 Pro offers a stunning design, powerful performance and advanced features for a premium smartphone experience. With a high-resolution display, professional-grade camera and long-lasting battery, it's the perfect device for work and play.",
     image:
       "https://www.tashicell.com/themes/tashicell/assets/phones/iPhone%2015%20Pro%20Max%20256GB_2023-09-22.png",
   },
   {
     id: "",
-    articleNumber: "1010",
+    articleNumber: "1007",
     title: "Samsung S24 Ultra",
     price: 8999,
-    description: "Samsung S24 Ultra kombinerar proffsfotografering med en omslutande skärm och hög prestanda. Med dess avancerade kamerasystem, förbättrad batteriteknik och stilrena form blir den en kraftfull följeslagare för både produktivitet och underhållning i vardagen.",
+    description: "Samsung S24 Ultra combines cutting-edge technology with sleek design to deliver a premium smartphone experience. With a stunning display, powerful camera and long-lasting battery, it offers everything you need for work and play, all in one device.",
     image:
       "https://img.etimg.com/photo/msid-98945112,imgsize-13860/SamsungGalaxyS23Ultra.jpg",
+  },
+  {
+    id: "",
+    articleNumber: "1008",
+    title: "Redmi A3",
+    price: 7490,
+    description: "Redmi A3 is a budget-friendly smartphone with a large display, powerful processor and long battery life. With a range of features including a high-resolution camera, fast charging and expandable storage, it offers great value for money and a smooth user experience.",
+    image:
+      "https://mtech4u.com/cdn/shop/files/GreenA3_grande_35f29f2f-eb12-4da0-9e04-df7744017f93.webp?v=1709555029",
+  },
+  {
+    id: "",
+    articleNumber: "1009",
+    title: "Bluetooth Earbuds",
+    price: 4299,
+    description: "Bose bluetooth earbuds are designed to deliver clear sound and comfortable fit for all-day listening. With noise-cancelling technology and long battery life, you can enjoy music and calls without distractions, whether you're on the go or relaxing at home.",
+    image:
+    "https://assets.bose.com/content/dam/cloudassets/Bose_DAM/Web/consumer_electronics/global/products/headphones/qcue-headphonein/product_silo_images/QCUEBLE25_LunarBlue_AEM_PDP_Gallery_08.png/jcr:content/renditions/cq5dam.web.1920.1920.png",
+  },
+  {
+    id: "",
+    articleNumber: "1010",
+    title: "PS5",
+    price: 5000,
+    description: "PS5 is the latest gaming console from Sony, offering a powerful gaming experience with stunning graphics and fast loading times. With a range of exclusive games and accessories, you can enjoy immersive gameplay and connect with friends online for an unforgettable gaming experience.",
+    image:
+      "https://cdn.inet.se/product/688x386/6611973_6.jpg",
+  },
+  {
+    id: "",
+    articleNumber: "1011",
+    title: "Xbox Series X",
+    price: 5000,
+    description: "Xbox Series X is the latest gaming console from Microsoft, offering a powerful gaming experience with stunning graphics and fast loading times. With a range of exclusive games and accessories, you can enjoy immersive gameplay and connect with friends online for an unforgettable gaming experience.",
+    image:
+      "https://m.media-amazon.com/images/I/61BVvNo8E-L.jpg",
+  },
+  {
+    id: "",
+    articleNumber: "1012",
+    title: "K820 Game Keyboard and Mouse",
+    price: 5000,
+    description: "Elevate your gaming experience with the K820 Gaming Keyboard and Mouse Set, designed for precision, performance, and style. This USB wired combo features a 75% compact layout for a clutter-free setup, making it perfect for both desktop and PC gaming",
+    image:
+      "https://ae01.alicdn.com/kf/S297ce2870f40464383eaff2e7f64cd9ar.jpg",
   },
 ];
