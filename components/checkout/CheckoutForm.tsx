@@ -2,6 +2,7 @@
 
 import useCartStore from "@/stores/cartStore";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -43,7 +44,9 @@ export default function CheckoutForm() {
       city: data.city,
     });
 
-    router.push("/confirmation/${orderNumber}");
+    const orderNumber = nanoid(8);
+
+    router.push(`/confirmation/${orderNumber}`);
   };
 
   return (
