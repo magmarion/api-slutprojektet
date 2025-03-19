@@ -14,7 +14,10 @@ interface CheckoutInfo {
   email: string;
   phone: string;
   address: string;
-  // Add more fields if needed: city, zip, country, etc.
+  zip: number; // or string
+  city: string;
+  country: string;
+  
 }
 
 interface CartStore {
