@@ -11,7 +11,7 @@ const checkoutSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().min(1, { message: "Email is required" }).email("Email is invalid"),
   address: z.string().min(1, { message: "Address is required" }),
-  zip: z.number().min(1, "Zip is required"),
+  zip: z.coerce.number().min(5, { message: "Zip is required, e.g. 12345" }),
   city: z.string().min(1, { message: "City is required" }),
   phone: z.string().min(1, "Phone number is invalid"),
 });
@@ -117,8 +117,8 @@ export default function CheckoutForm() {
       <div className="mb-4">
         <label className="block font-medium mb-1">Zip code</label>
         <input
-          type="text"
-          {...register("zip", { valueAsNumber: true })}
+          type="number"
+          {...register("zip")}
           data-cy="customer-zipcode"
           className="w-full p-2 border border-gray-300 rounded"
         />
