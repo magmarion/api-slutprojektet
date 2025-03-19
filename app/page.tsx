@@ -9,7 +9,7 @@ export default async function Home({
 }: {
     searchParams: { page?: string };
 }) {
-    const pageSize = 12;
+    const pageSize = 15;
     // Läs av nuvarande sida från query-parametrarna, defaulta till 1 om inget anges
     const currentPage = parseInt(searchParams.page ?? "1", 10);
     const skip = (currentPage - 1) * pageSize;
@@ -24,7 +24,7 @@ export default async function Home({
     const totalProducts = await db.product.count();
     const totalPages = Math.ceil(totalProducts / pageSize);
     return (
-        <main className="flex min-h-screen flex-col items-center bg-slate-200  ">
+        <main className="flex min-h-screen flex-col items-center bg-slate-200">
             < HeroSection />
             <h1 className="text-2xl font-bold text-center text-gray-900 m-10">
                 supah supah hot deals right now
