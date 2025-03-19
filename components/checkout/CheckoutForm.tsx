@@ -4,7 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import useCartStore from "@/stores/cartStore"; 
+import useCartStore from "@/stores/cartStore";
+import { Button } from "../ui/button";
 
 const checkoutSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -24,7 +25,7 @@ type CheckoutFormData = z.infer<typeof checkoutSchema>;
 export default function CheckoutForm() {
   const router = useRouter();
 
-  
+
   const { setCheckoutInfo } = useCartStore();
 
   const {
@@ -39,7 +40,7 @@ export default function CheckoutForm() {
   const onSubmit = (data: CheckoutFormData) => {
     console.log("Form data:", data);
 
-   
+
     setCheckoutInfo({
       name: data.name,
       email: data.email,
@@ -48,10 +49,10 @@ export default function CheckoutForm() {
       zip: data.zip,
       city: data.city,
       country: data.country,
-      
+
     });
 
-    
+
     router.push("/checkout/confirmation");
   };
 
@@ -165,7 +166,7 @@ export default function CheckoutForm() {
           </p>
         )}
         <div className="w-full md:w-[50%] flex justify-center items-center mt-4">
-          <img className="pt-15" src="/Credit-Card-Icons.png" alt="credit cards" />
+          <img className="cursor-pointer" src="/Credit-Card-Icons.png" alt="credit cards" />
         </div>
       </div>
 
@@ -216,12 +217,12 @@ export default function CheckoutForm() {
       </div>
 
       {/* Submit button */}
-      <button
+      <Button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+        className="bg-blue-800 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded cursor-pointer"
       >
         Confirm
-      </button>
+      </Button>
     </form>
   );
 }
