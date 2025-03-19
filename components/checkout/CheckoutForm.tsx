@@ -44,6 +44,7 @@ export default function CheckoutForm() {
       city: data.city,
     });
 
+    
     const orderNumber = nanoid(8);
 
     const { cartItems, setCheckoutItems, clearCart } = useCartStore.getState();

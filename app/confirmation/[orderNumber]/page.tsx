@@ -11,10 +11,14 @@ import {
 import useCartStore from "@/stores/cartStore";
 import Image from "next/image";
 
+interface ConfirmationPageProps {
+  params: {
+    orderNumber: string;
+  };
+}
 
 
-
-export default function ConfirmationPage() {
+export default function ConfirmationPage({ params: { orderNumber } }: ConfirmationPageProps) {
   const { checkoutItems, checkoutInfo } = useCartStore();
 
 
@@ -23,6 +27,7 @@ export default function ConfirmationPage() {
     0
   );
   
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* MAIN CONTENT */}
@@ -36,6 +41,11 @@ export default function ConfirmationPage() {
             <CardTitle>Thank you for your purchase!</CardTitle>
             <CardDescription>
               We appreciate your order. A confirmation email has been sent.
+
+              {/* Order Number */}
+              <p className="text-sm mt-2">
+                Order Number: <span className="font-semibold">${orderNumber}</span>
+              </p>
             </CardDescription>
           </CardHeader>
           <CardContent>
