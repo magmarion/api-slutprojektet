@@ -84,40 +84,31 @@ const useCartStore = create<CartStore>()(
 
                     return {
                         cartItems: updatedCartItems,
-                        cartCount: updatedCartItems.reduce(
-                            (count, i) => count + i.quantity,
-                            0
-                        ),
-                        totalPrice: updatedCartItems.reduce(
-                            (total, i) => total + i.price * i.quantity,
-                            0
-                        ),
+                        cartCount: state.cartCount + 1, // Increment directly instead of recalculating
+                        totalPrice: state.totalPrice + (state.cartItems.find(i => i.id === itemId)?.price || 0) // Update only affected total
                     };
                 }),
 
             decreaseQuantity: (itemId: string) =>
                 set((state) => {
-                    const updatedCartItems = state.cartItems.map((item) =>
-                        item.id === itemId && item.quantity > 1
-                            ? { ...item, quantity: item.quantity - 1 }
-                            : item
-                    );
+                    const updatedCartItems = state.cartItems
+                        .map((item) =>
+                            item.id === itemId
+                                ? { ...item, quantity: item.quantity - 1 } // Decrease quantity
+                                : item
+                        )
+                        .filter((item) => item.quantity > 0); // Remove item if quantity is 0
 
                     return {
                         cartItems: updatedCartItems,
-                        cartCount: updatedCartItems.reduce(
-                            (count, i) => count + i.quantity,
-                            0
-                        ),
-                        totalPrice: updatedCartItems.reduce(
-                            (total, i) => total + i.price * i.quantity,
-                            0
-                        ),
+                        cartCount: updatedCartItems.reduce((count, i) => count + i.quantity, 0),
+                        totalPrice: updatedCartItems.reduce((total, i) => total + i.price * i.quantity, 0),
                     };
                 }),
         }),
         {
-            name: "cart-storage",
+            name: "cart",
+            // storage: customStorage,
         }
     )
 );

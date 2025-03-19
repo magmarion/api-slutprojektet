@@ -1,11 +1,20 @@
 import Layout from "@/components/Layout";
 import { Toaster } from "@/components/ui/sonner";
-import { Inter } from "next/font/google";
+import { Bangers, Inter, Roboto } from "next/font/google";
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
 import "../app/global.css";
-const inter = Inter({ subsets: ["latin"] });
 
+const bangers = Bangers({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+});
+const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({
+  weight: ["100", "300", "400", "500", "700", "900"],
+  subsets: ["latin"],   
+})
 /* Beskriv din hemsida för sökmotorerna */
 export const metadata: Metadata = {
   title: "The Webbshop",
@@ -15,7 +24,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={roboto.className}>
         <Layout>{children}</Layout>
         <Toaster />
       </body>

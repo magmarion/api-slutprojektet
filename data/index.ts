@@ -19,8 +19,8 @@ export interface CartItem extends Product {
 export const products: Product[] = [
   {
     id: "",
-    articleNumber: "test-1001",
-    title: "Trådlösa Hörlurar",
+    articleNumber: "1001",
+    title: "Headphones",
     price: 5500,
     description: "Upplev friheten med trådlösa hörlurar som levererar klart och kraftfullt ljud helt utan sladdar. Med bekväm passform, lång batteritid och brusreducerande teknik kan du njuta av musik och samtal i högsta kvalitet, oavsett om du är på språng eller kopplar av hemma.",
     image:
@@ -28,8 +28,8 @@ export const products: Product[] = [
   },
   {
     id: "",
-    articleNumber: "test-1002",
-    title: "Smartklocka",
+    articleNumber: "1002",
+    title: "Smart Watch",
     price: 2490,
     description: "Upplev en kombination av elegant design och smart teknik som hjälper dig hålla koll på allt från notiser till träningsresultat. Med inbyggd pulsmätare, GPS och sömnanalys får du en heltäckande bild av din hälsa och aktivitet, samtidigt som du alltid är uppkopplad mot viktiga samtal och appar.",
     image:
@@ -37,7 +37,7 @@ export const products: Product[] = [
   },
   {
     id: "",
-    articleNumber: "test-1003",
+    articleNumber: "1003",
     title: "Laptop",
     price: 9999,
     description: "En bärbar dator som förenar prestanda och stil. Den tunna designen, högupplösta skärmen och det responsiva tangentbordet gör att du smidigt kan jobba, studera eller strömma underhållning. Tack vare kraftfull processor och generöst batteri är den redo för dina dagliga utmaningar.",
@@ -46,8 +46,8 @@ export const products: Product[] = [
   },
   {
     id: "",
-    articleNumber: "test-1004",
-    title: "Elcykel",
+    articleNumber: "1004",
+    title: "Electric Bike",
     price: 25999,
     description: "En lättanvänd elcykel som kombinerar bekväm trampning med kraftfull elassistans. Perfekt för både korta pendlingssträckor och längre utflykter, med en robust ram och pålitlig motor för en smidig cykelupplevelse.",
     image:
@@ -56,7 +56,7 @@ export const products: Product[] = [
 
   {
     id: "",
-    articleNumber: "test-1009",
+    articleNumber: "1009",
     title: "iPhone 15 Pro",
     price: 10999,
     description: "iPhone 15 Pro erbjuder en förstklassig användarupplevelse med fantastisk kamera, blixtsnabb prestanda och elegant design i tåligt material. Uppgraderade batterifunktioner och banbrytande mjukvara gör det till ett kraftpaket i fickformat, perfekt för både arbete och nöje.",
@@ -65,8 +65,8 @@ export const products: Product[] = [
   },
   {
     id: "",
-    articleNumber: "test-1010",
-    title: "Samsung s24 Ultra",
+    articleNumber: "1010",
+    title: "Samsung S24 Ultra",
     price: 8999,
     description: "Samsung S24 Ultra kombinerar proffsfotografering med en omslutande skärm och hög prestanda. Med dess avancerade kamerasystem, förbättrad batteriteknik och stilrena form blir den en kraftfull följeslagare för både produktivitet och underhållning i vardagen.",
     image:

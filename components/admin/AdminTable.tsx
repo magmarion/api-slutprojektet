@@ -45,10 +45,6 @@ export default function AdminProductsGrid({ products }: { products: Product[] })
 
     return (
         <section className="space-y-4">
-            <header className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">All Products</h2>
-            </header>
-
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {products.map((product) => (
                     <Card
@@ -81,7 +77,7 @@ export default function AdminProductsGrid({ products }: { products: Product[] })
 
                         <CardFooter className="flex items-center justify-between space-x-2">
                             <Link href={`/admin/product/${product.articleNumber}`}>
-                                <Button variant="outline" data-cy="admin-edit-product" className="flex items-center gap-1">
+                                <Button variant="outline" data-cy="admin-edit-product" className="flex items-center gap-1 cursor-pointer">
                                     <Edit size={16} />
                                     Edit
                                 </Button>
@@ -100,7 +96,7 @@ export default function AdminProductsGrid({ products }: { products: Product[] })
                                 <Button
                                     variant="destructive"
                                     data-cy="admin-remove-product"
-                                    className="flex items-center gap-1"
+                                    className="flex items-center gap-1 bg-red-700 cursor-pointer"
                                     onClick={() => setOpenDeleteDialog(product.articleNumber)}
                                 >
                                     <Trash size={16} />
