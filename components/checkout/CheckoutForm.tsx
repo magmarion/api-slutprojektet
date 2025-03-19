@@ -43,7 +43,7 @@ export default function CheckoutForm() {
       city: data.city,
     });
 
-    router.push("/confirmation");
+    router.push("/confirmation/${orderNumber}");
   };
 
   return (
