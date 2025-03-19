@@ -108,7 +108,7 @@ export default function ConfirmationPage() {
                   <span className="font-semibold">Phone:</span> {checkoutInfo.phone}
                 </p>
                 <p className="text-sm">
-                  <span className="font-semibold">Delivery Address: <br /></span> {checkoutInfo.address} <br /> {checkoutInfo.zip} {checkoutInfo.city}
+                  <span className="font-semibold">Delivery Address: <br /></span> {checkoutInfo.address} <br /> {checkoutInfo.zipcode} {checkoutInfo.city}
                 </p>
               </div>
             )}

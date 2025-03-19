@@ -7,11 +7,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
 
+// Zod schema: zip must be exactly 5 digits, e.g. "12345"
 const checkoutSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().min(1, { message: "Email is required" }).email("Email is invalid"),
   address: z.string().min(1, { message: "Address is required" }),
-  zip: z.coerce.number().min(5, { message: "Zip is required, e.g. 12345" }),
+  zipcode: z.string().regex(/^\d{5}$/, { message: "Zip must be exactly 5 digits" }),
   city: z.string().min(1, { message: "City is required" }),
   phone: z.string().min(1, "Phone number is invalid"),
 });
@@ -20,8 +21,6 @@ type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
 export default function CheckoutForm() {
   const router = useRouter();
-
-
   const { setCheckoutInfo } = useCartStore();
 
   const {
@@ -32,7 +31,6 @@ export default function CheckoutForm() {
     resolver: zodResolver(checkoutSchema),
   });
 
-
   const onSubmit = (data: CheckoutFormData) => {
     console.log("Form data:", data);
 
@@ -41,9 +39,10 @@ export default function CheckoutForm() {
       email: data.email,
       phone: data.phone,
       address: data.address,
-      zip: data.zip,
+      zipcode: data.zipcode,
       city: data.city,
     });
+
     router.push("/confirmation");
   };
 
@@ -55,6 +54,7 @@ export default function CheckoutForm() {
         <input
           type="text"
           data-cy="customer-name"
+          autoComplete="name"
           {...register("name")}
           className="w-full p-2 border border-gray-300 rounded"
         />
@@ -71,6 +71,7 @@ export default function CheckoutForm() {
         <input
           type="email"
           data-cy="customer-email"
+          autoComplete="email"
           {...register("email")}
           className="w-full p-2 border border-gray-300 rounded"
         />
@@ -86,8 +87,9 @@ export default function CheckoutForm() {
         <label className="block font-medium mb-1">Phone</label>
         <input
           type="tel"
-          {...register("phone")}
           data-cy="customer-phone"
+          autoComplete="tel"
+          {...register("phone")}
           className="w-full p-2 border border-gray-300 rounded"
         />
         {errors.phone && (
@@ -102,8 +104,9 @@ export default function CheckoutForm() {
         <label className="block font-medium mb-1">Address</label>
         <input
           type="text"
-          {...register("address")}
           data-cy="customer-address"
+          autoComplete="address-line1"
+          {...register("address")}
           className="w-full p-2 border border-gray-300 rounded"
         />
         {errors.address && (
@@ -117,26 +120,27 @@ export default function CheckoutForm() {
       <div className="mb-4">
         <label className="block font-medium mb-1">Zip code</label>
         <input
-          type="number"
-          {...register("zip")}
+          type="text"
           data-cy="customer-zipcode"
+          autoComplete="postal-code"
+          {...register("zipcode")}
           className="w-full p-2 border border-gray-300 rounded"
         />
-        {errors.zip && (
+        {errors.zipcode && (
           <p data-cy="customer-zipcode-error" className="text-red-500 text-sm mt-1">
-            {errors.zip.message}
+            {errors.zipcode.message}
           </p>
         )}
       </div>
-
 
       {/* City */}
       <div className="mb-4">
         <label className="block font-medium mb-1">City</label>
         <input
           type="text"
-          {...register("city")}
           data-cy="customer-city"
+          autoComplete="address-level2"
+          {...register("city")}
           className="w-full p-2 border border-gray-300 rounded"
         />
         {errors.city && (

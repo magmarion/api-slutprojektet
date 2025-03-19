@@ -14,7 +14,7 @@ interface CheckoutInfo {
   email: string;
   phone: string;
   address: string;
-  zip: number;
+  zipcode: string;
   city: string;
 }
 
