@@ -27,8 +27,7 @@ export default function ConfirmationPage() {
   const { cartItems, totalPrice } = useCartStore();
 
   return (
-    /* 1) flex flex-col min-h-screen ensures the page spans the full viewport 
-       2) We'll use a <main> with flex-1 so the footer is pushed down */
+    
     <div className="flex flex-col min-h-screen">
       {/* MAIN CONTENT */}
       <main
