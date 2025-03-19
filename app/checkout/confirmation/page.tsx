@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react";
-import useCartStore from "@/stores/cartStore";
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,18 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import useCartStore from "@/stores/cartStore";
+import Image from "next/image";
 
 
-function SiteFooter() {
-  return (
-    <Card>
-      <CardContent className="text-center py-4">
-        <p className="text-sm">© 2025 My Webshop</p>
-      </CardContent>
-    </Card>
-  );
-}
+
 
 export default function ConfirmationPage() {
   // 1) Pull cart items, total price, and checkout data (customer info) from your store
@@ -117,7 +108,7 @@ export default function ConfirmationPage() {
                   <span className="font-semibold">Phone:</span> {checkoutInfo.phone}
                 </p>
                 <p className="text-sm">
-                  <span className="font-semibold">Address:</span> {checkoutInfo.address}
+                  <span className="font-semibold">Delivery Address: <br /></span> {checkoutInfo.address} <br /> {checkoutInfo.zip} {checkoutInfo.city} <br /> {checkoutInfo.country}
                 </p>
               </div>
             )}
@@ -142,8 +133,6 @@ export default function ConfirmationPage() {
         </Card>
       </main>
 
-      {/* FOOTER pinned at bottom */}
-      <SiteFooter />
     </div>
   );
 } 

@@ -14,10 +14,10 @@ interface CheckoutInfo {
   email: string;
   phone: string;
   address: string;
-  zip: number; 
+  zip: number;
   city: string;
   country: string;
-  
+
 }
 
 interface CartStore {
@@ -47,15 +47,15 @@ const useCartStore = create<CartStore>()(
       cartCount: 0,
       totalPrice: 0,
 
-     
+
       checkoutInfo: null,
 
-     
+
       setCheckoutInfo: (info) => {
         set(() => ({ checkoutInfo: info }));
       },
 
-     
+
       clearCart: () => {
         set(() => ({
           cartItems: [],
@@ -64,7 +64,7 @@ const useCartStore = create<CartStore>()(
         }));
       },
 
-      
+
       addToCart: (item) =>
         set((state) => {
           const existingItem = state.cartItems.find(
@@ -115,7 +115,7 @@ const useCartStore = create<CartStore>()(
               : item
           );
 
-        
+
           const updatedItem = updatedCartItems.find((i) => i.id === itemId);
 
           return {
@@ -150,7 +150,7 @@ const useCartStore = create<CartStore>()(
         }),
     }),
     {
-      name: "cart", 
+      name: "cart",
     }
   )
 );
