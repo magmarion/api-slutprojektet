@@ -23,7 +23,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 alt={product.title}
                 width={200}
                 height={150}
-                className="object-cover w-[150px] h-[150px] rounded-md"
+                className="object-contain w-[150px] h-[150px] rounded-md"
             />
 
             <div className="flex flex-col justify-between items-stretch md:w-full gap-2 ml-5 md:ml-0">
