@@ -24,10 +24,10 @@ function SiteFooter() {
 }
 
 export default function ConfirmationPage() {
-  const { cartItems, totalPrice } = useCartStore();
+  // 1) Pull cart items, total price, and checkout data (customer info) from your store
+  const { cartItems, totalPrice, checkoutInfo } = useCartStore();
 
   return (
-    
     <div className="flex flex-col min-h-screen">
       {/* MAIN CONTENT */}
       <main
@@ -43,8 +43,10 @@ export default function ConfirmationPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {/* If there are items in the cart, show the summary */}
             {cartItems.length > 0 ? (
               <div className="bg-gray-100 p-4 rounded-md">
+                {/* Cart Items */}
                 {cartItems.map((item) => (
                   <div
                     key={item.id}
@@ -81,6 +83,7 @@ export default function ConfirmationPage() {
                     </div>
                   </div>
                 ))}
+
                 {/* TOTAL */}
                 <div className="mt-5 border-t pt-2 flex justify-between">
                   <p className="text-gray-600 text-sm sm:text-base">
@@ -96,6 +99,27 @@ export default function ConfirmationPage() {
                 Looks like your cart is empty. Please visit the shop to add more
                 items.
               </p>
+            )}
+
+            {/* 2) Display Customer Info (if provided) */}
+            {checkoutInfo && checkoutInfo.name && (
+              <div className="mt-6 bg-gray-100 p-4 rounded-md">
+                <h2 className="text-base font-semibold mb-2">
+                  Customer Details
+                </h2>
+                <p className="text-sm">
+                  <span className="font-semibold">Name:</span> {checkoutInfo.name}
+                </p>
+                <p className="text-sm">
+                  <span className="font-semibold">Email:</span> {checkoutInfo.email}
+                </p>
+                <p className="text-sm">
+                  <span className="font-semibold">Phone:</span> {checkoutInfo.phone}
+                </p>
+                <p className="text-sm">
+                  <span className="font-semibold">Address:</span> {checkoutInfo.address}
+                </p>
+              </div>
             )}
           </CardContent>
         </Card>
@@ -113,7 +137,7 @@ export default function ConfirmationPage() {
                 Continue Shopping
               </a>
             </Button>
-            {/* Additional post-checkout details, if any */}
+            {/* Additional post-checkout details if needed */}
           </CardContent>
         </Card>
       </main>
@@ -122,4 +146,5 @@ export default function ConfirmationPage() {
       <SiteFooter />
     </div>
   );
-}
+} 
+
