@@ -14,7 +14,7 @@ interface CheckoutInfo {
   email: string;
   phone: string;
   address: string;
-  zip: number; // or string
+  zip: number; 
   city: string;
   country: string;
   
@@ -47,15 +47,15 @@ const useCartStore = create<CartStore>()(
       cartCount: 0,
       totalPrice: 0,
 
-      // 1) New property to store the customer's checkout info
+     
       checkoutInfo: null,
 
-      // 2) Action to set or update the checkout info
+     
       setCheckoutInfo: (info) => {
         set(() => ({ checkoutInfo: info }));
       },
 
-      // 3) Clear the cart (optional: call after successful checkout)
+     
       clearCart: () => {
         set(() => ({
           cartItems: [],
@@ -64,7 +64,7 @@ const useCartStore = create<CartStore>()(
         }));
       },
 
-      // The rest of your existing cart logic
+      
       addToCart: (item) =>
         set((state) => {
           const existingItem = state.cartItems.find(
@@ -115,7 +115,7 @@ const useCartStore = create<CartStore>()(
               : item
           );
 
-          // The item that was updated:
+        
           const updatedItem = updatedCartItems.find((i) => i.id === itemId);
 
           return {
@@ -150,7 +150,7 @@ const useCartStore = create<CartStore>()(
         }),
     }),
     {
-      name: "cart", // name of the storage key
+      name: "cart", 
     }
   )
 );

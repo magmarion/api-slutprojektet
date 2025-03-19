@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import useCartStore from "@/stores/cartStore"; // <-- import your store
+import useCartStore from "@/stores/cartStore"; 
 
 const checkoutSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -24,7 +24,7 @@ type CheckoutFormData = z.infer<typeof checkoutSchema>;
 export default function CheckoutForm() {
   const router = useRouter();
 
-  // 1) Destructure setCheckoutInfo from your store
+  
   const { setCheckoutInfo } = useCartStore();
 
   const {
@@ -35,11 +35,11 @@ export default function CheckoutForm() {
     resolver: zodResolver(checkoutSchema),
   });
 
-  // Handle form submission
+
   const onSubmit = (data: CheckoutFormData) => {
     console.log("Form data:", data);
 
-    // 2) Store the user's checkout details in the store (except for card info if you prefer not to)
+   
     setCheckoutInfo({
       name: data.name,
       email: data.email,
@@ -48,13 +48,10 @@ export default function CheckoutForm() {
       zip: data.zip,
       city: data.city,
       country: data.country,
-      // Optionally store credit card info, though not recommended for real apps:
-      // cardNumber: data.cardNumber,
-      // expirationDate: data.expirationDate,
-      // cvc: data.cvc,
+      
     });
 
-    // 3) Navigate to confirmation page
+    
     router.push("/checkout/confirmation");
   };
 

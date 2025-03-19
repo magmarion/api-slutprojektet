@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-/** A simple shadcn/ui-based Footer */
+
 function SiteFooter() {
   return (
     <Card>
@@ -146,4 +146,5 @@ export default function ConfirmationPage() {
       <SiteFooter />
     </div>
   );
-}
+} 
+
