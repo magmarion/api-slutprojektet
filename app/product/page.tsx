@@ -1,5 +1,5 @@
 "use client";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/products/ProductCard";
 import { db } from "@/prisma/db";
 
 export default async function ProductsPage() {
