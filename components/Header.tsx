@@ -13,7 +13,7 @@ export default function Header() {
   const { cartItems, cartCount } = useCartStore();
 
   return (
-    <header className=" bg-slate-900 shadow-md flex justify-between items-center md:pl-5 md:pr-5 h-15 md:h-20">
+    <header className="sticky top-0 z-50 bg-slate-900 shadow-md flex justify-between items-center md:pl-5 md:pr-5 h-15 md:h-20">
       <Link
         href="/"
         className="leading-none p-2 text-white tracking-wide hover:text-gray-400  "
