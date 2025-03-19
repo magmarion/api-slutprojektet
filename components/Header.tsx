@@ -25,17 +25,15 @@ export default function Header() {
       <nav className="flex gap-4">
         <Link
           href="/"
-          className={`text-white tracking-widest hover:text-gray-400 ${
-            pathname === "/" ? "font-bold" : ""
-          }`}
+          className={`text-white tracking-widest hover:text-gray-400 ${pathname === "/" ? "font-bold" : ""
+            }`}
         >
           home
         </Link>
         <Link
           href="/product"
-          className={`text-white tracking-widest  hover:text-gray-400 ${
-            pathname === "/product" ? "font-bold" : ""
-          }`}
+          className={`text-white tracking-widest  hover:text-gray-400 ${pathname === "/product" ? "font-bold" : ""
+            }`}
         >
           products
         </Link>
@@ -49,16 +47,19 @@ export default function Header() {
         {/* Cart Icon */}
         <button
           onClick={() => setIsCartOpen(true)}
-          className="relative cursor-pointer "
+          className="relative cursor-pointer"
           data-cy="open-cart-sidebar"
         >
-          <FaShoppingCart className="w-6 h-6 text-white hover:text-gray-400 " />
-          {cartCount > 0 && (
-            <span data-cy="cart-items-count-badge" className="text-white">
-              {cartCount}
-            </span>
-          )}
+          <span
+            data-cy="cart-items-count-badge"
+            className="absolute -top-3 -right-4 w-[20px] h-[20px] bg-slate-200 text-slate-900 text-xs flex justify-center items-center font-semibold rounded-full z-0"
+          >
+            {cartCount}
+          </span>
+          <FaShoppingCart className="w-6 h-6 text-slate-200 hover:text-gray-400 relative z-10" />
         </button>
+
+
 
         <CartPopup
           isOpen={isCartOpen}
