@@ -52,11 +52,11 @@ export default function Header() {
         >
           <span
             data-cy="cart-items-count-badge"
-            className="absolute -top-3 -right-4 w-[20px] h-[20px] bg-slate-200 text-slate-900 text-xs flex justify-center items-center font-semibold rounded-full z-0"
+            className="absolute -top-3 -right-3 w-[20px] h-[20px] bg-slate-200 text-slate-900 text-xs flex justify-center items-center font-semibold rounded-full z-0"
           >
             {cartCount}
           </span>
-          <FaShoppingCart className="w-6 h-6 text-slate-200 hover:text-gray-400 relative z-10" />
+          <FaShoppingCart className="w-6 h-6 text-slate-200 hover:text-gray-400 relative" />
         </button>
 
 
