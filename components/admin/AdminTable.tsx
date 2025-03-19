@@ -100,7 +100,7 @@ export default function AdminProductsGrid({ products }: { products: Product[] })
                                 <Button
                                     variant="destructive"
                                     data-cy="admin-remove-product"
-                                    className="flex items-center gap-1 cursor-pointer"
+                                    className="flex items-center gap-1 bg-red-700 cursor-pointer"
                                     onClick={() => setOpenDeleteDialog(product.articleNumber)}
                                 >
                                     <Trash size={16} />
