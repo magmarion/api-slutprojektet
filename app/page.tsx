@@ -27,7 +27,7 @@ export default async function Home({
         <main className="flex min-h-screen flex-col items-center bg-slate-200  ">
             < HeroSection />
             <h1 className="text-2xl font-bold text-center text-gray-900 m-10">
-                Supah Dupah Hot Deals Right Now
+                supah supah hot deals right now
             </h1>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
@@ -35,7 +35,6 @@ export default async function Home({
                     <ProductCard key={product.articleNumber} product={product} />
                 ))}
             </div>
-
 
             {/* Pagination-länkar */}
             <div className="flex gap-4 my-8">

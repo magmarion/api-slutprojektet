@@ -18,8 +18,8 @@ export default function Header() {
         href="/"
         className="leading-none p-2 text-white tracking-wide hover:text-gray-400  "
       >
-        <p className="text-xl">TECH</p>
-        <p className="font-extrabold -mt-3 text-xl">GEAR</p>
+        <p className="text-xl">tech</p>
+        <p className="font-extrabold -mt-3 text-xl">gear</p>
       </Link>
 
       <nav className="flex gap-4">

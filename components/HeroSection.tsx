@@ -14,9 +14,9 @@ export default function HeroSection() {
       />
       <div className="absolute inset-0 font-extrabold text-gray-800 flex flex-col justify-center text-[16px] md:text-3xl lg:text-5xl md:pl-10 lg:pl-30 ml-3 shadow-md ">
         <div className="text-slate-900 md:tracking-wide text-[11px] hover:text-gray-400 w-fit ">
-          <p className="font-medium md:text-[14px]">TECH</p>
+          <p className="font-medium md:text-[14px]">tech</p>
           <p className="font-extrabold -mt-1.5 lg:-mt-0.5 md:text-[14px]">
-            GEAR
+            gear
           </p>
         </div>
 
@@ -26,10 +26,10 @@ export default function HeroSection() {
         </div>
         <div className="leading-none">
           <p className="text-[0.7rem] mt-1 md:mt-2 md:text-[1rem] font-bold">
-            ✔ In stock
+            ✔ in stock
           </p>
           <p className="text-[0.7rem] md:text-[1rem] font-bold">
-            ✔ Fast delivery
+            ✔ fast delivery
           </p>
           <p className="text-[0.7rem] md:text-[1rem] font-bold">
             ✔ 24/7 support
