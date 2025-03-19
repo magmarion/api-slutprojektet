@@ -13,9 +13,9 @@ export default function HeroSection() {
         className="object-center object-cover"
       />
       <div className="absolute inset-0 font-extrabold text-gray-800 flex flex-col justify-center text-[16px] md:text-3xl lg:text-5xl md:pl-10 lg:pl-30 ml-3 shadow-md ">
-        <div className="  text-slate-900 md:tracking-wide text-[11px]  hover:text-gray-400 w-fit ">
-          <p className="   font-medium md:text-[14px]">TECH</p>
-          <p className="font-extrabold -mt-1.5 lg:-mt-0.5   md:text-[14px]">
+        <div className="text-slate-900 md:tracking-wide text-[11px] hover:text-gray-400 w-fit ">
+          <p className="font-medium md:text-[14px]">TECH</p>
+          <p className="font-extrabold -mt-1.5 lg:-mt-0.5 md:text-[14px]">
             GEAR
           </p>
         </div>
@@ -38,7 +38,7 @@ export default function HeroSection() {
         <Link href="/product" className="w-fit">
           <Button
             variant={"ghost"}
-            className="w-[55px] h-[30px] text-xs font-bold mt-3  md:w-[100px] md:h-[35px] rounded-xs cursor-pointer border border-gray-900 "
+            className="hover:bg-slate-900 hover:text-slate-50 w-[55px] h-[30px] text-xs font-bold mt-3 md:w-[100px] md:h-[35px] rounded-xs cursor-pointer border border-gray-900 "
           >
             Browse
           </Button>
