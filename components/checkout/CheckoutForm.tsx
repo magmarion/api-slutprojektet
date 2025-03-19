@@ -14,7 +14,7 @@ const checkoutSchema = z.object({
   address: z.string().min(1, { message: "Address is required" }),
   zipcode: z.string().regex(/^\d{5}$/, { message: "Zip must be exactly 5 digits" }),
   city: z.string().min(1, { message: "City is required" }),
-  phone: z.string().min(1, "Phone number is invalid"),
+  phone: z.string().regex(/^\d{10}$/, { message: "Phone must be exactly 10 digits" }),
 });
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
