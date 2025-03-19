@@ -1,10 +1,10 @@
 "use client";
 
+import useCartStore from "@/stores/cartStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import useCartStore from "@/stores/cartStore";
 import { Button } from "../ui/button";
 
 const checkoutSchema = z.object({
@@ -12,12 +12,8 @@ const checkoutSchema = z.object({
   email: z.string().min(1, { message: "Email is required" }).email("Email is invalid"),
   address: z.string().min(1, { message: "Address is required" }),
   zip: z.number().min(1, "Zip is required"),
-  country: z.string().min(1, { message: "Country is required" }),
   city: z.string().min(1, { message: "City is required" }),
   phone: z.string().min(1, "Phone number is invalid"),
-  cardNumber: z.string().regex(/^\d{16}$/, "Card number is invalid"),
-  expirationDate: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Invalid format, ex. 12/24"),
-  cvc: z.string().regex(/^\d{3,4}$/, "CVC needs to be 3 or 4 digits"),
 });
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
@@ -48,12 +44,10 @@ export default function CheckoutForm() {
       address: data.address,
       zip: data.zip,
       city: data.city,
-      country: data.country,
-
     });
 
 
-    router.push("/checkout/confirmation");
+    router.push("/confirmation");
   };
 
   return (
@@ -138,18 +132,6 @@ export default function CheckoutForm() {
         )}
       </div>
 
-      {/* Country */}
-      <div className="mb-4">
-        <label className="block font-medium mb-1">Country</label>
-        <input
-          type="text"
-          {...register("country")}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
-        {errors.country && (
-          <p className="text-red-500 text-sm mt-1">{errors.country.message}</p>
-        )}
-      </div>
 
       {/* City */}
       <div className="mb-4">
@@ -170,58 +152,36 @@ export default function CheckoutForm() {
         </div>
       </div>
 
-      {/* Card number */}
+      {/* Card number (static text) */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Card number</label>
-        <input
-          type="text"
-          {...register("cardNumber")}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
-        {errors.cardNumber && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.cardNumber.message}
-          </p>
-        )}
+        <p className="p-2 border border-gray-300 rounded bg-gray-50">
+          4242 4242 4242 4242
+        </p>
       </div>
 
-      {/* Expiration date */}
+      {/* Expiration date (static text) */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Expiration (MM/YY)</label>
-        <input
-          type="text"
-          placeholder="MM/YY"
-          {...register("expirationDate")}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
-        {errors.expirationDate && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.expirationDate.message}
-          </p>
-        )}
+        <p className="p-2 border border-gray-300 rounded bg-gray-50">
+          12/30
+        </p>
       </div>
 
-      {/* CVC */}
+      {/* CVC (static text) */}
       <div className="mb-6">
         <label className="block font-medium mb-1">CVC</label>
-        <input
-          type="text"
-          {...register("cvc")}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
-        {errors.cvc && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.cvc.message}
-          </p>
-        )}
+        <p className="p-2 border border-gray-300 rounded bg-gray-50">
+          123
+        </p>
       </div>
 
-      {/* Submit button */}
+      {/* Payment button */}
       <Button
         type="submit"
         className="bg-blue-800 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded cursor-pointer"
       >
-        Confirm
+        Pay with Card
       </Button>
     </form>
   );

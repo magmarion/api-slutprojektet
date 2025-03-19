@@ -16,8 +16,6 @@ interface CheckoutInfo {
   address: string;
   zip: number;
   city: string;
-  country: string;
-
 }
 
 interface CartStore {
