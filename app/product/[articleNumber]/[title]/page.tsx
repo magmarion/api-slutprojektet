@@ -8,7 +8,7 @@ export default async function ProductDetail({
 }: {
   params: { articleNumber: string; title: string };
 }) {
-  const { articleNumber, title } = params;
+  const { articleNumber } = params;
 
   const product = await db.product.findUnique({
     where: { articleNumber },
