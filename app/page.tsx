@@ -9,7 +9,7 @@ export default async function Home({
 }: {
     searchParams: { page?: string };
 }) {
-    const pageSize = 10;
+    const pageSize = 12;
     // Läs av nuvarande sida från query-parametrarna, defaulta till 1 om inget anges
     const currentPage = parseInt(searchParams.page ?? "1", 10);
     const skip = (currentPage - 1) * pageSize;

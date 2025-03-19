@@ -33,9 +33,6 @@ export default function ProductCard({ product }: ProductCardProps) {
                 >
                     {product.title}
                 </h2>
-                <div className="flex md:justify-center">
-                    <p>Apple</p>
-                </div>
                 <p data-cy="product-price" className="text-gray-700 flex md:justify-center">
                     {product.price} SEK
                 </p>
