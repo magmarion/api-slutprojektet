@@ -23,7 +23,7 @@ export default async function ProductsPage() {
                                 alt={product.title}
                                 width={200}
                                 height={150}
-                                className="object-cover w-[150px] h-[150px] rounded-md cursor-pointer"
+                                className="object-contain w-[150px] h-[150px] rounded-md cursor-pointer"
                                 data-cy="product-image"
 
                             />
