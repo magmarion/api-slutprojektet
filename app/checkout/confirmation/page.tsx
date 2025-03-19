@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-import { useCartStore } from "@/stores/cartStore";
+import  useCartStore  from "@/stores/cartStore";
 import Image from "next/image";
-
 import {
   Card,
   CardContent,
@@ -36,46 +35,49 @@ export default function ConfirmationPage() {
               {cartItems.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between border-b pb-4 mb-4"
+                  data-cy="cart-item"
+                  className="flex items-center justify-between border-b pb-8 mb-4 relative"
                 >
-                  {/* Item Info */}
-                  <div className="flex items-center">
+                  {/* Left Column: Image + item total price (styled similar to CheckoutPage) */}
+                  <div className="flex flex-col max-[440px]:items-center max-[440px]:mr-4">
                     <Image
                       src={item.image}
                       alt={item.title}
                       width={50}
                       height={50}
-                      className="rounded-md mr-4"
+                      className="rounded-md mr-4 max-[440px]:mb-2"
                     />
-                    <div>
-                      <p className="font-semibold text-sm sm:text-base">
-                        {item.title}
-                      </p>
-                      <p className="text-gray-600 text-sm sm:text-base">
-                        Quantity: {item.quantity}
-                      </p>
-                    </div>
+                    <p
+                      data-cy="product-price"
+                      className="font-semibold text-sm sm:text-base min-[440px]:absolute right-0"
+                    >
+                      {item.price * item.quantity} SEK
+                    </p>
                   </div>
-                  {/* Price */}
-                  <p className="font-semibold text-sm sm:text-base ml-4">
-                    {item.price} SEK
-                  </p>
+
+                  {/* Right Column: Title + Quantity */}
+                  <div className="flex flex-col items-start flex-1 min-w-0">
+                    <p
+                      data-cy="product-title"
+                      className="font-semibold text-sm sm:text-base max-[440px]:mb-8"
+                    >
+                      {item.title}
+                    </p>
+                    <p className="text-gray-600 text-sm sm:text-base mt-2">
+                      Quantity: {item.quantity}
+                    </p>
+                  </div>
                 </div>
               ))}
               {/* TOTAL */}
               <div className="mt-5 border-t pt-2 flex justify-between">
-                <p className="text-gray-600 text-sm sm:text-base">
-                  Total Price:
-                </p>
-                <p className="font-semibold text-sm md:text-base">
-                  {totalPrice} SEK
-                </p>
+                <p className="text-gray-600 text-sm sm:text-base">Total Price:</p>
+                <p className="font-semibold text-sm md:text-base">{totalPrice} SEK</p>
               </div>
             </div>
           ) : (
             <p className="text-sm">
-              Looks like your cart is empty. Please visit the shop to add more
-              items.
+              Looks like your cart is empty. Please visit the shop to add more items.
             </p>
           )}
         </CardContent>
@@ -88,13 +90,13 @@ export default function ConfirmationPage() {
           <CardDescription>We hope you enjoy your new items!</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
-          {/* Example button linking back to homepage */}
+          {/* Button linking back to homepage */}
           <Button asChild>
             <a href="/" data-cy="continue-shopping-button">
               Continue Shopping
             </a>
           </Button>
-          {/* You could add more details (shipping, order ID, etc.) here. */}
+          {/* Insert any additional post-checkout details here */}
         </CardContent>
       </Card>
     </div>
