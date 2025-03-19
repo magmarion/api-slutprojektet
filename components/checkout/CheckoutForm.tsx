@@ -105,7 +105,7 @@ export default function CheckoutForm() {
         <input
           type="text"
           data-cy="customer-address"
-          autoComplete="address-line1"
+          autoComplete="street-address"
           {...register("address")}
           className="w-full p-2 border border-gray-300 rounded"
         />
