@@ -1,5 +1,5 @@
 import HeroSection from "@/components/HeroSection";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/products/ProductCard";
 import { Button } from "@/components/ui/button";
 import { db } from "@/prisma/db";
 import Link from "next/link";
