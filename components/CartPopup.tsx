@@ -69,7 +69,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                 <div className="flex items-center space-x-2 mt-2">
 
                                     <p data-cy="product-quantity" className="text-gray-600 text-xs md:text-base w-24">
-                                        Quantity: {item.quantity}
+                                        Quantity:
                                     </p>
                                     <button
                                         data-cy="decrease-quantity-button"
@@ -78,6 +78,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                     >
                                         <FaMinus className="w-3 h-3" />
                                     </button>
+                                    <p data-cy="quantity" className="text-sm md:text-base">{item.quantity}</p>
                                     <button
                                         data-cy="increase-quantity-button"
                                         onClick={() => increaseQuantity(item.id)}
