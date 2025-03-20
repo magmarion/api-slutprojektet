@@ -22,20 +22,34 @@ export default function Header() {
         <p className="font-extrabold -mt-3 text-xl">gear</p>
       </Link>
 
-      <nav className="flex gap-4">
+      <nav className="flex gap-16">
         <Link
           href="/"
-          className={`text-white tracking-widest hover:text-gray-400 ${pathname === "/" ? "font-bold" : ""
+          className={`text-white tracking-widest hover:text-gray-400 ${pathname === "/" ? "font-bold border-b-2" : ""
             }`}
         >
           home
         </Link>
         <Link
           href="/product"
-          className={`text-white tracking-widest  hover:text-gray-400 ${pathname === "/product" ? "font-bold" : ""
+          className={`text-white tracking-widest  hover:text-gray-400 ${pathname === "/product" ? "font-bold border-b-2" : ""
             }`}
         >
           products
+        </Link>
+        <Link
+          href="/about"
+          className={`text-white tracking-widest  hover:text-gray-400 ${pathname === "/about" ? "font-bold border-b-2" : ""
+            }`}
+        >
+          about us
+        </Link>
+        <Link
+          href="/contact"
+          className={`text-white tracking-widest  hover:text-gray-400 ${pathname === "/contact" ? "font-bold border-b-2" : ""
+            }`}
+        >
+          contact
         </Link>
       </nav>
 
