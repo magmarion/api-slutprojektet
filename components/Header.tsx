@@ -4,15 +4,15 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
-import { HiMenu, HiX } from "react-icons/hi"; // Icons for menu open/close
+import { HiMenu, HiX } from "react-icons/hi";
 import useCartStore from "../stores/cartStore";
 import CartPopup from "./CartPopup";
-import MobileMenu from "./MobileMenu"; // Import the MobileMenu component
+import MobileMenu from "./MobileMenu";
 
 export default function Header() {
   const pathname = usePathname();
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu state
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartItems, cartCount } = useCartStore();
 
   return (
@@ -41,7 +41,6 @@ export default function Header() {
         {isMenuOpen ? <HiX /> : <HiMenu />}
       </button>
 
-      {/* Mobile Menu Component */}
       <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
       {/* Icons Section */}
