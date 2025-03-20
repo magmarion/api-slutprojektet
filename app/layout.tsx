@@ -1,4 +1,5 @@
-import Layout from "@/components/Layout";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import { Toaster } from "@/components/ui/sonner";
 import { Bangers, Inter, Roboto, Quantico } from "next/font/google";  // Import Quantico
 import type { Metadata } from "next/types";
@@ -33,8 +34,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className={quantico.className}>
-        <Layout>{children}</Layout>
+      <body className={`flex flex-col min-h-screen ${quantico.className}`}>
+        <Header />
+        <main className="flex-grow">{children}</main>
+        <Footer />
         <Toaster />
       </body>
     </html>
