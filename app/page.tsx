@@ -26,7 +26,7 @@ export default async function Home({
     return (
         <main className="flex min-h-screen flex-col items-center bg-slate-200">
             < HeroSection />
-            <h1 className="text-2xl font-bold text-center text-gray-900 m-10">
+            <h1 className="text-2xl font-bold text-center text-gray-900 m-6">
                 supah supah hot deals right now
             </h1>
 
