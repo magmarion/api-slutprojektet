@@ -57,7 +57,7 @@ export const products: Product[] = [
     id: "",
     articleNumber: "1005",
     title: "Intelligent Robot",
-    price: 2100,
+    price: 2099,
     description: "Eilik Intelligent Desktop Robot | for Kids and Adults, with Emotions, Interactions and Animations, Toy Entertainment Companion Pet Robot Personal Assistant for More Fun.",
     image:
       "https://m.media-amazon.com/images/I/51DBd7O6GEL.jpg",
@@ -66,7 +66,7 @@ export const products: Product[] = [
     id: "",
     articleNumber: "1006",
     title: "iPhone 15 Pro",
-    price: 10999,
+    price: 11990,
     description: "iPhone 15 Pro offers a stunning design, powerful performance and advanced features for a premium smartphone experience. With a high-resolution display, professional-grade camera and long-lasting battery, it's the perfect device for work and play.",
     image:
       "https://www.tashicell.com/themes/tashicell/assets/phones/iPhone%2015%20Pro%20Max%20256GB_2023-09-22.png",
@@ -75,7 +75,7 @@ export const products: Product[] = [
     id: "",
     articleNumber: "1007",
     title: "Samsung S24 Ultra",
-    price: 8999,
+    price: 17990,
     description: "Samsung S24 Ultra combines cutting-edge technology with sleek design to deliver a premium smartphone experience. With a stunning display, powerful camera and long-lasting battery, it offers everything you need for work and play, all in one device.",
     image:
       "https://img.etimg.com/photo/msid-98945112,imgsize-13860/SamsungGalaxyS23Ultra.jpg",
@@ -84,7 +84,7 @@ export const products: Product[] = [
     id: "",
     articleNumber: "1008",
     title: "Redmi A3",
-    price: 7490,
+    price: 1490,
     description: "Redmi A3 is a budget-friendly smartphone with a large display, powerful processor and long battery life. With a range of features including a high-resolution camera, fast charging and expandable storage, it offers great value for money and a smooth user experience.",
     image:
       "https://mtech4u.com/cdn/shop/files/GreenA3_grande_35f29f2f-eb12-4da0-9e04-df7744017f93.webp?v=1709555029",
@@ -92,7 +92,7 @@ export const products: Product[] = [
   {
     id: "",
     articleNumber: "1009",
-    title: "Bluetooth Earbuds",
+    title: "Bose Bluetooth Earbuds",
     price: 4299,
     description: "Bose bluetooth earbuds are designed to deliver clear sound and comfortable fit for all-day listening. With noise-cancelling technology and long battery life, you can enjoy music and calls without distractions, whether you're on the go or relaxing at home.",
     image:
@@ -101,8 +101,8 @@ export const products: Product[] = [
   {
     id: "",
     articleNumber: "1010",
-    title: "PS5",
-    price: 5000,
+    title: "Play Station 5",
+    price: 4990,
     description: "PS5 is the latest gaming console from Sony, offering a powerful gaming experience with stunning graphics and fast loading times. With a range of exclusive games and accessories, you can enjoy immersive gameplay and connect with friends online for an unforgettable gaming experience.",
     image:
       "https://cdn.inet.se/product/688x386/6611973_6.jpg",
@@ -111,7 +111,7 @@ export const products: Product[] = [
     id: "",
     articleNumber: "1011",
     title: "Xbox Series X",
-    price: 5000,
+    price: 4490,
     description: "Xbox Series X is the latest gaming console from Microsoft, offering a powerful gaming experience with stunning graphics and fast loading times. With a range of exclusive games and accessories, you can enjoy immersive gameplay and connect with friends online for an unforgettable gaming experience.",
     image:
       "https://m.media-amazon.com/images/I/61BVvNo8E-L.jpg",
@@ -119,8 +119,8 @@ export const products: Product[] = [
   {
     id: "",
     articleNumber: "1012",
-    title: "K820 Game Keyboard and Mouse",
-    price: 5000,
+    title: "K820 Game Keyboard & Mouse",
+    price: 550,
     description: "Elevate your gaming experience with the K820 Gaming Keyboard and Mouse Set, designed for precision, performance, and style. This USB wired combo features a 75% compact layout for a clutter-free setup, making it perfect for both desktop and PC gaming",
     image:
       "https://ae01.alicdn.com/kf/S297ce2870f40464383eaff2e7f64cd9ar.jpg",
