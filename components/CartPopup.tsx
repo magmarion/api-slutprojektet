@@ -118,7 +118,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                         href="/checkout"
                         data-cy="cart-link"
                         onClick={handleClose}
-                        className="mt-6 w-full bg-slate-500 text-white py-2 px-4 rounded-lg hover:bg-slate-600 block text-center transition-all duration-300 hover:scale-105"
+                        className="mt-6 w-full bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-900 block text-center transition-all duration-300 hover:scale-105"
                     >
                         To the checkout
                     </Link>
