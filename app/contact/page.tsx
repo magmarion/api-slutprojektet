@@ -44,7 +44,7 @@ export default function Contact() {
     };
 
     return (
-        <main className="flex min-h-screen items-center justify-center bg-slate-200 p-6">
+        <main className="h-full flex items-center justify-center bg-slate-200 p-6">
             <Card className="w-full max-w-lg shadow-lg">
                 <CardHeader>
                     <CardTitle className="text-3xl text-center">Contact Us</CardTitle>
