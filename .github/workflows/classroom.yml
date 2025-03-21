@@ -19,7 +19,7 @@ jobs:
       with:
         test-name: Krav G
         setup-command: npm install && npx plugga init && npm run push
-        command: npx plugga test -- --run
+        command: npx plugga test --run
         timeout: 10
         max-score: 100
     - name: Autograding Reporter
