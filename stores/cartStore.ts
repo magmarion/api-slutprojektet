@@ -27,8 +27,8 @@ interface CartStore {
   // Customer/Checkout
   checkoutInfo: CheckoutInfo | null;
 
-  checkoutItems: CartItem[];   
-  setCheckoutItems: (items: CartItem[]) => void;  
+  checkoutItems: CartItem[];
+  setCheckoutItems: (items: CartItem[]) => void;
 
   // Cart actions
   addToCart: (item: CartItem) => void;
@@ -55,8 +55,8 @@ const useCartStore = create<CartStore>()(
 
 
       setCheckoutItems: (items) => {
-               set(() => ({ checkoutItems: items }));
-             },
+        set(() => ({ checkoutItems: items }));
+      },
 
 
       setCheckoutInfo: (info) => {
