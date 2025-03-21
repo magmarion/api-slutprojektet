@@ -33,6 +33,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
         }, 300);
     };
 
+    
     useEffect(() => {
         if (isOpen) setIsClosing(false);
     }, [isOpen]);
@@ -92,6 +93,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                             {/* Remove Button */}
                             < button
                                 onClick={() => removeFromCart(item.id)}
+                                data-cy="remove-from-cart-button"
                                 className="text-slate-500 hover:text-slate-700 ml-auto mt-4 md:mt-0"
                             >
                                 <FaTrashAlt className="w-6 h-6 cursor-pointer transition-all duration-300 hover:scale-125" />

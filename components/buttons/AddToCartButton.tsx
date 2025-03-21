@@ -31,6 +31,5 @@ export default function AddToCartButton({ id, title, price, image }: AddToCartBu
     >
       Buy
     </Button>
-
   );
 }
