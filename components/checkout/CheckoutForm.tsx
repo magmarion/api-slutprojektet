@@ -8,14 +8,22 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
 
+
 // Zod schema: zip must be exactly 5 digits, e.g. "12345"
 const checkoutSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
-  email: z.string().min(1, { message: "Email is required" }).email("Email is invalid"),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email("Email is invalid"),
   address: z.string().min(1, { message: "Address is required" }),
-  zipcode: z.string().regex(/^\d{5}$/, { message: "Zip must be exactly 5 digits" }),
+  zipcode: z
+    .string()
+    .regex(/^\d{5}$/, { message: "Zip must be exactly 5 digits" }),
   city: z.string().min(1, { message: "City is required" }),
-  phone: z.string().regex(/^\d{10}$/, { message: "Phone must be exactly 10 digits" }),
+  phone: z
+    .string()
+    .regex(/^\d{10}$/, { message: "Phone must be exactly 10 digits" }),
 });
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
@@ -46,11 +54,17 @@ export default function CheckoutForm() {
 
     const orderNumber = nanoid(8);
 
+    clearCart();
+
     router.push(`/confirmation/${orderNumber}`);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} data-cy="customer-form" className="flex flex-col">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      data-cy="customer-form"
+      className="flex flex-col"
+    >
       {/* Name */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Name</label>
@@ -62,7 +76,10 @@ export default function CheckoutForm() {
           className="w-full p-2 border border-gray-300 rounded"
         />
         {errors.name && (
-          <p data-cy="customer-name-error" className="text-red-500 text-sm mt-1">
+          <p
+            data-cy="customer-name-error"
+            className="text-red-500 text-sm mt-1"
+          >
             {errors.name.message}
           </p>
         )}
@@ -79,7 +96,10 @@ export default function CheckoutForm() {
           className="w-full p-2 border border-gray-300 rounded"
         />
         {errors.email && (
-          <p data-cy="customer-email-error" className="text-red-500 text-sm mt-1">
+          <p
+            data-cy="customer-email-error"
+            className="text-red-500 text-sm mt-1"
+          >
             {errors.email.message}
           </p>
         )}
@@ -96,7 +116,10 @@ export default function CheckoutForm() {
           className="w-full p-2 border border-gray-300 rounded"
         />
         {errors.phone && (
-          <p data-cy="customer-phone-error" className="text-red-500 text-sm mt-1">
+          <p
+            data-cy="customer-phone-error"
+            className="text-red-500 text-sm mt-1"
+          >
             {errors.phone.message}
           </p>
         )}
@@ -113,7 +136,10 @@ export default function CheckoutForm() {
           className="w-full p-2 border border-gray-300 rounded"
         />
         {errors.address && (
-          <p data-cy="customer-address-error" className="text-red-500 text-sm mt-1">
+          <p
+            data-cy="customer-address-error"
+            className="text-red-500 text-sm mt-1"
+          >
             {errors.address.message}
           </p>
         )}
@@ -130,7 +156,10 @@ export default function CheckoutForm() {
           className="w-full p-2 border border-gray-300 rounded"
         />
         {errors.zipcode && (
-          <p data-cy="customer-zipcode-error" className="text-red-500 text-sm mt-1">
+          <p
+            data-cy="customer-zipcode-error"
+            className="text-red-500 text-sm mt-1"
+          >
             {errors.zipcode.message}
           </p>
         )}
@@ -147,12 +176,19 @@ export default function CheckoutForm() {
           className="w-full p-2 border border-gray-300 rounded"
         />
         {errors.city && (
-          <p data-cy="customer-city-error" className="text-red-500 text-sm mt-1">
+          <p
+            data-cy="customer-city-error"
+            className="text-red-500 text-sm mt-1"
+          >
             {errors.city.message}
           </p>
         )}
         <div className="w-full md:w-[50%] flex justify-center items-center mt-4">
-          <img className="cursor-pointer" src="/Credit-Card-Icons.png" alt="credit cards" />
+          <img
+            className="cursor-pointer"
+            src="/Credit-Card-Icons.png"
+            alt="credit cards"
+          />
         </div>
       </div>
 
@@ -167,17 +203,13 @@ export default function CheckoutForm() {
       {/* Expiration date (static text) */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Expiration (MM/YY)</label>
-        <p className="p-2 border border-gray-300 rounded bg-gray-50">
-          12/30
-        </p>
+        <p className="p-2 border border-gray-300 rounded bg-gray-50">12/30</p>
       </div>
 
       {/* CVC (static text) */}
       <div className="mb-6">
         <label className="block font-medium mb-1">CVC</label>
-        <p className="p-2 border border-gray-300 rounded bg-gray-50">
-          123
-        </p>
+        <p className="p-2 border border-gray-300 rounded bg-gray-50">123</p>
       </div>
 
       {/* Payment button */}
@@ -190,3 +222,7 @@ export default function CheckoutForm() {
     </form>
   );
 }
+function clearCart() {
+  throw new Error("Function not implemented.");
+}
+
