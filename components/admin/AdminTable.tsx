@@ -76,7 +76,7 @@ export default function AdminProductsGrid({ products }: { products: Product[] })
                         </CardContent>
 
                         <CardFooter className="flex items-center justify-between space-x-2">
-                            <Link href={`/admin/product/${product.articleNumber}`}>
+                            <Link href={`admin/product/${product.articleNumber}`}>
                                 <Button variant="outline" data-cy="admin-edit-product" className="flex items-center gap-1 cursor-pointer">
                                     <Edit size={16} />
                                     Edit

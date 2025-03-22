@@ -33,6 +33,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
         }, 300);
     };
 
+    
     useEffect(() => {
         if (isOpen) setIsClosing(false);
     }, [isOpen]);
@@ -69,7 +70,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                 <div className="flex items-center space-x-2 mt-2">
 
                                     <p data-cy="product-quantity" className="text-gray-600 text-xs md:text-base w-24">
-                                        Quantity: {item.quantity}
+                                        Quantity:
                                     </p>
                                     <button
                                         data-cy="decrease-quantity-button"
@@ -78,6 +79,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                     >
                                         <FaMinus className="w-3 h-3" />
                                     </button>
+                                    <p data-cy="quantity" className="text-sm md:text-base">{item.quantity}</p>
                                     <button
                                         data-cy="increase-quantity-button"
                                         onClick={() => increaseQuantity(item.id)}
@@ -91,6 +93,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                             {/* Remove Button */}
                             < button
                                 onClick={() => removeFromCart(item.id)}
+                                data-cy="remove-from-cart-button"
                                 className="text-slate-500 hover:text-slate-700 ml-auto mt-4 md:mt-0"
                             >
                                 <FaTrashAlt className="w-6 h-6 cursor-pointer transition-all duration-300 hover:scale-125" />
@@ -117,7 +120,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                         href="/checkout"
                         data-cy="cart-link"
                         onClick={handleClose}
-                        className="mt-6 w-full bg-slate-500 text-white py-2 px-4 rounded-lg hover:bg-slate-600 block text-center transition-all duration-300 hover:scale-105"
+                        className="mt-6 w-full bg-blue-800 text-white py-3 px-4 rounded hover:bg-blue-900 block text-center transition-all duration-300 hover:scale-105"
                     >
                         To the checkout
                     </Link>

@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
 
@@ -30,7 +31,7 @@ type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
 export default function CheckoutForm() {
   const router = useRouter();
-  const { setCheckoutInfo } = useCartStore();
+  const { setCheckoutInfo, cartItems } = useCartStore();
 
   const {
     register,
@@ -41,6 +42,11 @@ export default function CheckoutForm() {
   });
 
   const onSubmit = (data: CheckoutFormData) => {
+
+    if (cartItems.length === 0) {
+      toast.error("Your cart is empty. Please add items to your cart before checking out.");
+      return;
+    }
     console.log("Form data:", data);
 
     setCheckoutInfo({
@@ -52,12 +58,19 @@ export default function CheckoutForm() {
       city: data.city,
     });
 
+    
     const orderNumber = nanoid(8);
+
+    const { setCheckoutItems, clearCart } = useCartStore.getState();
+
+    setCheckoutItems(cartItems);
 
     clearCart();
 
+    
     router.push(`/confirmation/${orderNumber}`);
-  };
+
+    };
 
   return (
     <form

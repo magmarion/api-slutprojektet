@@ -1,8 +1,10 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+
 generator client {
   provider = "prisma-client-js"
+  
 }
 
 datasource db {
@@ -10,11 +12,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Product {
-  id            String @id @default(cuid())
+  id            String @id @default(cuid())  
   articleNumber String @unique 
-  title         String
+  title         String 
   description   String
   image         String
   price         Float
+  
+  orderNumber     String?
+  order       Order? @relation(fields: [orderNumber], references: [orderNumber], onDelete: Cascade)
 }
+
+model Order {
+  orderNumber        String @id @default(cuid())
+  createdAt DateTime @default(now())
+  total     Float
+  products  Product[]
+}
+
+

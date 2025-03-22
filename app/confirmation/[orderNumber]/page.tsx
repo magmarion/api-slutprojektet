@@ -11,12 +11,22 @@ import {
 import useCartStore from "@/stores/cartStore";
 import Image from "next/image";
 
+interface ConfirmationPageProps {
+  params: {
+    orderNumber: string;
+  };
+}
 
 
+export default function ConfirmationPage({ params: { orderNumber } }: ConfirmationPageProps) {
+  const { checkoutItems, checkoutInfo } = useCartStore();
 
-export default function ConfirmationPage() {
-  // 1) Pull cart items, total price, and checkout data (customer info) from your store
-  const { cartItems, totalPrice, checkoutInfo } = useCartStore();
+
+  const orderTotal = checkoutItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -31,14 +41,19 @@ export default function ConfirmationPage() {
             <CardTitle>Thank you for your purchase!</CardTitle>
             <CardDescription>
               We appreciate your order. A confirmation email has been sent.
+
+              {/* Order Number */}
+              <p className="text-sm mt-2">
+                Order Number: <span className="font-semibold">${orderNumber}</span>
+              </p>
             </CardDescription>
           </CardHeader>
           <CardContent>
             {/* If there are items in the cart, show the summary */}
-            {cartItems.length > 0 ? (
+            {checkoutItems.length > 0 ? (
               <div className="bg-gray-100 p-4 rounded-md">
                 {/* Cart Items */}
-                {cartItems.map((item) => (
+                {checkoutItems.map((item) => (
                   <div
                     key={item.id}
                     data-cy="cart-item"
@@ -81,7 +96,7 @@ export default function ConfirmationPage() {
                     Total Price:
                   </p>
                   <p className="font-semibold text-sm md:text-base">
-                    {totalPrice} SEK
+                    {orderTotal} SEK
                   </p>
                 </div>
               </div>
