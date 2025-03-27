@@ -43,7 +43,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
     return (
         <Sheet open={isOpen} onOpenChange={handleClose}>
             <SheetContent
-                className={`bg-white w-full max-w-[400px] p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"
+                className={`bg-slate-200 w-full max-w-[400px] p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"
                     } sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px]`}
             >
                 <SheetTitle className="sr-only">Cart Items</SheetTitle>
