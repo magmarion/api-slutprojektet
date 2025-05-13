@@ -25,14 +25,9 @@ export default async function ProductsPage() {
                         <p className="text-2xl text-slate-600">No products found</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4">
+                    <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {products.map((product) => (
-                            <div
-                                key={product.articleNumber}
-                                className="transition-transform duration-300 hover:scale-105"
-                            >
-                                <ProductCard product={product} />
-                            </div>
+                            <ProductCard key={product.articleNumber} product={product} />
                         ))}
                     </div>
                 )}
