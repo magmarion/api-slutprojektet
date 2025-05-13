@@ -15,38 +15,36 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div
             key={product.articleNumber}
             data-cy="product"
-            className="border rounded-md p-4 shadow-md bg-white flex md:flex-col items-center cursor-pointer transition-transform hover:scale-105"
+            className="border rounded-md p-4 shadow-md bg-white flex flex-col md:flex-col items-start md:items-center gap-4 transition-transform hover:scale-105"
         >
+            {/* Top Section: Mobile = row, Desktop = column */}
             <Link
                 href={`/product/${product.articleNumber}/${product.title}`}
-                className="flex flex-col md:w-full items-center"
-
+                className="flex flex-row md:flex-col items-start md:items-center w-full gap-4"
             >
                 <Image
                     src={product.image}
                     alt={product.title}
-                    width={200}
+                    width={150}
                     height={150}
-                    className="object-contain w-[150px] h-[150px] rounded-md"
+                    className="object-contain w-[100px] h-[100px] md:w-[150px] md:h-[150px] rounded-md"
                 />
 
-                <div className="flex flex-col justify-between items-stretch md:w-full gap-2 ml-5 md:ml-0">
+                <div className="flex flex-col justify-center md:items-center flex-1">
                     <h2
                         data-cy="product-title"
-                        className="text-lg font-semibold mt-2 hover:underline flex md:justify-center"
+                        className="text-base md:text-lg font-semibold hover:underline"
                     >
                         {product.title}
                     </h2>
-                    <p
-                        data-cy="product-price"
-                        className="text-gray-700 flex md:justify-center"
-                    >
+                    <p data-cy="product-price" className="text-gray-700">
                         {product.price} SEK
                     </p>
                 </div>
             </Link>
 
-            <div className="flex flex-col md:w-full gap-2 mt-4">
+            {/* Buttons Section */}
+            <div className="flex flex-col w-full gap-2 mt-2 md:mt-4">
                 <AddToCartButton
                     id={product.id}
                     title={product.title}
@@ -60,5 +58,6 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </Link>
             </div>
         </div>
+
     );
 }
