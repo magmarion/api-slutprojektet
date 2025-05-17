@@ -1,12 +1,10 @@
 // prisma/seed.ts
 import { db } from "./client";
 
+
 async function main() {
     await db.user.create({
-        data: {
-            name: "Alice",
-            email: "alice@example.com",
-        },
+        data: { name: "Cristiano", email: "cr7@mail.com", },
     });
 
     console.log("Seed completed");
