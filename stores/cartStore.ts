@@ -1,3 +1,5 @@
+// Glöm inte att ansluta till backend vid checkout
+
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
