@@ -22,6 +22,8 @@ async function main() {
                 description: product.description,
                 price: product.price,
                 image: product.image,
+                category: product.category,
+
             }
         });
     }
