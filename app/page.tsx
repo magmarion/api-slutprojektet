@@ -1,6 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import ProductCard from "@/components/products/ProductCard";
-import { db } from "@/prisma/db";
+import { db } from "@/prisma/client";
 
 export default async function Home() {
 

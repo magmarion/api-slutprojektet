@@ -1,7 +1,7 @@
 import AdminTable from "@/components/admin/AdminTable";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/data";
-import { db } from "@/prisma/db";
+import { db } from "@/prisma/client";
 import Link from "next/link";
 
 export default async function AdminPage() {
