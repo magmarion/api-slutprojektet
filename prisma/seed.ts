@@ -1,6 +1,6 @@
 // prisma/seed.ts
 import { db } from "./client";
-
+import { products as productData } from "../data/index";
 
 async function main() {
     await db.user.upsert({
@@ -11,6 +11,20 @@ async function main() {
             email: "lm10@gmail.com",
         }
     });
+
+    // Seed products
+    for (const product of productData) {
+        await db.product.create({
+            data: {
+                id: product.id || undefined,
+                articleNumber: product.articleNumber,
+                title: product.title,
+                description: product.description,
+                price: product.price,
+                image: product.image,
+            }
+        });
+    }
 
     console.log("Seed completed");
 }
