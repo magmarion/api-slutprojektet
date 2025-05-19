@@ -19,3 +19,14 @@ model User {
   name  String
   email String @unique
 }
+
+model Product {
+  id            String    @id @default(cuid())
+  articleNumber String
+  image         String
+  title         String
+  description   String
+  price         Float     // Använder Float istället för Decimal eftersom du använder number i TS
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}

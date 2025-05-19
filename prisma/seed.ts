@@ -3,8 +3,13 @@ import { db } from "./client";
 
 
 async function main() {
-    await db.user.create({
-        data: { name: "Cristiano", email: "cr7@mail.com", },
+    await db.user.upsert({
+        where: { email: "cr7@mail.com" },
+        create: { name: "Cristiano", email: "cr7@mail.com" },
+        update: {
+            name: "Lionel Messi",
+            email: "lm10@gmail.com",
+        }
     });
 
     console.log("Seed completed");
