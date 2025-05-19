@@ -1,5 +1,5 @@
 import AddToCartButton from "@/components/buttons/AddToCartButton";
-import { db } from "@/prisma/db";
+import { db } from "prisma/client";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -10,7 +10,7 @@ export default async function ProductDetail({
 }) {
     const { articleNumber } = params;
 
-    const product = await db.product.findUnique({
+    const product = await db.product.findFirst({
         where: { articleNumber },
     });
 

@@ -1,7 +1,7 @@
 "use server";
 
 import { Product } from "@/data";
-import { db } from "@/prisma/db";
+import { db } from "prisma/client";
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
 
