@@ -1,3 +1,4 @@
+// app\admin\actions.ts
 "use server";
 
 import { Product } from "@/data";
@@ -17,17 +18,37 @@ export async function createProduct(data: Partial<Product>) {
       image: data.image ?? "",
       description: data.description ?? "",
       price: data.price ?? 0,
+      category: data.category ?
+       {
+        connect: [{ name: data.category}],
+      }
+      : undefined,
     },
   });
   revalidatePath("/admin");
 }
 
 export async function updateProduct(articleNumber: string, data: Partial<Product>) {
+
+  const updateData = {
+    title: data.title,
+    image: data.image,
+    description: data.description,
+    price: data.price
+  }
+
+    if (data.category) {
+    updateData.category = {
+      set: [{ name: data.category }], 
+    };
+  }
+
   await db.product.update({
     where: { articleNumber },
-    data,
+    data: updateData
   });
   revalidatePath("/admin");
+  
 }
 
 export async function deleteProduct(articleNumber: string) {
