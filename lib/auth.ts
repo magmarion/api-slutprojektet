@@ -1,6 +1,4 @@
-// Autentisering med Better Auth
-
-// Här ska Better Auth konfigureras och säkerställas att användare måsta logga in innan de kan göra beställningar eller se sina tidigare köp.
+// This file configures Better Auth with Prisma as the database adapter and sets up GitHub as a social provider.
 
 import { db } from "@/prisma/client";
 import { betterAuth } from "better-auth";
