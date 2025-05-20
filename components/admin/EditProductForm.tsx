@@ -1,6 +1,6 @@
 "use client";
 
-import type { Product } from "@/data";
+import type { Product } from "@/generated/prisma";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

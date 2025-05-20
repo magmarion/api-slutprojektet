@@ -1,7 +1,7 @@
 // app/admin/product/[articleNumber]/page.tsx
 import EditProductForm from "@/components/admin/EditProductForm";
-import type { Product } from "@/data";
-import { db } from "@/prisma/db";
+import type { Product } from "@/generated/prisma";
+import { db } from "@/prisma/client";
 
 interface PageProps {
     params: { articleNumber: string };

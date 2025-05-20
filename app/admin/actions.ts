@@ -1,7 +1,7 @@
 // app\admin\actions.ts
 "use server";
 
-import { Product } from "@/data";
+import { Product } from "@/generated/prisma";
 import { db } from "prisma/client";
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
