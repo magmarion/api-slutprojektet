@@ -2,6 +2,7 @@
 
 import HeroSection from "@/components/HeroSection";
 import ProductCard from "@/components/products/ProductCard";
+import { Product } from "@/data";
 import { db } from "@/prisma/client";
 
 export default async function Home() {
@@ -35,7 +36,7 @@ export default async function Home() {
 
             {/* Visa alla produkter som standard */}
             <div className="grid grid-cols-1 px-8 py-4 pb-11 gap-3 md:grid-cols-3 lg:grid-cols-4">
-                {products.map((product) => (
+                {products.map((product: Product) => (
                     <ProductCard key={product.articleNumber} product={product} />
                 ))}
             </div>
