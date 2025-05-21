@@ -2,6 +2,7 @@
 "use server";
 
 import { Product } from "@/generated/prisma";
+import { Description } from "@radix-ui/react-dialog";
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
 import { db } from "prisma/client";
@@ -21,16 +22,34 @@ const productSchema = z.object({
 });
 
 export async function createProduct(data: Partial<Product>, categoryName?: string) {
+  // Validate data
+  const result = productSchema.safeParse({
+    title: data.title,
+    image: data.image,
+    price: data.price,
+    description: data.description,
+    category: categoryName,
+  })
+  
+  // If validation fails, return error
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Validation failed",
+      details: result.error.format()
+    };
+  }
+  
   const shortId = nanoid(8);
 
 
   await db.product.create({
     data: {
       articleNumber: shortId,
-      title: data.title ?? "Untitled",
-      image: data.image ?? "",
-      description: data.description ?? "",
-      price: data.price ?? 0,
+      title: result.data.title ?? "Untitled",
+      image: result.data.image ?? "",
+      description: result.data.description ?? "",
+      price: result.data.price ?? 0,
       categories: categoryName
         ? {
             connect: [{ name: categoryName }],
@@ -38,7 +57,7 @@ export async function createProduct(data: Partial<Product>, categoryName?: strin
         : undefined,
     },
   });
-  revalidatePath("/admin");
+  revalidatePath("/admin/dashboard");
 }
 
 export async function updateProduct(
@@ -46,11 +65,31 @@ export async function updateProduct(
   data: Partial<Product>,
   categoryName?: string
 ) {
+
+  // Validate data
+  const result = productSchema.safeParse({
+    title: data.title,
+    image: data.image,
+    price: data.price,
+    description: data.description,
+    category: categoryName 
+  });
+
+    // If validation fails, return error
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Validation failed",
+      details: result.error.format()
+    };
+  }
+
   const updateData: any = {
     title: data.title,
     image: data.image,
     description: data.description,
     price: data.price,
+    categories: categoryName,
   };
 
   if (categoryName) {
