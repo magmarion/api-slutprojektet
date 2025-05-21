@@ -100,17 +100,25 @@ export default function Header() {
 
                         {showDropdown && (
                             <div className="absolute right-0 mt-2 w-64 bg-white text-slate-900 rounded shadow-lg z-50 p-4 space-y-2">
-                                <div className="font-bold text-lg">{session.user?.name || "Unknown user"}</div>
-                                <div className="text-sm">Email: {session.user?.email || "N/A"}</div>
-                                <div className="text-sm">Phone: {session.user?.phone || "N/A"}</div>
-                                <hr className="my-2" />
-                                <button
-                                    onClick={() => signOut()}
-                                    className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors"
-                                >
-                                    Sign Out
-                                </button>
-                            </div>
+                            <Link
+                              href="/profile"
+                              onClick={() => setShowDropdown(false)}
+                              className="flex items-center gap-2 text-sm font-medium hover:underline"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A7.963 7.963 0 0112 15c2.137 0 4.084.835 5.514 2.204M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                              Profile
+                            </Link>
+                            <hr className="my-2" />
+                            <button
+                              onClick={() => signOut()}
+                              className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors"
+                            >
+                              Sign Out
+                            </button>
+                          </div>
+                          
                         )}
                     </div>
                 ) : (

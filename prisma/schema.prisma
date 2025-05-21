@@ -15,15 +15,17 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(cuid())
+  id            String   @id @default(cuid())
   name          String
-  email         String    @unique
+  email         String   @unique
   emailVerified Boolean
   image         String?
+  phone         String?       // 👈 Optional phone number
   createdAt     DateTime
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  orders        Order[]       // ✅ User has many orders
 
   @@map("user")
 }
@@ -34,7 +36,7 @@ model Product {
   image         String
   title         String
   description   String
-  price         Float // Använder Float istället för Decimal eftersom du använder number i TS
+  price         Float
   category      String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -83,4 +85,13 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  userId    String
+  product   String
+  status    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 }
