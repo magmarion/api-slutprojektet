@@ -21,14 +21,14 @@ export default async function CategoryPage({ params }: { params: Params }) {
     // Hämta produkter i denna kategori
 const products = await db.product.findMany({
   where: {
-    category: {
+    categories: {
       some: {
         name: category,
       },
     },
   },
   include: {
-    category: true,
+    categories: true,
   },
 });
 
