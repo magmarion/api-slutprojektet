@@ -35,7 +35,7 @@ model Product {
   title         String
   description   String
   price         Float // Använder Float istället för Decimal eftersom du använder number i TS
-  category      String
+  category      String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
