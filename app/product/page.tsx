@@ -1,5 +1,5 @@
 import ProductCard from "@/components/products/ProductCard";
-import { db } from "@/prisma/db";
+import { db } from "prisma/client";
 import { FaBoxOpen } from "react-icons/fa";
 
 export default async function ProductsPage() {

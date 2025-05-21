@@ -1,23 +1,43 @@
-import { products } from '@/data';
-import { db } from './db';
-
+// prisma/seed.ts
+import { db } from "./client";
+import { products as productData } from "../data/index";
 
 async function main() {
-  for (const { id, ...product } of products) {
-    await db.product.upsert({
-      where: { articleNumber: product.articleNumber },
-      update: {},
-      create: product,
+    const user = await db.user.findUnique({
+        where: { email: "cr7@mail.com" },
     });
-  }
+
+    if (user) {
+        await db.user.update({
+            where: { id: user.id },
+            data: {
+                name: "Lionel Messi",
+                email: "lm10@gmail.com",
+            },
+        });
+    }
+    // Seed products
+    for (const product of productData) {
+        await db.product.create({
+            data: {
+                id: product.id || undefined,
+                articleNumber: product.articleNumber,
+                title: product.title,
+                description: product.description,
+                price: product.price,
+                image: product.image,
+                category: product.category,
+
+            }
+        });
+    }
+
+    console.log("Seed completed");
 }
 
 main()
-  .then(async () => {
-    await db.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await db.$disconnect();
-    process.exit(1);
-  });
+    .catch((e) => {
+        console.error(e);
+        process.exit(1);
+    })
+    .finally(() => db.$disconnect());
