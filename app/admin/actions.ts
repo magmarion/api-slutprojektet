@@ -72,3 +72,15 @@ export async function deleteProduct(articleNumber: string) {
   });
   revalidatePath("/admin");
 }
+
+export async function getCategories() {
+  const categories = await db.category.findMany({
+    select: { name: true }
+  });
+
+  return categories;
+}
+
+
+
+
