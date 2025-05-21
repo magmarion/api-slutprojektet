@@ -12,7 +12,7 @@ export default async function Home() {
 
     // Hämta alla produkter
     const products = await db.product.findMany({
-        include: { category: true },
+        include: { categories: true },
     });
 
     return (

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default async function AdminPage() {
   const products = await db.product.findMany({
-    include: { category: true }, 
+    include: { categories: true }, 
   });
 
   return (

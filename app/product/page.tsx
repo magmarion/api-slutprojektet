@@ -4,7 +4,7 @@ import { FaBoxOpen } from "react-icons/fa";
 
 export default async function ProductsPage() {
     const products = await db.product.findMany({
-        include: { category: true },
+        include: { categories: true },
     });
 
     return (
