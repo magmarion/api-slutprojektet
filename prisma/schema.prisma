@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String
   email         String    @unique
   emailVerified Boolean
@@ -35,18 +35,18 @@ model Product {
   title         String
   description   String
   price         Float // Använder Float istället för Decimal eftersom du använder number i TS
-  category      Category[] @relation("ProductCategories")
+  categories      Category[] @relation("ProductCategories")
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  products Product[] @relation("ProductCategories")
-  category      String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  products  Product[] @relation("ProductCategories")
+  category  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Session {
@@ -59,7 +59,7 @@ model Session {
   userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
   @@unique([token])
   @@map("session")
 }
@@ -92,5 +92,4 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
-
 }

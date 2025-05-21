@@ -2,14 +2,27 @@
 "use server";
 
 import { Product } from "@/generated/prisma";
-import { db } from "prisma/client";
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
+import { db } from "prisma/client";
+import { z } from "zod";
 
+const productSchema = z.object({
+    title: z.string().nonempty("Title is required"),
+    image: z
+        .string()
+        .nonempty("Image URL is required")
+        .url("Please enter a valid URL"),
+    price: z
+        .number({ invalid_type_error: "Price must be a number" })
+        .min(0, "Price must be at least 0"),
+    description: z.string().nonempty("Description is required"),
+    category: z.string().nonempty("Category is required")
+});
 
-export async function createProduct(data: Partial<Product>) {
+export async function createProduct(data: Partial<Product>, categoryName?: string) {
+  const shortId = nanoid(8);
 
-  const shortId = nanoid(8)
 
   await db.product.create({
     data: {
@@ -18,37 +31,39 @@ export async function createProduct(data: Partial<Product>) {
       image: data.image ?? "",
       description: data.description ?? "",
       price: data.price ?? 0,
-      category: data.category ?
-       {
-        connect: [{ name: data.category}],
-      }
-      : undefined,
+      categories: categoryName
+        ? {
+            connect: [{ name: categoryName }],
+          }
+        : undefined,
     },
   });
   revalidatePath("/admin");
 }
 
-export async function updateProduct(articleNumber: string, data: Partial<Product>) {
-
-  const updateData = {
+export async function updateProduct(
+  articleNumber: string,
+  data: Partial<Product>,
+  categoryName?: string
+) {
+  const updateData: any = {
     title: data.title,
     image: data.image,
     description: data.description,
-    price: data.price
-  }
+    price: data.price,
+  };
 
-    if (data.category) {
-    updateData.category = {
-      set: [{ name: data.category }], 
+  if (categoryName) {
+    updateData.categories = {
+      set: [{ name: categoryName }],
     };
   }
 
   await db.product.update({
     where: { articleNumber },
-    data: updateData
+    data: updateData,
   });
   revalidatePath("/admin");
-  
 }
 
 export async function deleteProduct(articleNumber: string) {
