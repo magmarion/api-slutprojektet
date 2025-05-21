@@ -23,7 +23,7 @@ import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 
 // 🆕 Korrekt typ med relation
 type ProductWithCategory = Product & {
-  category: Category[];
+  categories: Category[];
 };
 
 export default function AdminProductsGrid({
@@ -85,7 +85,7 @@ export default function AdminProductsGrid({
 
               {/* 🆕 Visa kategorier */}
               <p className="text-xs text-gray-600">
-                {product.category.map((c) => c.name).join(", ")}
+                {product.categories.map((c) => c.name).join(", ")}
               </p>
             </CardContent>
 
