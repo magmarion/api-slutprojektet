@@ -68,18 +68,21 @@ export default function AddProductForm() {
   const onSubmit = async (data: ProductFormData) => {
     try {
       // Anropa server action direkt
-      await createProduct({
-        title: data.title,
-        image: data.image,
-        price: data.price,
-        description: data.description,
-      }, data.category); // Skicka kategorin som en separat parameter
+      await createProduct(
+        {
+          title: data.title,
+          image: data.image,
+          price: data.price,
+          description: data.description,
+        },
+        data.category
+      ); // Skicka kategorin som en separat parameter
 
       toast.success("Product created successfully!");
       router.push("/admin");
     } catch (error) {
       console.error(error);
-      toast.error("There was an error creating the product.");
+      toast.error("There was an error when creating the product.");
     }
   };
 
