@@ -19,11 +19,18 @@ export default async function CategoryPage({ params }: { params: Params }) {
     const category = decodeURIComponent(params.slug);
 
     // Hämta produkter i denna kategori
-    const products = await db.product.findMany({
-        where: {
-            category: category,
-        },
-    });
+const products = await db.product.findMany({
+  where: {
+    categories: {
+      some: {
+        name: category,
+      },
+    },
+  },
+  include: {
+    categories: true,
+  },
+});
 
     if (!products.length) {
         notFound();

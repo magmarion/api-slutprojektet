@@ -2,7 +2,7 @@
 
 import AddToCartButton from "@/components/buttons/AddToCartButton";
 import { Button } from "@/components/ui/button";
-import type { Product } from "@/data";
+import type { Product } from "@/generated/prisma";
 import Image from "next/image";
 import Link from "next/link";
 

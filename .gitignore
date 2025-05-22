@@ -39,3 +39,5 @@ generated
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+generated
