@@ -1,8 +1,9 @@
 // lib/auth.ts
-import { cookies } from 'next/headers';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { db } from '@/prisma/client';
+import { headers } from "next/headers";
+
 
 export const auth = betterAuth({
   database: prismaAdapter(db, { provider: 'postgresql' }),
@@ -16,9 +17,8 @@ export const auth = betterAuth({
 });
 
 // Correct way to fetch session on the server
-export async function getCurrentUser() {
-  const cookieStore = cookies();
-  const response = await auth.handler({ request: { cookies: cookieStore } });
-  const session = await response.json();
-  return session?.user ?? null;
+export async function getSession() {
+  return auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
 }

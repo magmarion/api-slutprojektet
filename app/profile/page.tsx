@@ -1,16 +1,16 @@
-import { getCurrentUser } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { db } from "@/prisma/client";
 import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
-  const userSession = await getCurrentUser();
+  const userSession = await getSession();
 
-  if (!userSession?.email) {
+  if (!userSession) {
     redirect("/signin");
   }
 
   const user = await db.user.findUnique({
-    where: { email: userSession.email },
+    where: { email: userSession.user.email },
     include: { orders: true },
   });
 
