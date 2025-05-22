@@ -15,28 +15,39 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div
             key={product.articleNumber}
             data-cy="product"
-            className="border p-4 shadow-md bg-white flex flex-col md:flex-col items-start md:items-center gap-4 transition-all duration-300 ease-out hover:scale-[1.03] hover:shadow-lg"
+            className="p-4 shadow-sm bg-white flex flex-col md:flex-col justify-between items-start md:items-center gap-4 hover:shadow-lg"
         >
             {/* Top Section: Mobile = row, Desktop = column */}
             <Link
                 href={`/product/${product.articleNumber}/${product.title}`}
                 className="flex flex-col md:flex-col items-start md:items-center w-full gap-4"
             >
-                <Image
-                    src={product.image}
-                    alt=''
-                    width={150}
-                    height={150}
-                    className="object-cover w-full h-[200px] sm:h-[150px] md:h-[200px] lg:h-[250px]"
-                />
+                <div className="overflow-hidden w-full">
+                    <Image
+                        src={product.image}
+                        alt=''
+                        width={150}
+                        height={150}
+                        className="object-cover w-full h-[200px] sm:h-[150px] md:h-[200px] lg:h-[250px] 
+                      transition-transform duration-300 ease-out 
+                      group-hover:scale-110 hover:scale-110"
+                    />
+                </div>
 
-                <div className="flex flex-col justify-center md:items-center flex-1">
-                    <h2
-                        className="text-base md:text-lg font-semibold hover:underline"
-                    >
-                        {product.title}
+                <div className="flex flex-col justify-center items-center flex-1">
+                    <h2 className="text-base md:text-lg font-semibold hover:underline">
+                        {product.title.includes('(') ? (
+                            <div className="flex flex-col gap-0 items-center">
+                                <span>{product.title.split('(')[0].trim()}</span>
+                                <span className="text-sm">
+                                    ({product.title.split('(')[1]}
+                                </span>
+                            </div>
+                        ) : (
+                            product.title
+                        )}
                     </h2>
-                    <p className="text-gray-700">
+                    <p className="text-gray-800">
                         {product.price} SEK
                     </p>
                 </div>
