@@ -1,3 +1,4 @@
+// lib/auth.ts
 import { cookies } from "next/headers";
 import { db } from "@/prisma/client";
 import { betterAuth } from "better-auth";
@@ -20,15 +21,14 @@ export const auth = betterAuth({
   ],
 });
 
-// ✅ FINAL FIXED FUNCTION
 export async function getCurrentUser() {
-  const cookieStore = cookies();
-
-  const response = await auth.api["auth.session.get"]({
-    cookies: cookieStore,
+  const cookieStore = cookies(); // ✅ sync access
+  const response = await auth.handler({
+    request: {
+      cookies: cookieStore,
+    },
   });
 
   const session = await response.json();
-
   return session?.user ?? null;
 }
