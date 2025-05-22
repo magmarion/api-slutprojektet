@@ -1,6 +1,6 @@
 "use client";
 
-import type { Product } from "@/data";
+import type { Category, Product } from "@/generated/prisma";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,12 +23,14 @@ const productSchema = z.object({
         .url("Please enter a valid URL"),
     price: z.coerce.number().min(1, "Price must be at least 1"),
     description: z.string().nonempty("Description is required"),
+    category: z.string().nonempty("Category is required")
 });
 
 type FormData = z.infer<typeof productSchema>;
 
 interface EditProductFormProps {
     product: Product;
+    categories: Category[];
 }
 
 export default function EditProductForm({ product }: EditProductFormProps) {

@@ -6,12 +6,14 @@ import { db } from "@/prisma/client";
 
 export default async function Home() {
     // Hämta unika kategorier från databasen
-    const categories = await db.product.groupBy({
-        by: ["category"],
+    const categories = await db.category.findMany({
+        select: { name: true }, 
     });
 
     // Hämta alla produkter
-    const products = await db.product.findMany();
+    const products = await db.product.findMany({
+        include: { categories: true },
+    });
 
     return (
         <main className="flex min-h-screen flex-col items-center bg-slate-200">
@@ -24,11 +26,11 @@ export default async function Home() {
             <div className="flex justify-center gap-4 mb-8">
                 {categories.map((cat) => (
                     <a
-                        key={cat.category}
-                        href={`/categories/${encodeURIComponent(cat.category)}`}
+                        key={cat.name}
+                        href={`/categories/${encodeURIComponent(cat.name)}`}
                         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                     >
-                        {cat.category}
+                        {cat.name}
                     </a>
                 ))}
             </div>
