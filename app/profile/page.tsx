@@ -1,4 +1,3 @@
-// app/profile/page.tsx
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/prisma/client";
 import { redirect } from "next/navigation";

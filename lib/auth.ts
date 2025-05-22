@@ -1,4 +1,3 @@
-// lib/auth.ts
 import { cookies } from "next/headers";
 import { db } from "@/prisma/client";
 import { betterAuth } from "better-auth";
@@ -14,17 +13,22 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     },
   },
-  trustedOrigins: ["http://localhost:3000", "http://localhost:5173"],
+  trustedOrigins: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:5173",
+  ],
 });
 
-// ✅ This function fetches the current user session
+// ✅ FINAL FIXED FUNCTION
 export async function getCurrentUser() {
-  const request = {
-    cookies: cookies(),
-  };
+  const cookieStore = cookies();
 
-  const response = await auth.handler(request);
-  // @ts-ignore – use `.json()` to parse the session
+  const response = await auth.api["auth.session.get"]({
+    cookies: cookieStore,
+  });
+
   const session = await response.json();
+
   return session?.user ?? null;
 }
