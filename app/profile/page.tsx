@@ -19,14 +19,13 @@ export default async function ProfilePage() {
     return <main className="text-white p-10">User not found.</main>;
   }
 
-
   return (
     <main className="min-h-screen bg-slate-900 text-white px-4 py-10 flex flex-col items-center">
       <div className="max-w-xl w-full bg-slate-800 rounded shadow-md p-6 space-y-4">
         <h1 className="text-3xl font-bold mb-4">Your Profile</h1>
         <p><span className="font-semibold">Name:</span> {user.name}</p>
         <p><span className="font-semibold">Email:</span> {user.email}</p>
-        <p><span className="font-semibold">Phone:</span> {user.phone || "N/A"}</p>
+        <p><span className="font-semibold">Phone:</span> {"N/A"}</p>
 
         <hr className="border-slate-600 my-4" />
 
@@ -35,7 +34,18 @@ export default async function ProfilePage() {
           <ul className="space-y-2 text-sm">
             {user.orders.map((order) => (
               <li key={order.id} className="bg-slate-700 p-3 rounded">
-                <div className="font-medium">Product: {order.product}</div>
+                <div className="font-medium">
+                  Products:
+                  <ul className="list-disc list-inside ml-4">
+                    {Array.isArray(order.items)
+                      ? order.items.map((item: any, idx: number) => (
+                          <li key={idx}>
+                            {item.title || item.name || "Unnamed Product"}
+                          </li>
+                        ))
+                      : "No items"}
+                  </ul>
+                </div>
                 <div>Status: {order.status}</div>
                 <div className="text-xs text-slate-400">
                   Ordered: {new Date(order.createdAt).toLocaleString()}
