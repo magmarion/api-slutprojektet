@@ -4,16 +4,17 @@ import { db } from "@/prisma/client";
 import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
-  // ✅ Use Better Auth's built-in API endpoint for sessions
-  const cookieStore = cookies();
-  const response = await auth.api["auth.session.get"]({ cookies: cookieStore });
+  // ✅ Get session using Better Auth handler and cookies
+  const response = await auth.handler({ request: { cookies: cookies() } });
   const session = await response.json();
   const userSession = session?.user;
 
+  // ✅ If not authenticated, redirect
   if (!userSession?.email) {
     redirect("/signin");
   }
 
+  // ✅ Fetch user from database by email
   const user = await db.user.findUnique({
     where: { email: userSession.email },
     include: { orders: true },
@@ -22,6 +23,7 @@ export default async function ProfilePage() {
   if (!user) {
     return <main className="text-white p-10">User not found.</main>;
   }
+
 
   return (
     <main className="min-h-screen bg-slate-900 text-white px-4 py-10 flex flex-col items-center">
