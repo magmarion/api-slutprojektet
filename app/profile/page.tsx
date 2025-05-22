@@ -1,9 +1,14 @@
-import { getCurrentUser } from "@/lib/auth";
+import { cookies } from "next/headers";
+import { auth } from "@/lib/auth";
 import { db } from "@/prisma/client";
 import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
-  const userSession = await getCurrentUser();
+  // ✅ Use Better Auth's built-in API endpoint for sessions
+  const cookieStore = cookies();
+  const response = await auth.api["auth.session.get"]({ cookies: cookieStore });
+  const session = await response.json();
+  const userSession = session?.user;
 
   if (!userSession?.email) {
     redirect("/signin");
