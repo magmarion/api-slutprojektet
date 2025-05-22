@@ -3,9 +3,7 @@ import { db } from "prisma/client";
 import { FaBoxOpen } from "react-icons/fa";
 
 export default async function ProductsPage() {
-    const products = await db.product.findMany({
-        include: { categories: true },
-    });
+    const products = await db.product.findMany();
 
     return (
         <main className="min-h-screen bg-slate-100">

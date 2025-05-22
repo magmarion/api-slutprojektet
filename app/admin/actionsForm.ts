@@ -11,7 +11,6 @@ export async function createProductAction(formData: FormData) {
         image: formData.get("image") as string,
         price: Number(formData.get("price")),
         description: formData.get("description") as string,
-        category: formData.get("category") as string,
     };
 
     const productSchema = z.object({
@@ -24,7 +23,6 @@ export async function createProductAction(formData: FormData) {
             .number({ invalid_type_error: "Price must be a number" })
             .min(0, "Price must be at least 0"),
         description: z.string().nonempty("Description is required"),
-        category: z.string().nonempty("Category is required")
     });
 
     const result = productSchema.safeParse(data);
@@ -48,7 +46,6 @@ export async function updateProductAction(
         image: formData.get("image") as string,
         price: Number(formData.get("price")),
         description: formData.get("description") as string,
-        category: formData.get("category") as string,
     };
 
     const productSchema = z.object({
@@ -61,8 +58,6 @@ export async function updateProductAction(
             .number({ invalid_type_error: "Price must be a number" })
             .min(0, "Price must be at least 0"),
         description: z.string().nonempty("Description is required"),
-                category: z.string().nonempty("Category is required")
-
     });
 
     const result = productSchema.safeParse(data);
