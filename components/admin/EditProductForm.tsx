@@ -1,6 +1,6 @@
 "use client";
 
-import type { Category, Product } from "@/generated/prisma";
+import type { Product } from "@/generated/prisma";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,8 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { updateProductAction } from "@/app/admin/actionsForm";
+import { getCategories, updateProduct } from "@/app/admin/actions";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const productSchema = z.object({
@@ -30,11 +31,29 @@ type FormData = z.infer<typeof productSchema>;
 
 interface EditProductFormProps {
     product: Product;
-    categories: Category[];
 }
 
 export default function EditProductForm({ product }: EditProductFormProps) {
     const router = useRouter();
+    const [categories, setCategories] = useState<{ name: string }[]>([]);
+    const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+
+    // Hämta kategorier med Server Actions
+    useEffect(() => {
+        async function loadCategories() {
+            try {
+                const categoriesData = await getCategories();
+                setCategories(categoriesData);
+            } catch (error) {
+                console.error("Failed to load categories:", error);
+                toast.error("Failed to load categories");
+            } finally {
+                setIsLoadingCategories(false);
+            }
+        }
+
+        loadCategories();
+    }, []);
 
     const {
         register,
@@ -47,21 +66,14 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             image: product.image,
             price: product.price,
             description: product.description,
+            category: categories?.[0]?.name || "",
         },
     });
 
     const onSubmit = async (data: FormData) => {
         try {
-            const formData = new FormData();
-            formData.append("title", data.title);
-            formData.append("image", data.image);
-            formData.append("price", data.price.toString());
-            formData.append("description", data.description);
-
-            await updateProductAction(formData, product.articleNumber);
-
+            await updateProduct(product.articleNumber, data);
             toast.success("Product updated successfully!");
-
             router.push("/admin");
         } catch (error) {
             console.error(error);
@@ -140,6 +152,33 @@ export default function EditProductForm({ product }: EditProductFormProps) {
                                 {errors.description.message}
                             </p>
                         )}
+                    </div>
+
+                    <div>
+                        <Label htmlFor="category">Category</Label>
+                        <select
+                            id="category"
+                            {...register("category")}
+                            className="w-full p-2 border rounded-md"
+                            disabled={isLoadingCategories}
+                            data-cy="product-category"
+                        >
+                            <option value="">Select a category...</option>
+                            {categories.map((category) => (
+                                <option
+                                    key={category.name}
+                                    value={category.name}
+                                >
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.category && (
+                            <p className="text-red-500 text-sm mt-1" data-cy="product-category-error">
+                                {errors.category.message}
+                            </p>
+                        )}
+                        {isLoadingCategories && <p className="text-sm">Loading categories...</p>}
                     </div>
 
                     <Button type="submit" data-cy="product-submit">
