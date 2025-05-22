@@ -9,6 +9,7 @@ export default async function ProfilePage() {
     redirect("/signin");
   }
 
+  // ✅ Fetch user from database by email
   const user = await db.user.findUnique({
     where: { email: userSession.user.email },
     include: { orders: true },
@@ -17,6 +18,7 @@ export default async function ProfilePage() {
   if (!user) {
     return <main className="text-white p-10">User not found.</main>;
   }
+
 
   return (
     <main className="min-h-screen bg-slate-900 text-white px-4 py-10 flex flex-col items-center">
