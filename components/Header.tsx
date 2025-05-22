@@ -1,10 +1,10 @@
 "use client";
 
-import { signIn, signOut, useSession } from "@/lib/auth-client"; // 👈 Importera useSession och signIn
+import { useEffect, useRef, useState } from "react";
+import { signIn, signOut, useSession } from "@/lib/auth-client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaGithub } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
 import { RiAdminFill } from "react-icons/ri";
 import useCartStore from "../stores/cartStore";
@@ -15,13 +15,27 @@ export default function Header() {
     const pathname = usePathname();
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null); // 👈 reference for outside click
     const { cartItems, cartCount } = useCartStore();
+    const { data: session, isPending: loading } = useSession();
 
-    const { data: session, isPending: loading } = useSession(); // 👈 Använd useSession
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setShowDropdown(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    if (loading) return <div>Loading...</div>;
 
     return (
         <header className="sticky top-0 z-50 bg-slate-900 shadow-md flex justify-between items-center px-5 h-15 md:h-20">
@@ -30,7 +44,7 @@ export default function Header() {
                 <p className="font-extrabold -mt-3 text-xl">gear</p>
             </Link>
 
-            {/* Desktop Navigation - Hidden on Small Screens */}
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex gap-16">
                 {["home", "product", "about", "contact"].map((item) => (
                     <Link
@@ -52,10 +66,10 @@ export default function Header() {
             <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
             {/* Icons Section */}
-            <div className="flex gap-4 pr-4">
+            <div className="flex gap-4 pr-4 items-center relative">
                 {session?.user && (
                     <Link href="/admin" data-cy="admin-link" className="text-white hover:text-gray-400">
-                        <RiAdminFill className="w-6 h-6 cursor-pointer text-white hover:text-gray-400" />
+                        <RiAdminFill className="w-6 h-6 cursor-pointer" />
                     </Link>
                 )}
 
@@ -74,19 +88,46 @@ export default function Header() {
                     <FaShoppingCart className="w-6 h-6 text-slate-200 group-hover:text-slate-200 hover:text-gray-400 transition-colors" />
                 </button>
 
-                {/* Auth Buttons */}
-                {!session ? (
-                    <Link href={"/signin"} className="bg-slate-200 hover:bg-slate-300 text-slate-900 px-3 py-1 rounded transition-colors">Sign In</Link>
+                {/* Profile Dropdown */}
+                {session?.user ? (
+                    <div className="relative" ref={dropdownRef}>
+                        <button
+                            onClick={() => setShowDropdown(prev => !prev)}
+                            className="w-9 h-9 rounded-full border-2 border-slate-300 flex items-center justify-center text-white hover:border-white transition"
+                        >
+                            <FaGithub />
+                        </button>
+
+                        {showDropdown && (
+                            <div className="absolute right-0 mt-2 w-64 bg-white text-slate-900 rounded shadow-lg z-50 p-4 space-y-2">
+                            <Link
+                              href="/profile"
+                              onClick={() => setShowDropdown(false)}
+                              className="flex items-center gap-2 text-sm font-medium hover:underline"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A7.963 7.963 0 0112 15c2.137 0 4.084.835 5.514 2.204M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                              Profile
+                            </Link>
+                            <hr className="my-2" />
+                            <button
+                              onClick={() => signOut()}
+                              className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors"
+                            >
+                              Sign Out
+                            </button>
+                          </div>
+                          
+                        )}
+                    </div>
                 ) : (
-                    <button
-                        onClick={() => {
-                            // @ts-ignore - signIn has signOut method when session is present
-                            signOut();
-                        }}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 ml-2 rounded transition-colors"
+                    <Link
+                        href="/signin"
+                        className="bg-slate-200 hover:bg-slate-300 text-slate-900 px-3 py-1 rounded transition-colors"
                     >
-                        Sign Out
-                    </button>
+                        Sign In
+                    </Link>
                 )}
             </div>
 
