@@ -15,26 +15,26 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div
             key={product.articleNumber}
             data-cy="product"
-            className="p-4 shadow-sm bg-white flex flex-col md:flex-col justify-between items-start md:items-center gap-4 hover:shadow-lg"
+            className="p-4 shadow-sm bg-white flex flex-col justify-between hover:shadow-lg"
         >
             {/* Top Section: Mobile = row, Desktop = column */}
             <Link
                 href={`/product/${product.articleNumber}/${product.title}`}
-                className="flex flex-col md:flex-col items-start md:items-center w-full gap-4"
+                className="flex flex-col items-center gap-4"
             >
                 <div className="overflow-hidden w-full">
                     <Image
                         src={product.image}
                         alt=''
-                        width={150}
-                        height={150}
-                        className="object-cover w-full h-[200px] sm:h-[150px] md:h-[200px] lg:h-[250px] 
+                        width={350}
+                        height={350}
+                        className="object-cover w-full h-[300px] md:h-[200px] lg:h-[250px] xl:h-[350px] 
                       transition-transform duration-300 ease-out 
                       group-hover:scale-110 hover:scale-110"
                     />
                 </div>
 
-                <div className="flex flex-col justify-center items-center flex-1">
+                <div className="flex flex-col items-center flex-1">
                     <h2 className="text-base md:text-lg font-semibold hover:underline">
                         {product.title.includes('(') ? (
                             <div className="flex flex-col gap-0 items-center">
