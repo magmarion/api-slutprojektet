@@ -8,13 +8,13 @@ export default async function ProductsPage() {
     });
 
     return (
-        <main className="min-h-screen bg-slate-100">
+        <main className="min-h-screen bg-[#FEFAE1]">
             {/* Hero Section */}
-            <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white py-20">
+            <div className="bg-gradient-to-b from-[#3D5300] to-[#616F47] text-white py-20">
                 <div className="container mx-auto px-4 text-center">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-6">Explore Our Products</h1>
-                    <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-                        Discover the latest tech innovations at amazing prices
+                    <h1 className="text-4xl md:text-6xl font-bold mb-6">Upptäck vår kollektion</h1>
+                    <p className="text-xl text-[#FEFAE1] max-w-2xl mx-auto">
+                        Bläddra bland handplockade växter och blomsterarrangemang – perfekt för ditt hem eller som gåva.
                     </p>
                 </div>
             </div>

@@ -28,7 +28,7 @@ export default function HeroSection() {
                         </button>
                     </Link>
                     <Link href={`/categories/${encodeURIComponent("utomhus")}`}>
-                        <button className="bg-[#222831] hover:bg-[#0F0F0F] text-[#FEFAE1] px-4 py-2 rounded cursor-pointer">
+                        <button className="bg-[#594100] hover:bg-[#4B352A] text-[#FEFAE1] px-4 py-2 rounded cursor-pointer">
                             Utomhus
                         </button>
                     </Link>

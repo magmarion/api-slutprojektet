@@ -9,6 +9,8 @@ interface AddToCartButtonProps {
   title: string;
   price: number;
   image: string;
+  className?: string;  // Lägg till denna rad
+
 }
 
 export default function AddToCartButton({ id, title, price, image }: AddToCartButtonProps) {

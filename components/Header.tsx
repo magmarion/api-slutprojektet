@@ -61,7 +61,7 @@ export default function Header() {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <header className="sticky top-0 z-50 bg-[#616F47] text-[#FEFAE1] shadow-md flex justify-between items-center px-5 py-4">
+        <header className="sticky top-0 z-50 bg-gradient-to-b from-[#3D5300] to-[#616F47] text-[#FEFAE1] shadow-lg flex justify-between items-center px-5 py-4">
             {/* Logo */}
             <Link
                 href="/"
@@ -80,7 +80,7 @@ export default function Header() {
                     >
                         <Link
                             href={link.path}
-                            className={`hover:text-[#F4D794] transition-colors ${pathname === link.path ? "bg-[#AF3E3E] px-2 py-1 rounded-lg" : ""
+                            className={`hover:text-[#F4D794] transition-colors ${pathname === link.path ? "bg-[#594100] px-2 py-1 rounded-lg" : ""
                                 }`}
                         >
                             {link.label}
@@ -141,7 +141,7 @@ export default function Header() {
                 >
                     <span
                         data-cy="cart-items-count-badge"
-                        className="absolute -top-3 -right-3 w-[20px] h-[20px] bg-[#3F4F44] text-white text-xs flex justify-center items-center font-semibold rounded-full group-hover:bg-[#2C3930] transition-colors"
+                        className="absolute -top-3 -right-3 w-[20px] h-[20px] bg-[#644A07] text-white text-xs flex justify-center items-center font-semibold rounded-full group-hover:bg-[#4B352A] transition-colors"
                     >
                         {cartCount}
                     </span>
