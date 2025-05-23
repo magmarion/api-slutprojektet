@@ -20,21 +20,8 @@ export default async function Home() {
         <main className="flex min-h-screen flex-col items-center bg-slate-200">
             <HeroSection />
             <h1 className="text-2xl font-bold text-center text-gray-900 m-6">
-                Vackert på balkongen, vackert hemma, vackert i trädgården. Köp nu våra blommar för fan!
+                Gröna drömmar blir verklighet hos oss! Köp nu våra blommar för fan!
             </h1>
-
-            {/* Kategorilänkar */}
-            <div className="flex justify-center gap-4 mb-8">
-                {categories.map((cat) => (
-                    <a
-                        key={cat.name}
-                        href={`/categories/${encodeURIComponent(cat.name)}`}
-                        className="px-4 py-2 bg-green-700 text-white rounded hover:bg-green-600"
-                    >
-                        {cat.name}
-                    </a>
-                ))}
-            </div>
 
             {/* Visa alla produkter som standard */}
             <div className="grid grid-cols-1 px-8 py-4 pb-11 gap-3 md:grid-cols-3 lg:grid-cols-4">
