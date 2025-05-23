@@ -2,8 +2,8 @@ import { FaFacebookSquare, FaGithub, FaInstagram, FaLinkedin, FaPinterestSquare,
 
 export default function Footer() {
   return (
-    <footer className="p-4 bg-slate-900">
-      <div className=" gap-2 flex items-center justify-center text-white font-bold text-xl">
+    <footer className="p-4 bg-[#616F47]">
+      <div className=" gap-2 flex items-center justify-center text-[#FEFAE1] font-bold text-xl">
         <FaFacebookSquare />
         <FaLinkedin />
         <FaInstagram />

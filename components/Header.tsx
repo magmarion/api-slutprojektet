@@ -15,8 +15,8 @@ import MobileMenu from "./MobileMenu";
 const navLinks = [
     { label: "Hem", path: "/" },
     { label: "Produkter", path: "/product" },
-    { label: "Om oss", path: "/about" },
     { label: "Kontakt", path: "/contact" },
+    { label: "Om oss", path: "/about" },
 ];
 
 export default function Header() {
@@ -61,11 +61,11 @@ export default function Header() {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <header className="sticky top-0 z-50 bg-[#33412F] text-white shadow-md flex justify-between items-center px-5 py-4">
+        <header className="sticky top-0 z-50 bg-[#616F47] text-[#FEFAE1] shadow-md flex justify-between items-center px-5 py-4">
             {/* Logo */}
             <Link
                 href="/"
-                className="text-xl font-bold tracking-wide hover:text-gray-400 transition-colors"
+                className="text-xl font-bold tracking-wide hover:text-[#F4D794] transition-colors"
             >
                 <p className="font-extrabold mt-1">BLOOM</p>
             </Link>
@@ -80,7 +80,7 @@ export default function Header() {
                     >
                         <Link
                             href={link.path}
-                            className={`hover:text-gray-400 transition-colors ${pathname === link.path ? "font-semibold border-b-2 border-white" : ""
+                            className={`hover:text-[#F4D794] transition-colors ${pathname === link.path ? "bg-[#AF3E3E] px-2 py-1 rounded-lg" : ""
                                 }`}
                         >
                             {link.label}
@@ -88,12 +88,12 @@ export default function Header() {
 
                         {/* Dropdown för kategorier */}
                         {link.label === "Produkter" && isDropdownOpen && (
-                            <div className="absolute left-0 mt-2 w-48 bg-white text-slate-900 rounded shadow-lg z-50">
+                            <div className="absolute mt-5  bg-[#616F47] text-[#FEFAE1] shadow-lg z-50">
                                 {categories.map((category) => (
                                     <Link
                                         key={category}
                                         href={`/categories/${encodeURIComponent(category)}`}
-                                        className="block px-4 py-2 hover:bg-slate-200"
+                                        className="block px-4 py-2 hover:text-[#F4D794]"
                                         onMouseEnter={() =>
                                             link.label === "Produkter" && setIsDropdownOpen(true)
                                         }
@@ -113,7 +113,7 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button
-                className="md:hidden text-white text-2xl"
+                className="md:hidden text-[#FEFAE1] text-2xl"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
                 {isMenuOpen ? <HiX /> : <HiMenu />}
@@ -127,7 +127,7 @@ export default function Header() {
                     <Link
                         href="/admin"
                         data-cy="admin-link"
-                        className="text-white hover:text-gray-400 transition-colors"
+                        className="text-[#FEFAE1] hover:text-[#F4D794] transition-colors"
                     >
                         <RiAdminFill className="w-6 h-6 cursor-pointer" />
                     </Link>
@@ -141,11 +141,11 @@ export default function Header() {
                 >
                     <span
                         data-cy="cart-items-count-badge"
-                        className="absolute -top-3 -right-3 w-[20px] h-[20px] bg-green-500 text-white text-xs flex justify-center items-center font-semibold rounded-full group-hover:bg-green-600 transition-colors"
+                        className="absolute -top-3 -right-3 w-[20px] h-[20px] bg-[#3F4F44] text-white text-xs flex justify-center items-center font-semibold rounded-full group-hover:bg-[#2C3930] transition-colors"
                     >
                         {cartCount}
                     </span>
-                    <FaShoppingCart className="w-6 h-6 text-slate-200 group-hover:text-slate-100 transition-colors" />
+                    <FaShoppingCart className="w-6 h-6 text-[#FEFAE1] group-hover:text-[#F4D794] transition-colors" />
                 </button>
 
                 {/* Profile Dropdown */}
@@ -184,7 +184,7 @@ export default function Header() {
                                 <hr className="my-2" />
                                 <button
                                     onClick={() => signOut()}
-                                    className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors"
+                                    className="w-full bg-[#AF3E3E] hover:bg-[#AF3E3E] text-white px-4 py-2 rounded transition-colors"
                                 >
                                     Sign Out
                                 </button>
@@ -195,11 +195,11 @@ export default function Header() {
                     <div className="flex gap-4">
                         <Link
                             href="/signin"
-                            className="bg-slate-200 hover:bg-slate-300 text-slate-900 px-3 py-1 rounded transition-colors"
+                            className="bg-[#FEFAE1] hover:bg-[#F4D794] text-slate-900 px-3 py-1 rounded transition-colors"
                         >
-                            Sign in
+                            Logga in
                         </Link>
-                       
+
                     </div>
                 )}
             </div>

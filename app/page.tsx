@@ -17,9 +17,9 @@ export default async function Home() {
     });
 
     return (
-        <main className="flex min-h-screen flex-col items-center bg-slate-200">
+        <main className="flex min-h-screen flex-col items-center bg-[#FEFAE1]">
             <HeroSection />
-            <h1 className="text-2xl font-bold text-center text-gray-900 m-6">
+            <h1 className="text-3xl font-bold text-center text-[#443627] m-6">
                 Gröna drömmar blir verklighet hos oss! Köp nu våra blommar för fan!
             </h1>
 

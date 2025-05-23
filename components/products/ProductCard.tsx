@@ -15,7 +15,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div
             key={product.articleNumber}
             data-cy="product"
-            className="p-4 shadow-sm bg-white flex flex-col justify-between hover:shadow-lg"
+            className="p-4 shadow-sm bg-[#FFF6DA] flex flex-col justify-between hover:shadow-lg"
         >
             {/* Top Section: Mobile = row, Desktop = column */}
             <Link
