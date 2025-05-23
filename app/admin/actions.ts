@@ -133,3 +133,58 @@ export async function getCategories() {
 
   return categories;
 }
+
+
+// ADMIN
+// Hantera produkter
+// Skapa produkt
+// ✔️ Implementerad (actions.ts → createProduct)
+// Uppdatera/redigera produkt
+// ✔️ Implementerad (updateProduct)
+// Radera produkt
+// ✔️ Implementerad (deleteProduct)
+// Hantera kategorier
+// Skapa kategori
+// ⛔️ Saknas (ingen action för att skapa kategori)
+// Uppdatera kategori
+// ⛔️ Saknas (ingen action för att uppdatera kategori)
+// Radera kategori
+// ⛔️ Saknas (ingen action för att radera kategori)
+// Hämta kategorier
+// ✔️ Implementerad (getCategories)
+// Hantera ordrar
+// Se alla ordrar
+// ✔️ Implementerad (actions.ts → getOrders)
+// Redigera order (t.ex. ändra adress, produkter)
+// ✔️ Implementerad (updateOrder)
+// Markera order som skickad
+// ⛔️ Saknas (ingen specifik action för att ändra status till "skickad", men kan göras via updateOrder)
+// Makulera/ta bort order
+// ✔️ Implementerad (deleteOrder)
+// Hantera användare
+// Skapa användare
+// ⛔️ Saknas (ingen action för att skapa användare)
+// Radera användare
+// ⛔️ Saknas
+// Uppdatera användare (t.ex. namn, e-post)
+// ⛔️ Saknas
+// Ge/tilldela roller (t.ex. admin, kund)
+// ⛔️ Saknas
+// Övrigt
+// Se statistik/rapporter (t.ex. försäljning, antal användare)
+// ⛔️ Saknas
+// Hantera rabatter/kampanjer
+// ⛔️ Saknas
+
+// Sammanfattning
+// Implementerat:
+// Produkthantering (skapa, uppdatera, radera)
+// Hämta kategorier
+// Orderhantering (CRUD)
+// Hämta orderdetaljer
+// Saknas:
+// Allt kring användarhantering (registrera, logga in, roller, radera, uppdatera)
+// Skapa/uppdatera/radera kategori
+// Markera order som skickad (specifik action)
+// Statistik/rapporter, rabatter/kampanjer
+// Se/filtera produkter, varukorg, recensioner
