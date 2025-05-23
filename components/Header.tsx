@@ -12,14 +12,21 @@ import useCartStore from "../stores/cartStore";
 import CartPopup from "./CartPopup";
 import MobileMenu from "./MobileMenu";
 
+const navLinks = [
+  { label: "Hem", path: "/" },
+  { label: "Produkter", path: "/product" },
+  { label: "Om oss", path: "/about" },
+  { label: "Kontakt", path: "/contact" },
+];
+
 export default function Header() {
   const pathname = usePathname();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [categories, setCategories] = useState<string[]>([]); 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
-  const dropdownRef = useRef<HTMLDivElement>(null); 
+  const [categories, setCategories] = useState<string[]>([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const { cartItems, cartCount } = useCartStore();
   const { data: session, isPending: loading } = useSession();
 
@@ -38,12 +45,11 @@ export default function Header() {
     };
   }, []);
 
-  
   useEffect(() => {
     async function loadCategories() {
       try {
         const categoriesData = await getCategories();
-        setCategories(categoriesData.map((cat: { name: string }) => cat.name)); // 
+        setCategories(categoriesData.map((cat: { name: string }) => cat.name));
       } catch (error) {
         console.error("Failed to load categories:", error);
       }
@@ -66,25 +72,23 @@ export default function Header() {
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex gap-16 relative">
-        {["home", "produkter", "about", "contact"].map((item) => (
+        {navLinks.map((link) => (
           <div
-            key={item}
+            key={link.label}
             className="relative group"
-            onMouseEnter={() => item === "produkter" && setIsDropdownOpen(true)}
+            onMouseEnter={() => link.label === "Produkter" && setIsDropdownOpen(true)}
           >
             <Link
-              href={`/${item === "home" ? "" : item}`}
+              href={link.path}
               className={`text-white tracking-widest hover:text-gray-400 ${
-                pathname === `/${item === "home" ? "" : item}`
-                  ? "font-bold border-b-2"
-                  : ""
+                pathname === link.path ? "font-bold border-b-2" : ""
               }`}
             >
-              {item}
+              {link.label}
             </Link>
 
-            {/* Dropdown For Categories */}
-            {item === "produkter" && isDropdownOpen && (
+            {/* Dropdown för kategorier */}
+            {link.label === "Produkter" && isDropdownOpen && (
               <div className="absolute left-0 mt-2 w-48 bg-white text-slate-900 rounded shadow-lg z-50">
                 {categories.map((category) => (
                   <Link
@@ -92,10 +96,10 @@ export default function Header() {
                     href={`/categories/${encodeURIComponent(category)}`}
                     className="block px-4 py-2 hover:bg-slate-200"
                     onMouseEnter={() =>
-                      item === "produkter" && setIsDropdownOpen(true)
+                      link.label === "Produkter" && setIsDropdownOpen(true)
                     }
                     onMouseLeave={() =>
-                      item === "produkter" && setIsDropdownOpen(false)
+                      link.label === "Produkter" && setIsDropdownOpen(false)
                     }
                     onClick={() => setIsDropdownOpen (false)}
                   >
