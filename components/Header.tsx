@@ -3,6 +3,7 @@
 import { getCategories } from "@/app/admin/actions";
 import { signOut, useSession } from "@/lib/auth-client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FaGithub, FaShoppingCart } from "react-icons/fa";
@@ -63,11 +64,16 @@ export default function Header() {
     return (
         <header className="sticky top-0 z-50 bg-gradient-to-b from-[#3D5300] to-[#616F47] text-[#FEFAE1] shadow-lg flex justify-between items-center px-5 py-4">
             {/* Logo */}
-            <Link
-                href="/"
-                className="text-xl font-bold tracking-wide hover:text-[#F4D794] transition-colors"
-            >
-                <p className="font-extrabold mt-1">BLOOM</p>
+            <Link href="/" className="hover:opacity-90 transition-opacity">
+                <div className="relative h-12 w-32"> {/* Justera höjd/bredd efter din bild */}
+                    <Image
+                        src="/logo.png" // Sökväg till din bild i public-mappen
+                        alt="Bloom Logo"
+                        fill
+                        className="object-contain scale-110 brightness-90 saturate-150"
+                        priority
+                    />
+                </div>
             </Link>
 
             {/* Desktop Navigation */}
