@@ -1,0 +1,49 @@
+
+export const dynamic = "force-dynamic"; 
+
+import { getSession } from "@/lib/auth";
+import { db } from "@/prisma/client";
+import { redirect } from "next/navigation";
+
+export default async function MyOrdersPage() {
+  const userSession = await getSession();
+
+  if (!userSession) {
+    redirect("/signin");
+  }
+
+  const user = await db.user.findUnique({
+    where: { email: userSession.user.email },
+    include: { orders: true },
+  });
+
+  if (!user) {
+    return <main className="text-white p-10">User not found.</main>;
+  }
+
+  return (
+    <main className="min-h-screen bg-slate-900 text-white px-4 py-10 flex flex-col items-center">
+      <div className="max-w-xl w-full bg-slate-800 rounded shadow-md p-6 space-y-4">
+        <h1 className="text-3xl font-bold mb-4">My Orders</h1>
+
+        {user.orders.length > 0 ? (
+          <ul className="space-y-2 text-sm">
+            {user.orders.map((order) => (
+              <li key={order.id} className="bg-slate-700 p-3 rounded">
+                <div className="font-medium">Product: {order.product}</div>
+                <div>Status: {order.status}</div>
+                <div className="text-xs text-slate-400">
+                  Ordered: {new Date(order.createdAt).toLocaleString()}
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="bg-slate-700 p-4 rounded text-sm">
+            You haven’t placed any orders yet.
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}
