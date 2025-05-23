@@ -141,7 +141,7 @@ export default function Header() {
                 >
                     <span
                         data-cy="cart-items-count-badge"
-                        className="absolute -top-3 -right-3 w-[20px] h-[20px] bg-red-500 text-white text-xs flex justify-center items-center font-semibold rounded-full group-hover:bg-red-600 transition-colors"
+                        className="absolute -top-3 -right-3 w-[20px] h-[20px] bg-green-500 text-white text-xs flex justify-center items-center font-semibold rounded-full group-hover:bg-green-600 transition-colors"
                     >
                         {cartCount}
                     </span>
