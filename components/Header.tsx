@@ -202,11 +202,62 @@ export default function Header() {
         )}
       </div>
 
-      <CartPopup
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cartItems}
-      />
-    </header>
-  );
+
+                {/* Profile Dropdown */}
+                {session?.user ? (
+                    <div className="relative" ref={dropdownRef}>
+                        <button
+                            onClick={() => setShowDropdown(prev => !prev)}
+                            className="w-9 h-9 rounded-full border-2 border-slate-300 flex items-center justify-center text-white hover:border-white transition"
+                        >
+                            <FaGithub />
+                        </button>
+
+                        {showDropdown && (
+                            <div className="absolute right-0 mt-2 w-64 bg-white text-slate-900 rounded shadow-lg z-50 p-4 space-y-2">
+                            <Link
+                              href="/profile"
+                              onClick={() => setShowDropdown(false)}
+                              className="flex items-center gap-2 text-sm font-medium hover:underline"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A7.963 7.963 0 0112 15c2.137 0 4.084.835 5.514 2.204M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                              Profile
+                            </Link>
+                            <Link
+  href="/my-orders"
+  onClick={() => setShowDropdown(false)}
+  className="flex items-center gap-2 text-sm font-medium hover:underline"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2h6v2H9zm-3-4v-2h12v2H6zm0-4V7h12v2H6z" />
+  </svg>
+  My Orders
+</Link>
+                            <hr className="my-2" />
+                            <button
+                              onClick={() => signOut()}
+                              className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors"
+                            >
+                              Sign Out
+                            </button>
+                          </div>
+                          
+                        )}
+                    </div>
+                ) : (
+                    <Link
+                        href="/signin"
+                        className="bg-slate-200 hover:bg-slate-300 text-slate-900 px-3 py-1 rounded transition-colors"
+                    >
+                        Sign In
+                    </Link>
+                )}
+            </div>
+
+            <CartPopup isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} cartItems={cartItems} />
+        </header>
+    );
+
 }
