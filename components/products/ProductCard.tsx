@@ -28,7 +28,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                         alt=''
                         width={350}
                         height={350}
-                        className="object-cover w-full h-[300px] md:h-[200px] lg:h-[250px] xl:h-[350px] 
+                        className="object-cover w-full h-[300px] md:w-auto md:h-[200px] lg:w-auto lg:h-[250px] xl:w-auto xl:h-[350px] 
                       transition-transform duration-300 ease-out 
                       group-hover:scale-110 hover:scale-110"
                     />
