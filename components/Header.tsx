@@ -159,7 +159,7 @@ export default function Header() {
                     <div className="relative" ref={dropdownRef}>
                         <button
                             onClick={() => setShowDropdown((prev) => !prev)}
-                            className="w-9 h-9 rounded-full border-2 border-slate-300 flex items-center justify-center text-white hover:border-white transition"
+                            className="w-9 h-9 rounded-full border-2 border-[#FEFAE1] flex items-center justify-center text-[#FEFAE1] hover:border-[#F4D794] transition"
                         >
                             <FaGithub />
                         </button>
