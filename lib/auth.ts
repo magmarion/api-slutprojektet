@@ -2,8 +2,8 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { db } from '@/prisma/client';
-import { headers } from "next/headers";
-
+import argon2 from 'argon2';
+import { headers } from 'next/headers';
 
 export const auth = betterAuth({
   database: prismaAdapter(db, { provider: 'postgresql' }),
@@ -14,6 +14,30 @@ export const auth = betterAuth({
     },
   },
   trustedOrigins: ['http://localhost:5173'],
+  login: async ({ identifier, password }: { identifier: string; password: string }) => {
+    // Identifier är antingen e-postadressen
+    const user = await db.user.findUnique({
+      where: { email: identifier },
+      select: {
+        id: true,
+        email: true,
+        password: true, // Inkludera explicit 'password'
+      },
+    });
+
+    if (!user) {
+      throw new Error('Användaren hittades inte.');
+    }
+
+    // Jämför det angivna lösenordet med det hashade lösenordet i databasen
+    const isMatch = await argon2.verify(user.password!, password);
+
+    if (!isMatch) {
+      throw new Error('Felaktigt lösenord.');
+    }
+
+    return user;
+  },
 });
 
 // Correct way to fetch session on the server
