@@ -2,8 +2,9 @@
 
 import { getCategories } from "@/app/admin/actions";
 import { signOut, useSession } from "@/lib/auth-client";
-import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FaGithub, FaShoppingCart } from "react-icons/fa";
@@ -83,35 +84,38 @@ export default function Header() {
                         key={link.label}
                         className="relative group"
                         onMouseEnter={() => link.label === "Produkter" && setIsDropdownOpen(true)}
+                        onMouseLeave={() => link.label === "Produkter" && setIsDropdownOpen(false)}
                     >
                         <Link
                             href={link.path}
-                            className={`hover:text-[#F4D794] transition-colors ${pathname === link.path ? "bg-[#594100] px-2 py-1 rounded-lg" : ""
-                                }`}
+                            className={`hover:text-[#F4D794] transition-colors ${pathname === link.path ? "bg-[#594100] px-2 py-1 rounded-lg" : ""}`}
                         >
                             {link.label}
                         </Link>
 
-                        {/* Dropdown för kategorier */}
-                        {link.label === "Produkter" && isDropdownOpen && (
-                            <div className="absolute mt-5  bg-[#616F47] text-[#FEFAE1] shadow-lg z-50">
-                                {categories.map((category) => (
-                                    <Link
-                                        key={category}
-                                        href={`/categories/${encodeURIComponent(category)}`}
-                                        className="block px-4 py-2 hover:text-[#F4D794]"
-                                        onMouseEnter={() =>
-                                            link.label === "Produkter" && setIsDropdownOpen(true)
-                                        }
-                                        onMouseLeave={() =>
-                                            link.label === "Produkter" && setIsDropdownOpen(false)
-                                        }
-                                        onClick={() => setIsDropdownOpen(false)}
+                        {link.label === "Produkter" && (
+                            <AnimatePresence>
+                                {isDropdownOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="absolute mt-7 w-48 bg-[#616F47] text-[#FEFAE1] shadow-xl rounded-xl z-50 overflow-hidden"
                                     >
-                                        {category}
-                                    </Link>
-                                ))}
-                            </div>
+                                        {categories.map((category) => (
+                                            <Link
+                                                key={category}
+                                                href={`/categories/${encodeURIComponent(category)}`}
+                                                className="block px-5 py-3 hover:bg-[#4A5A36] hover:text-[#F4D794] transition-colors duration-200 text-sm font-medium"
+                                                onClick={() => setIsDropdownOpen(false)}
+                                            >
+                                                {category}
+                                            </Link>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         )}
                     </div>
                 ))}
@@ -188,15 +192,15 @@ export default function Header() {
                                     Profile
                                 </Link>
                                 <Link
-  href="/my-orders"
-  onClick={() => setShowDropdown(false)}
-  className="flex items-center gap-2 text-sm font-medium hover:underline"
->
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2h6v2H9zm-3-4v-2h12v2H6zm0-4V7h12v2H6z" />
-  </svg>
-  My Orders
-</Link>
+                                    href="/my-orders"
+                                    onClick={() => setShowDropdown(false)}
+                                    className="flex items-center gap-2 text-sm font-medium hover:underline"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2h6v2H9zm-3-4v-2h12v2H6zm0-4V7h12v2H6z" />
+                                    </svg>
+                                    My Orders
+                                </Link>
                                 <hr className="my-2" />
                                 <button
                                     onClick={() => signOut()}
