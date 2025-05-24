@@ -1,6 +1,6 @@
 
-import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export async function requireSession() {
   const session = await getSession();

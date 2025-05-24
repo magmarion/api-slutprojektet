@@ -5,6 +5,7 @@ import EmailSignInButton from "./providers/email-button";
 import GitHubSignInButton from "./providers/github-button";
 import GoogleSignInButton from "./providers/google-button";
 import { FaLeaf } from "react-icons/fa";
+import Link from "next/link";
 
 export default function SignInPage() {
     return (
@@ -17,7 +18,6 @@ export default function SignInPage() {
                     <p className="text-sm md:text-base text-lime-200 mt-2">
                         Handla med omtanke – naturligt, hållbart och vackert
                     </p>
-
                 </div>
             </div>
 
@@ -36,7 +36,9 @@ export default function SignInPage() {
                 <div className="space-y-4">
                     <GitHubSignInButton />
                     <GoogleSignInButton />
-                    <EmailSignInButton />
+                    <Link href="/signin/admin" className="bg-[#3D5300] text-white px-4 py-2 rounded hover:bg-[#616F47] transition-colors">
+                        Logga in som admin
+                    </Link>
                 </div>
 
                 <p className="text-xs text-gray-500 mt-6">

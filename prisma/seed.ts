@@ -1,5 +1,6 @@
 import { products as productData } from '@/data/index';
 import { db } from './client';
+import argon2 from 'argon2';
 
 async function main() {
   console.log(`Starting seed process...`);
@@ -18,6 +19,36 @@ async function main() {
       },
     });
   }
+
+  const email = "admin@example.com";
+  const password = "securepassword123";
+
+  // Kontrollera om admin finns
+  const existingUser = await db.user.findUnique({
+    where: { email },
+  });
+
+  if (existingUser) {
+    console.log("Admin-exempel finns redan.");
+    return;
+  }
+
+  // Hasha lösenord
+  const hashedPassword = await argon2.hash(password);
+
+  // Skapa admin
+  await db.user.create({
+    data: {
+      email,
+      name: "Admin User",
+      emailVerified: true,
+      isAdmin: true,
+      password: hashedPassword,
+      updatedAt: new Date(),
+    },
+  });
+
+  console.log("Admin skapad:", email);
 
   for (const product of productData) {
     // Skapa eller hitta alla kategorier för produkten

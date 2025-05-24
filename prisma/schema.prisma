@@ -13,20 +13,21 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model Order {
-  id         String   @id @default(cuid())
+  id     String @id @default(cuid())
   // Om du vill koppla beställningen till en användare:
-  userId     String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Du kan välja att lagra en lista med produkter som JSON,
   // eller bygga ut med en relationstabell OrderItem.
-  items      Json
+  items Json
 
-  total      Float
-  status     String   @default("PENDING")
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  total     Float
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("order")
 }
@@ -35,13 +36,15 @@ model User {
   id            String    @id @default(cuid())
   name          String
   email         String    @unique
+  password      String
   emailVerified Boolean
   image         String?
-  createdAt     DateTime
+  isAdmin       Boolean   @default(false) // Ny egenskap för att markera admin-status
+  createdAt     DateTime  @default(now())
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-  orders        Order[]  
+  orders        Order[]
 
   @@map("user")
 }
