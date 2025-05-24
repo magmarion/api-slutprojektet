@@ -187,6 +187,16 @@ export default function Header() {
                                     </svg>
                                     Profile
                                 </Link>
+                                <Link
+  href="/my-orders"
+  onClick={() => setShowDropdown(false)}
+  className="flex items-center gap-2 text-sm font-medium hover:underline"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2h6v2H9zm-3-4v-2h12v2H6zm0-4V7h12v2H6z" />
+  </svg>
+  My Orders
+</Link>
                                 <hr className="my-2" />
                                 <button
                                     onClick={() => signOut()}
