@@ -128,7 +128,7 @@ export async function deleteProduct(articleNumber: string) {
 
 export async function getCategories() {
   const categories = await db.category.findMany({
-    select: { name: true },
+    select: { name: true, id: true },
   });
 
   return categories;
