@@ -1,8 +1,8 @@
 "use client";
 
+import { signIn } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 
 export default function AdminSignInPage() {
     const router = useRouter();
@@ -14,7 +14,7 @@ export default function AdminSignInPage() {
         e.preventDefault();
 
         try {
-            const res = await signIn("credentials", {
+            const res = await signIn.credentials({
                 identifier: email,
                 password,
                 redirect: false,
@@ -25,10 +25,6 @@ export default function AdminSignInPage() {
             } else {
                 router.push("/admin/dashboard");
             }
-
-
-            // Om inloggningen lyckas, omdirigera till admin-dashboard
-            router.push("/admin/dashboard");
         } catch (err: any) {
             setError(err.message);
         }

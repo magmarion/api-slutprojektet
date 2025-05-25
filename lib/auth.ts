@@ -13,7 +13,7 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     },
   },
-  trustedOrigins: ['http://localhost:5173'],
+  trustedOrigins: [process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'],
   login: async ({ identifier, password }: { identifier: string; password: string }) => {
     // Identifier är antingen e-postadressen
     const user = await db.user.findUnique({
@@ -21,28 +21,34 @@ export const auth = betterAuth({
       select: {
         id: true,
         email: true,
-        password: true, // Inkludera explicit 'password'
+        password: true,
       },
     });
 
-    if (!user) {
-      throw new Error('Användaren hittades inte.');
+    console.log("User found:", user);
+
+
+    if (!user || !user.password) {
+      throw new Error('Invalid credentials');
     }
 
-    // Jämför det angivna lösenordet med det hashade lösenordet i databasen
-    const isMatch = await argon2.verify(user.password!, password);
+    const isMatch = await argon2.verify(user.password, password);
+    console.log("Password match:", isMatch);
 
     if (!isMatch) {
-      throw new Error('Felaktigt lösenord.');
+      throw new Error('Invalid credentials');
     }
 
-    return user;
+    return {
+      id: user.id,
+      email: user.email,
+      isAdmin: (await db.user.findUnique({ where: { id: user.id } }))?.isAdmin,
+    };
   },
 });
 
-// Correct way to fetch session on the server
 export async function getSession() {
   return auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
+    headers: await headers(),
   });
 }

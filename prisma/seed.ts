@@ -44,6 +44,7 @@ async function main() {
       emailVerified: true,
       isAdmin: true,
       password: hashedPassword,
+      createdAt: new Date(),
       updatedAt: new Date(),
     },
   });
