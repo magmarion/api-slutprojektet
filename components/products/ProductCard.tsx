@@ -15,29 +15,39 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div
             key={product.articleNumber}
             data-cy="product"
-            className="border rounded-md p-4 shadow-md bg-white flex flex-col md:flex-col items-start md:items-center gap-4 transition-transform hover:scale-105"
+            className="p-4 shadow-sm bg-[#FFF6DA] flex flex-col justify-between hover:shadow-lg"
         >
             {/* Top Section: Mobile = row, Desktop = column */}
             <Link
                 href={`/product/${product.articleNumber}/${product.title}`}
-                className="flex flex-row md:flex-col items-start md:items-center w-full gap-4"
+                className="flex flex-col items-center gap-4"
             >
-                <Image
-                    src={product.image}
-                    alt={product.title}
-                    width={150}
-                    height={150}
-                    className="object-contain w-[100px] h-[100px] md:w-[150px] md:h-[150px] rounded-md"
-                />
+                <div className="overflow-hidden w-full">
+                    <Image
+                        src={product.image}
+                        alt=''
+                        width={350}
+                        height={350}
+                        className="object-cover w-full h-[300px] md:w-auto md:h-[200px] lg:w-auto lg:h-[250px] xl:w-auto xl:h-[350px] 
+                      transition-transform duration-300 ease-out 
+                      group-hover:scale-110 hover:scale-110"
+                    />
+                </div>
 
-                <div className="flex flex-col justify-center md:items-center flex-1">
-                    <h2
-                        data-cy="product-title"
-                        className="text-base md:text-lg font-semibold hover:underline"
-                    >
-                        {product.title}
+                <div className="flex flex-col items-center flex-1">
+                    <h2 className="text-base md:text-lg font-semibold hover:underline">
+                        {product.title.includes('(') ? (
+                            <div className="flex flex-col gap-0 items-center">
+                                <span>{product.title.split('(')[0].trim()}</span>
+                                <span className="text-sm">
+                                    ({product.title.split('(')[1]}
+                                </span>
+                            </div>
+                        ) : (
+                            product.title
+                        )}
                     </h2>
-                    <p data-cy="product-price" className="text-gray-700">
+                    <p className="text-gray-800">
                         {product.price} SEK
                     </p>
                 </div>
@@ -52,7 +62,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     image={product.image}
                 />
                 <Link href={`/product/${product.articleNumber}/${product.title}`}>
-                    <Button className="bg-slate-500 w-full rounded-xs cursor-pointer">
+                    <Button variant="secondary" size="full">
                         Info
                     </Button>
                 </Link>

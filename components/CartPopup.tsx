@@ -43,7 +43,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
     return (
         <Sheet open={isOpen} onOpenChange={handleClose}>
             <SheetContent
-                className={`bg-slate-200 w-full max-w-[400px] p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"
+                className={`bg-[#FEFAE1] w-full max-w-[400px] p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"
                     } sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px]`}
             >
                 <SheetTitle className="sr-only">Cart Items</SheetTitle>
@@ -120,7 +120,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                         href="/checkout"
                         data-cy="cart-link"
                         onClick={handleClose}
-                        className="mt-6 w-full bg-blue-800 text-white py-3 px-4 rounded hover:bg-blue-900 block text-center transition-all duration-300 hover:scale-105"
+                        className="mt-6 w-full bg-[#616F47] text-white py-3 px-4 rounded block text-center transition-all duration-300 hover:scale-105"
                     >
                         To the checkout
                     </Link>

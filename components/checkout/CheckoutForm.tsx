@@ -91,7 +91,7 @@ export default function CheckoutForm() {
         {errors.name && (
           <p
             data-cy="customer-name-error"
-            className="text-red-500 text-sm mt-1"
+            className="text-[#AF3E3E] text-sm mt-1"
           >
             {errors.name.message}
           </p>
@@ -111,7 +111,7 @@ export default function CheckoutForm() {
         {errors.email && (
           <p
             data-cy="customer-email-error"
-            className="text-red-500 text-sm mt-1"
+            className="text-[#AF3E3E] text-sm mt-1"
           >
             {errors.email.message}
           </p>
@@ -131,7 +131,7 @@ export default function CheckoutForm() {
         {errors.phone && (
           <p
             data-cy="customer-phone-error"
-            className="text-red-500 text-sm mt-1"
+            className="text-[#AF3E3E] text-sm mt-1"
           >
             {errors.phone.message}
           </p>
@@ -151,7 +151,7 @@ export default function CheckoutForm() {
         {errors.address && (
           <p
             data-cy="customer-address-error"
-            className="text-red-500 text-sm mt-1"
+            className="text-[#AF3E3E] text-sm mt-1"
           >
             {errors.address.message}
           </p>
@@ -171,7 +171,7 @@ export default function CheckoutForm() {
         {errors.zipcode && (
           <p
             data-cy="customer-zipcode-error"
-            className="text-red-500 text-sm mt-1"
+            className="text-[#AF3E3E] text-sm mt-1"
           >
             {errors.zipcode.message}
           </p>
@@ -191,7 +191,7 @@ export default function CheckoutForm() {
         {errors.city && (
           <p
             data-cy="customer-city-error"
-            className="text-red-500 text-sm mt-1"
+            className="text-[#AF3E3E] text-sm mt-1"
           >
             {errors.city.message}
           </p>
@@ -208,7 +208,7 @@ export default function CheckoutForm() {
       {/* Card number (static text) */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Card number</label>
-        <p className="p-2 border border-gray-300 rounded bg-gray-50">
+        <p className="p-2 border border-gray-300 rounded bg-[#FFF6DA]">
           4242 4242 4242 4242
         </p>
       </div>
@@ -216,19 +216,19 @@ export default function CheckoutForm() {
       {/* Expiration date (static text) */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Expiration (MM/YY)</label>
-        <p className="p-2 border border-gray-300 rounded bg-gray-50">12/30</p>
+        <p className="p-2 border border-gray-300 rounded bg-[#FFF6DA]">12/30</p>
       </div>
 
       {/* CVC (static text) */}
       <div className="mb-6">
         <label className="block font-medium mb-1">CVC</label>
-        <p className="p-2 border border-gray-300 rounded bg-gray-50">123</p>
+        <p className="p-2 border border-gray-300 rounded bg-[#FFF6DA]">123</p>
       </div>
 
       {/* Payment button */}
       <Button
         type="submit"
-        className="bg-blue-800 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded cursor-pointer"
+        className="bg-[#616F47] hover:bg-[#3D5300] text-white  font-semibold py-2 px-4 rounded cursor-pointer"
       >
         Pay with Card
       </Button>

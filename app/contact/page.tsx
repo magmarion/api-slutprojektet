@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { FaEnvelope, FaUser, FaComment } from "react-icons/fa"; // Font Awesome icons
+import { FaEnvelope, FaUser, FaComment } from "react-icons/fa";
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -30,21 +30,21 @@ export default function Contact() {
             });
 
             if (response.ok) {
-                toast.success("Your message has been sent.");
+                toast.success("Ditt meddelande har skickats.");
                 setFormData({ name: "", email: "", message: "" });
             } else {
-                toast.error("Failed to send message.");
+                toast.error("Kunde inte skicka meddelandet.");
             }
         } catch (error) {
             console.error("Error:", error);
-            toast.error("Something went wrong.");
+            toast.error("Något gick fel.");
         }
     };
 
     return (
-        <main className="min-h-screen bg-slate-100">
+        <main className="min-h-screen bg-[#FEFAE1]">
             {/* Hero Section */}
-            <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white py-20">
+            <div className="bg-gradient-to-b from-[#616F47] to-[#3D5300] text-white py-20">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -52,10 +52,10 @@ export default function Contact() {
                     className="container mx-auto px-4 text-center"
                 >
                     <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                        Get in Touch
+                        Kontakta oss
                     </h1>
-                    <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-                        Have questions or want to ask about a product? Feel free to reach us!
+                    <p className="text-xl text-[#FEFAE1] max-w-2xl mx-auto">
+                        Har du frågor eller vill veta mer om våra växter? Hör av dig till oss!
                     </p>
                 </motion.div>
             </div>
@@ -74,19 +74,19 @@ export default function Contact() {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="bg-white p-8 rounded-xl shadow-lg"
+                            className="bg-[#FFF6DA] p-8 rounded-xl shadow-lg"
                         >
-                            <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                                Contact Information
+                            <h2 className="text-3xl font-bold text-[#616F47] mb-6">
+                                Kontaktuppgifter
                             </h2>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-4">
-                                    <FaEnvelope className="w-6 h-6 text-slate-600" />
-                                    <p className="text-slate-600">contact@techgear.com</p>
+                                    <FaEnvelope className="w-6 h-6 text-[#616F47]" />
+                                    <p className="text-[#616F47]">kontakt@bloom.se</p>
                                 </div>
                                 <div className="flex items-center gap-4">
-                                    <FaUser className="w-6 h-6 text-slate-600" />
-                                    <p className="text-slate-600">+46 123 456 789</p>
+                                    <FaUser className="w-6 h-6 text-[#616F47]" />
+                                    <p className="text-[#616F47]">+46 123 456 789</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -95,9 +95,9 @@ export default function Contact() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="bg-slate-200 rounded-xl p-8 h-72 flex items-center justify-center"
+                            className="bg-[#FFF6DA] rounded-xl p-8 h-72 flex items-center justify-center"
                         >
-                            <FaComment className="w-24 h-24 text-slate-600" />
+                            <FaComment className="w-24 h-24 text-[#616F47]" />
                         </motion.div>
                     </div>
 
@@ -106,47 +106,47 @@ export default function Contact() {
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="bg-white p-8 rounded-xl shadow-lg"
+                        className="bg-[#FFF6DA] p-8 rounded-xl shadow-lg"
                     >
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
-                                <label className="block text-slate-700 mb-2">Name</label>
+                                <label className="block text-[#616F47] mb-2">Namn</label>
                                 <Input
                                     type="text"
                                     name="name"
-                                    placeholder="John Doe"
+                                    placeholder="Anna Blom"
                                     value={formData.name}
                                     onChange={handleChange}
                                     required
                                     autoComplete="name"
-                                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-slate-500"
+                                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#616F47]"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-slate-700 mb-2">Email</label>
+                                <label className="block text-[#616F47] mb-2">E-post</label>
                                 <Input
                                     type="email"
                                     name="email"
-                                    placeholder="john@example.com"
+                                    placeholder="anna@example.com"
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
                                     autoComplete="email"
-                                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-slate-500"
+                                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#616F47]"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-slate-700 mb-2">Message</label>
+                                <label className="block text-[#616F47] mb-2">Meddelande</label>
                                 <Textarea
                                     name="message"
-                                    placeholder="Your message..."
+                                    placeholder="Ditt meddelande..."
                                     value={formData.message}
                                     onChange={handleChange}
                                     required
                                     autoComplete="off"
-                                    className="w-full p-3 border rounded-lg h-40 focus:ring-2 focus:ring-slate-500"
+                                    className="w-full p-3 border rounded-lg h-40 focus:ring-2 focus:ring-[#616F47]"
                                 />
                             </div>
 
@@ -156,9 +156,9 @@ export default function Contact() {
                             >
                                 <Button
                                     type="submit"
-                                    className="w-full bg-blue-800 hover:bg-blue-900 text-white py-5 rounded transition-all cursor-pointer"
+                                    className="w-full bg-[#616F47] hover:bg-[#4f5e3c] text-white py-5 rounded transition-all cursor-pointer"
                                 >
-                                    Send Message
+                                    Skicka Meddelande
                                 </Button>
                             </motion.div>
                         </form>
