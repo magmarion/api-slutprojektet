@@ -15,12 +15,12 @@ export default async function ProductDetail({
     if (!product) return notFound();
 
     return (
-        <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#FFF6DA] py-12 px-4">
+        <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400] py-12 px-4">
             <div className="mx-auto max-w-6xl animate-fade-in">
                 {/* Product Card */}
-                <div className="flex flex-col lg:flex-row bg-white/90 rounded-2xl shadow-2xl overflow-hidden border border-white/20 transition-all hover:shadow-3xl hover:scale-[1.005]">
+                <div className="flex flex-col lg:flex-row rounded-2xl shadow-2xl overflow-hidden transition-all hover:shadow-3xl hover:scale-[1.005]">
                     {/* Image Section */}
-                    <div className="lg:w-1/2 p-8 flex items-center justify-center bg-gradient-to-br from-[#FEFAE1] to-[#EDE4C4]">
+                    <div className="lg:w-1/2 p-8 flex items-center justify-center">
                         <div className="relative aspect-square w-full max-w-md transition-transform duration-300 hover:scale-105">
                             <Image
                                 src={product.image}
@@ -43,7 +43,8 @@ export default async function ProductDetail({
                                 {product.description}
                             </p>
 
-                            <div className="bg-[#FEFAE1]/50 p-4 rounded-lg mb-6 animate-slide-up delay-200">
+
+                            <div className="p-4 rounded-lg mb-6 animate-slide-up delay-200">
                                 <h2 className="text-xl font-semibold text-[#3D5300] mb-2">
                                     Produktdetaljer
                                 </h2>
