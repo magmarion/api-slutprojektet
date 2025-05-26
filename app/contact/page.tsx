@@ -42,7 +42,7 @@ export default function Contact() {
     };
 
     return (
-        <main className="min-h-screen bg-[#FEFAE1]">
+        <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#F4D794]">
             {/* Hero Section */}
             <div className="bg-gradient-to-b from-[#616F47] to-[#3D5300] text-white py-20">
                 <motion.div
@@ -51,7 +51,7 @@ export default function Contact() {
                     transition={{ duration: 0.8 }}
                     className="container mx-auto px-4 text-center"
                 >
-                    <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                    <h1 className="text-[#FEFAE1] text-4xl md:text-6xl font-bold mb-6">
                         Kontakta oss
                     </h1>
                     <p className="text-xl text-[#FEFAE1] max-w-2xl mx-auto">
@@ -95,7 +95,7 @@ export default function Contact() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="bg-[#FFF6DA] rounded-xl p-8 h-72 flex items-center justify-center"
+                            className="rounded-xl p-8 h-72 flex items-center justify-center"
                         >
                             <FaComment className="w-24 h-24 text-[#616F47]" />
                         </motion.div>

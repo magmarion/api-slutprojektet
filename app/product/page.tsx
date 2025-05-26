@@ -8,7 +8,7 @@ export default async function ProductsPage() {
     });
 
     return (
-        <main className="min-h-screen bg-[#FEFAE1]">
+        <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400]">
             {/* Hero Section */}
             <div className="bg-gradient-to-b from-[#3D5300] to-[#616F47] text-white py-20">
                 <div className="container mx-auto px-4 text-center">

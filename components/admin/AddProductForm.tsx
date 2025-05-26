@@ -13,17 +13,8 @@ import { createProduct, getCategories } from "@/app/admin/actions";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { productSchema } from "@/lib/schemas";
 
-const productSchema = z.object({
-  title: z.string().nonempty("Title is required"),
-  image: z
-    .string()
-    .nonempty("Image URL is required")
-    .url("Please enter a valid URL"),
-  price: z.coerce.number().min(1, "Price must be at least 1"),
-  description: z.string().nonempty("Description is required"),
-  category: z.string().nonempty("Category is required"),
-});
 
 type ProductFormData = z.infer<typeof productSchema>;
 

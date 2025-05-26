@@ -13,9 +13,9 @@ export default function About() {
     };
 
     return (
-        <main className="min-h-screen bg-[#FEFAE1]">
+        <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#F4D794]">
             {/* Hero Section */}
-            <div className="bg-gradient-to-b from-[#616F47] to-[#3D5300] text-white py-20">
+            <div className="bg-gradient-to-b from-[#616F47] to-[#3D5300] text-[#FEFAE1] py-20">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -55,7 +55,7 @@ export default function About() {
                     </div>
 
                     {/* Image Placeholder */}
-                    <div className="bg-[#FFF6DA] rounded-xl p-8 h-96 flex items-center justify-center">
+                    <div className="p-8 h-96 flex items-center justify-center">
                         <FaSeedling className="w-24 h-24 text-[#616F47]" />
                     </div>
                 </motion.div>
@@ -84,7 +84,7 @@ export default function About() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.2 }}
-                            className="bg-[#FFF6DA] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow cursor-pointer"
+                            className=" p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow cursor-pointer"
                         >
                             <div className="text-[#616F47] mb-4">{item.icon}</div>
                             <h3 className="text-xl font-bold mb-2 text-[#616F47]">{item.title}</h3>
@@ -99,12 +99,12 @@ export default function About() {
                     whileInView={{ opacity: 1 }}
                     className="text-center mt-20 py-12 bg-[#616F47] rounded-xl"
                 >
-                    <h2 className="text-3xl font-bold text-white mb-6">
+                    <h2 className="text-3xl font-bold text-[#FEFAE1] mb-6">
                         Upptäck vårt gröna sortiment
                     </h2>
                     <Button
                         onClick={handleExploreClick}
-                        className="bg-white text-[#616F47] px-14 py-4 rounded hover:bg-[#FEFAE1] hover:text-[#616F47] transition-all duration-300 hover:scale-105"
+                        className="bg-[#FEFAE1] text-[#616F47] px-14 py-4 rounded hover:bg-[#FEFAE1] hover:text-[#616F47] transition-all duration-300 hover:scale-105"
                     >
                         Utforska Produkter
                     </Button>
