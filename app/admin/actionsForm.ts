@@ -3,6 +3,7 @@
 
 import { z } from "zod";
 import { createProduct, deleteProduct, updateProduct } from "./actions";
+import { productSchema } from "@/lib/schemas"
 
 // Wrapper for creating a product via form submission.
 export async function createProductAction(formData: FormData) {
@@ -13,19 +14,6 @@ export async function createProductAction(formData: FormData) {
         description: formData.get("description") as string,
         category: formData.get("category") as string,
     };
-
-    const productSchema = z.object({
-        title: z.string().nonempty("Title is required"),
-        image: z
-            .string()
-            .nonempty("Image URL is required")
-            .url("Please enter a valid URL"),
-        price: z
-            .number({ invalid_type_error: "Price must be a number" })
-            .min(0, "Price must be at least 0"),
-        description: z.string().nonempty("Description is required"),
-        category: z.string().nonempty("Category is required")
-    });
 
     const result = productSchema.safeParse(data);
     if (!result.success) {
