@@ -13,3 +13,4 @@ export const productSchema = z.object({
   category: z.string().nonempty("Category is required"),
 });
 
+// FORTSÄTT VALIDERA RESTERANDE FILER
