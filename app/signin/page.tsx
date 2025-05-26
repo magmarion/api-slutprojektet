@@ -40,10 +40,6 @@ export default function SignInPage() {
                         Logga in som admin
                     </Link>
                 </div>
-
-                <p className="text-xs text-gray-500 mt-6">
-                    Just nu fungerar endast GitHub-inloggning.
-                </p>
             </motion.div>
         </main>
     );

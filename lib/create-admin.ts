@@ -2,28 +2,55 @@
 import { db } from "@/prisma/client";
 import argon2 from "argon2";
 
-export async function createAdmin(email: string, password: string): Promise<void> {
-    // Kontrollera om en användare redan existerar med det angivna e-postadressen
-    const existingUser = await db.user.findUnique({
-        where: { email },
-    });
+interface CreateUserOptions {
+    name?: string;
+    password?: string;
+    isAdmin?: boolean;
+    emailVerified?: boolean;
+}
 
-    if (existingUser) {
-        throw new Error(`Användaren med e-postadressen ${email} finns redan.`);
-    }
+export async function createUser(
+    email: string,
+    options?: CreateUserOptions
+) {
+    const {
+        name = "User",
+        password = "",
+        isAdmin = false,
+        emailVerified = true
+    } = options || {};
 
-    // Hasha lösenordet med argon2
-    const hashedPassword = await argon2.hash(password);
+    const hashedPassword = password ? await argon2.hash(password) : "";
 
-    // Skapa en ny admin-användare
-    await db.user.create({
+    return db.user.create({
         data: {
             email,
-            name: "Admin User",
-            emailVerified: true,
-            isAdmin: true,
+            name,
             password: hashedPassword,
+            isAdmin,
+            emailVerified,
+            createdAt: new Date(),
             updatedAt: new Date(),
-        },
+        }
+    });
+}
+
+export async function createAdmin(email: string, password: string) {
+    const existingUser = await db.user.findUnique({ where: { email } });
+
+    if (existingUser) {
+        if (!existingUser.isAdmin) {
+            return db.user.update({
+                where: { email },
+                data: { isAdmin: true }
+            });
+        }
+        return existingUser;
+    }
+
+    return createUser(email, {
+        name: "Admin User",
+        password,
+        isAdmin: true
     });
 }

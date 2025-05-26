@@ -12,24 +12,26 @@ export default function AdminSignInPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setError(null); // Återställ felmeddelanden
 
         try {
-            const res = await signIn.credentials({
+            const result = await signIn('credentials', {
                 identifier: email,
                 password,
-                redirect: false,
+                redirect: false
             });
 
-            if (res?.error) {
-                setError(res.error);
+            if (result?.error) {
+                setError(result.error === "CredentialsSignin"
+                    ? "Ogiltigt användarnamn eller lösenord"
+                    : "Inloggning misslyckades");
             } else {
                 router.push("/admin/dashboard");
             }
         } catch (err: any) {
-            setError(err.message);
+            setError(err.message || "Ett oväntat fel uppstod");
         }
     };
-
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#FEFAE1]">
@@ -38,7 +40,9 @@ export default function AdminSignInPage() {
                     Admin Inloggning
                 </h2>
                 {error && (
-                    <p className="text-red-500 mb-4">{error}</p>
+                    <p className="text-red-500 mb-4">
+                        {typeof error === 'string' ? error : JSON.stringify(error)}
+                    </p>
                 )}
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
