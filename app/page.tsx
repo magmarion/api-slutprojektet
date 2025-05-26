@@ -2,13 +2,12 @@
 
 import HeroSection from "@/components/HeroSection";
 import ProductCard from "@/components/products/ProductCard";
-import { Product } from "@/data";
 import { db } from "@/prisma/client";
 
 export default async function Home() {
     // Hämta unika kategorier från databasen
     const categories = await db.category.findMany({
-        select: { name: true }, 
+        select: { name: true },
     });
 
     // Hämta alla produkter
@@ -24,7 +23,7 @@ export default async function Home() {
             </h1>
 
             {/* Visa alla produkter som standard */}
-            <div className="grid grid-cols-1 px-8 py-4 pb-11 gap-3 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 px-4 py-6 md:grid-cols-3 lg:grid-cols-4">
                 {products.map((product) => {
                     const mappedProduct = {
                         id: product.id,
