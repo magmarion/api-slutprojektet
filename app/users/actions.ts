@@ -5,6 +5,13 @@ export async function getMyOrders(userId: string) {
 
   const orders = await db.order.findMany({
     where: { userId },
+    include: {
+      items: {
+        include: {
+          product: true,
+        },
+      },
+    },
     orderBy: { createdAt: "desc" }
   });
 
