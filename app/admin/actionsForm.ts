@@ -1,8 +1,7 @@
-// app/admin/actionsForm.ts
 "use server";
 
-import { z } from "zod";
 import { createProduct, deleteProduct, updateProduct } from "./actions";
+import { productSchema } from "@/lib/schemas";
 
 // Wrapper for creating a product via form submission.
 export async function createProductAction(formData: FormData) {
@@ -14,28 +13,22 @@ export async function createProductAction(formData: FormData) {
         category: formData.get("category") as string,
     };
 
-    const productSchema = z.object({
-        title: z.string().nonempty("Title is required"),
-        image: z
-            .string()
-            .nonempty("Image URL is required")
-            .url("Please enter a valid URL"),
-        price: z
-            .number({ invalid_type_error: "Price must be a number" })
-            .min(0, "Price must be at least 0"),
-        description: z.string().nonempty("Description is required"),
-        category: z.string().nonempty("Category is required")
-    });
-
     const result = productSchema.safeParse(data);
     if (!result.success) {
-        throw new Error(
-            "Validation failed: " +
-            JSON.stringify(result.error.flatten().fieldErrors)
-        );
+        return {
+            success: false,
+            error: "Validation failed",
+            details: result.error.flatten().fieldErrors,
+        };
     }
-    await createProduct(result.data);
-    // The revalidatePath is handled in the action.
+
+    try {
+        await createProduct(result.data);
+        return { success: true };
+    } catch (error) {
+        console.error("Error creating product:", error);
+        return { success: false, error: "Failed to create product" };
+    }
 }
 
 // Wrapper for updating a product via form submission.
@@ -51,33 +44,37 @@ export async function updateProductAction(
         category: formData.get("category") as string,
     };
 
-    const productSchema = z.object({
-        title: z.string().nonempty("Title is required"),
-        image: z
-            .string()
-            .nonempty("Image URL is required")
-            .url("Please enter a valid URL"),
-        price: z
-            .number({ invalid_type_error: "Price must be a number" })
-            .min(0, "Price must be at least 0"),
-        description: z.string().nonempty("Description is required"),
-                category: z.string().nonempty("Category is required")
-
-    });
-
     const result = productSchema.safeParse(data);
     if (!result.success) {
-        throw new Error(
-            "Validation failed: " +
-            JSON.stringify(result.error.flatten().fieldErrors)
-        );
+        return {
+            success: false,
+            error: "Validation failed",
+            details: result.error.flatten().fieldErrors,
+        };
     }
-    await updateProduct(articleNumber, result.data);
+
+    try {
+        await updateProduct(articleNumber, result.data);
+        return { success: true };
+    } catch (error) {
+        console.error("Error updating product:", error);
+        return { success: false, error: "Failed to update product" };
+    }
 }
 
 // Wrapper for deleting a product via form submission.
 export async function deleteProductAction(formData: FormData) {
     const articleNumber = formData.get("articleNumber") as string;
-    if (!articleNumber) throw new Error("Article number missing");
-    await deleteProduct(articleNumber);
+
+    if (!articleNumber) {
+        return { success: false, error: "Article number is missing" };
+    }
+
+    try {
+        await deleteProduct(articleNumber);
+        return { success: true };
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        return { success: false, error: "Failed to delete product" };
+    }
 }
