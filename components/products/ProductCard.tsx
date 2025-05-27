@@ -42,7 +42,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                                 <div className="flex flex-col gap-0 items-center">
                                     <span>{product.title.split('(')[0].trim()}</span>
                                     <span className="text-sm">
-                                        ({product.title.split('(')[1]}
+                                        {product.title.split('(')[1]}
                                     </span>
                                 </div>
                             ) : (
@@ -67,7 +67,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 />
                 <Link href={`/product/${product.articleNumber}/${product.title}`}>
                     <Button variant="secondary" size="full">
-                        Info
+                        Information
                     </Button>
                 </Link>
             </div>

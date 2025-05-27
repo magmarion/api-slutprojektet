@@ -26,7 +26,7 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -38,9 +38,9 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
         {/* LEFT SIDE: Thank you message + Order summary */}
         <Card className="w-full lg:w-1/2 lg:pr-4">
           <CardHeader>
-            <CardTitle>Thank you for your purchase!</CardTitle>
+            <CardTitle>Tack för din beställning!</CardTitle>
             <CardDescription>
-              We appreciate your order. A confirmation email has been sent.
+              Vi har tagit emot din beställning. Du får ett bekräftelsemejl på angivet mejl..
 
               {/* Order Number */}
               <p className="text-sm mt-2">
@@ -84,7 +84,7 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
                         {item.title}
                       </p>
                       <p className="text-gray-600 text-sm sm:text-base mt-2">
-                        Quantity: {item.quantity}
+                        Antal: {item.quantity}
                       </p>
                     </div>
                   </div>
@@ -93,7 +93,7 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
                 {/* TOTAL */}
                 <div className="mt-5 border-t pt-2 flex justify-between">
                   <p className="text-gray-600 text-sm sm:text-base">
-                    Total Price:
+                    Total Pris:
                   </p>
                   <p className="font-semibold text-sm md:text-base">
                     {orderTotal} SEK
@@ -102,8 +102,7 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
               </div>
             ) : (
               <p className="text-sm">
-                Looks like your cart is empty. Please visit the shop to add more
-                items.
+                Det verkar som att din varukorg är tom. Besök butiken för att lägga till fler varor.
               </p>
             )}
 
@@ -111,19 +110,19 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
             {checkoutInfo && checkoutInfo.name && (
               <div className="mt-6 bg-gray-100 p-4 rounded-md">
                 <h2 className="text-base font-semibold mb-2">
-                  Customer Details
+                  Kunduppgifter
                 </h2>
                 <p className="text-sm">
-                  <span className="font-semibold">Name:</span> {checkoutInfo.name}
+                  <span className="font-semibold">Namn:</span> {checkoutInfo.name}
                 </p>
                 <p className="text-sm">
-                  <span className="font-semibold">Email:</span> {checkoutInfo.email}
+                  <span className="font-semibold">E-post:</span> {checkoutInfo.email}
                 </p>
                 <p className="text-sm">
-                  <span className="font-semibold">Phone:</span> {checkoutInfo.phone}
+                  <span className="font-semibold">Tel:</span> {checkoutInfo.phone}
                 </p>
                 <p className="text-sm">
-                  <span className="font-semibold">Delivery Address: <br /></span> {checkoutInfo.address} <br /> {checkoutInfo.zipcode} {checkoutInfo.city}
+                  <span className="font-semibold">Frakt Adress: <br /></span> {checkoutInfo.address} <br /> {checkoutInfo.zipcode} {checkoutInfo.city}
                 </p>
               </div>
             )}
@@ -133,14 +132,14 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
         {/* RIGHT SIDE: Next steps or additional info */}
         <Card className="w-full lg:w-1/3">
           <CardHeader>
-            <CardTitle>Next Steps</CardTitle>
-            <CardDescription>We hope you enjoy your new items!</CardDescription>
+            <CardTitle>Nästa Steg</CardTitle>
+            <CardDescription>Vi hoppas att du gillar dina nya varor!</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             {/* Button linking back to homepage */}
             <Button asChild>
               <a href="/" data-cy="continue-shopping-button">
-                Continue Shopping
+                Fortsätt Handla
               </a>
             </Button>
             {/* Additional post-checkout details if needed */}
@@ -150,5 +149,5 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
 
     </div>
   );
-} 
+}
 
