@@ -7,18 +7,14 @@ import { db } from 'prisma/client';
 import { z } from 'zod';
 import { productSchema } from '@/lib/schemas';
 
-/**
- * Fetch all products with their categories
- */
+
 export async function getAllProducts() {
   return await db.product.findMany({
     include: { categories: true },
   });
 }
 
-/**
- * Create a new product
- */
+
 export async function createProduct(
   data: Partial<Product>,
   categoryName?: string
@@ -66,9 +62,7 @@ export async function createProduct(
   }
 }
 
-/**
- * Update a product by articleNumber
- */
+
 export async function updateProduct(
   articleNumber: string,
   data: Partial<Product>,
@@ -115,9 +109,7 @@ export async function updateProduct(
   }
 }
 
-/**
- * Delete a product by articleNumber
- */
+
 export async function deleteProduct(articleNumber: string) {
   await db.product.delete({
     where: { articleNumber },
@@ -125,18 +117,14 @@ export async function deleteProduct(articleNumber: string) {
   revalidatePath('/admin');
 }
 
-/**
- * Fetch all product categories
- */
+
 export async function getCategories() {
   return await db.category.findMany({
     select: { name: true, id: true },
   });
 }
 
-/**
- * Placeholder for updating order status
- */
+
 export async function updateOrderStatus() {
   // TODO: Implement order status update logic
 }
