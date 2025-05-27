@@ -189,7 +189,7 @@ export default function Header() {
                                             d="M5.121 17.804A7.963 7.963 0 0112 15c2.137 0 4.084.835 5.514 2.204M15 10a3 3 0 11-6 0 3 3 0 016 0z"
                                         />
                                     </svg>
-                                    Profile
+                                    Profil
                                 </Link>
                                 <Link
                                     href="/my-orders"
@@ -199,7 +199,7 @@ export default function Header() {
                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2h6v2H9zm-3-4v-2h12v2H6zm0-4V7h12v2H6z" />
                                     </svg>
-                                    My Orders
+                                    Mina Beställningar
                                 </Link>
                                 <hr className="my-2" />
                                 <button

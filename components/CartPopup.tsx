@@ -48,7 +48,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
             >
                 <SheetTitle className="sr-only">Cart Items</SheetTitle>
                 <div className="flex justify-between items-center">
-                    <h2 className="text-xl font-bold">Your Items</h2>
+                    <h2 className="text-xl font-bold">Översikt</h2>
                 </div>
 
                 {/* Left Side: List of Cart Items */}
@@ -70,7 +70,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                 <div className="flex items-center space-x-2 mt-2">
 
                                     <p data-cy="product-quantity" className="text-gray-900 text-xs md:text-base w-24">
-                                        Quantity:
+                                        Antal:
                                     </p>
                                     <button
                                         data-cy="decrease-quantity-button"
@@ -105,15 +105,15 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                 {/* Right Side: Summary and Proceed to Checkout */}
                 <div className="mt-6">
                     <div className="flex justify-between">
-                        <p className="text-gray-900 text-sm md:text-base">Subtotal:</p>
+                        <p className="text-gray-900 text-sm md:text-base">Delsumma:</p>
                         <p className="font-semibold text-sm md:text-base">{totalPrice} SEK</p>
                     </div>
                     <div className="flex justify-between pb-2">
-                        <p className="text-gray-900 text-sm md:text-base">Shipping:</p>
+                        <p className="text-gray-900 text-sm md:text-base">Frakt:</p>
                         <p className="font-semibold text-sm md:text-base">0 SEK</p>
                     </div>
                     <div className="flex justify-between border-t pt-4 border-t-[#4B352A]">
-                        <p className="text-gray-900 text-sm md:text-base">Total:</p>
+                        <p className="text-gray-900 text-sm md:text-base">Total Summa:</p>
                         <p data-cy="total-price" className="font-semibold text-sm md:text-base">{totalPrice} SEK</p>
                     </div>
                     <Link
@@ -122,7 +122,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                         onClick={handleClose}
                         className="mt-6 w-full bg-[#616F47] text-[#fffdef] py-3 px-4 rounded block text-center transition-all duration-300 hover:scale-105"
                     >
-                        Checkout
+                        Gå Till Kassan
                     </Link>
                 </div>
             </SheetContent >
