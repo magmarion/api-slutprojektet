@@ -1,9 +1,9 @@
 import AddProductForm from "@/components/admin/AddProductForm";
 import AdminProductsGrid from "@/components/admin/AdminTable";
-import { getAllProducts } from "@/app/admin/actions"; // ✅ must be from server-only file
+import { getAllProducts } from "@/app/admin/actions"; 
 
 export default async function AdminPage() {
-  const products = await getAllProducts(); // ✅ runs server-side
+  const products = await getAllProducts(); 
 
   return (
     <main className="p-6 max-w-7xl mx-auto">
