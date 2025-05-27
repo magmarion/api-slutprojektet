@@ -1,30 +1,6 @@
 // app/orders/actions.ts
 import { db } from "@/prisma/client";
-import { z } from "zod";
-
-const orderSchema = z.object({
-  userId: z.string().nonempty("User ID is required"),
-  items: z
-    .array(
-      z.object({
-        productId: z.string().nonempty("Product ID is required"),
-        quantity: z
-          .number()
-          .int()
-          .positive("Quantity must be a positive integer"),
-      })
-    )
-    .nonempty("Items cannot be empty"),
-  total: z.number().min(0, "Total must be at least 0"),
-  status: z.string().nonempty("Status is required"),
-});
-
-const updateOrderSchema = z.object({
-  userId: z.string().optional(),
-  items: z.array(z.any()).optional(),
-  total: z.number().min(0).optional(),
-  status: z.string().optional(),
-});
+import { orderSchema, updateOrderSchema } from "@/lib/schemas"
 
 // Type för order med relationer
 export type OrderWithRelations = {
