@@ -1,6 +1,7 @@
 "use client";
 
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaMinus, FaPlus, FaTrashAlt } from "react-icons/fa";
@@ -33,7 +34,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
         }, 300);
     };
 
-    
+
     useEffect(() => {
         if (isOpen) setIsClosing(false);
     }, [isOpen]);
@@ -60,9 +61,11 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                             className="border-b border-b-[#4B352A] py-4 flex justify-between items-center flex-wrap"
                         >
                             {/* Product Image */}
-                            <img
+                            <Image
                                 src={item.image}
                                 alt={item.title}
+                                width={64}
+                                height={64}
                                 className="w-16 h-16 object-contain rounded-md mb-4 sm:mb-0"
                             />
                             <div className="flex flex-col items-start ml-10 flex-1 min-w-0">
