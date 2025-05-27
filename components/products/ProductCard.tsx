@@ -67,7 +67,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 />
                 <Link href={`/product/${product.articleNumber}/${product.title}`}>
                     <Button variant="secondary" size="full">
-                        Info
+                        Information
                     </Button>
                 </Link>
             </div>
