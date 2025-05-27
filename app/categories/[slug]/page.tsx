@@ -41,7 +41,7 @@ export default async function CategoryPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-slate-200 p-6">
+    <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400] p-6">
       <h1 className="text-3xl font-bold text-center mb-8">{category}</h1>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

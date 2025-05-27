@@ -71,7 +71,7 @@ export default function Header() {
                         src="/logo.png" // Sökväg till din bild i public-mappen
                         alt="Bloom Logo"
                         fill
-                        className="object-contain scale-110 brightness-90 saturate-150"
+                        className="object-contain scale-110"
                         priority
                     />
                 </div>
@@ -204,7 +204,7 @@ export default function Header() {
                                 <hr className="my-2" />
                                 <button
                                     onClick={() => signOut()}
-                                    className="w-full bg-[#AF3E3E] hover:bg-[#AF3E3E] text-white px-4 py-2 rounded transition-colors"
+                                    className="w-full bg-[#AF3E3E] hover:bg-[#ff5959] text-white px-4 py-2 rounded transition-colors"
                                 >
                                     Sign Out
                                 </button>

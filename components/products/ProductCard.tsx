@@ -15,8 +15,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div
             key={product.articleNumber}
             data-cy="product"
-            className="p-4 shadow-sm bg-[#FFF6DA] flex flex-col justify-between hover:shadow-lg"
+            className="p-4 shadow-sm bg-[#FFF6DA] flex flex-col justify-between hover:shadow-lg
+               w-full max-w-[180px] sm:max-w-full mx-auto min-h-[340px]"
         >
+
             {/* Top Section: Mobile = row, Desktop = column */}
             <Link
                 href={`/product/${product.articleNumber}/${product.title}`}
@@ -25,28 +27,30 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <div className="overflow-hidden w-full">
                     <Image
                         src={product.image}
-                        alt=''
+                        alt=""
                         width={350}
                         height={350}
-                        className="object-cover w-full h-[300px] md:w-full md:h-[200px] lg:w-full lg:h-[250px] xl:w-full xl:h-[350px] 
-                      transition-transform duration-300 ease-out 
-                      group-hover:scale-110 hover:scale-110"
+                        className="object-cover w-full h-[180px] sm:h-[200px] md:h-[250px] lg:h-[300px] 
+             transition-transform duration-300 ease-out group-hover:scale-110 hover:scale-110"
                     />
                 </div>
 
                 <div className="flex flex-col items-center flex-1">
-                    <h2 className="text-base md:text-lg font-semibold hover:underline">
-                        {product.title.includes('(') ? (
-                            <div className="flex flex-col gap-0 items-center">
-                                <span>{product.title.split('(')[0].trim()}</span>
-                                <span className="text-sm">
-                                    ({product.title.split('(')[1]}
-                                </span>
-                            </div>
-                        ) : (
-                            product.title
-                        )}
-                    </h2>
+                    <div className="min-h-[60px] flex items-center justify-center text-center">
+                        <h2 className="text-sm md:text-base font-semibold hover:underline text-center min-h-[40px]">
+                            {product.title.includes('(') ? (
+                                <div className="flex flex-col gap-0 items-center">
+                                    <span>{product.title.split('(')[0].trim()}</span>
+                                    <span className="text-sm">
+                                        ({product.title.split('(')[1]}
+                                    </span>
+                                </div>
+                            ) : (
+                                product.title
+                            )}
+                        </h2>
+
+                    </div>
                     <p className="text-gray-800">
                         {product.price} SEK
                     </p>

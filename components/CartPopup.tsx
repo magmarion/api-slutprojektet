@@ -43,7 +43,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
     return (
         <Sheet open={isOpen} onOpenChange={handleClose}>
             <SheetContent
-                className={`bg-[#FEFAE1] w-full max-w-[400px] p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"
+                className={`bg-gradient-to-b from-[#FEFAE1] to-[#daa400] w-full max-w-[400px] p-6 overflow-y-auto transform transition-all ease ${isClosing ? "translate-x-full" : "translate-x-0"
                     } sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px]`}
             >
                 <SheetTitle className="sr-only">Cart Items</SheetTitle>
@@ -57,7 +57,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                     {cartItems.map((item) => (
                         <div
                             key={item.id}
-                            className="border-b py-4 flex justify-between items-center flex-wrap"
+                            className="border-b border-b-[#4B352A] py-4 flex justify-between items-center flex-wrap"
                         >
                             {/* Product Image */}
                             <img
@@ -69,13 +69,13 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                 <h3 data-cy="product-title" className="font-semibold text-sm md:text-base">{item.title}</h3>
                                 <div className="flex items-center space-x-2 mt-2">
 
-                                    <p data-cy="product-quantity" className="text-gray-600 text-xs md:text-base w-24">
+                                    <p data-cy="product-quantity" className="text-gray-900 text-xs md:text-base w-24">
                                         Quantity:
                                     </p>
                                     <button
                                         data-cy="decrease-quantity-button"
                                         onClick={() => decreaseQuantity(item.id)}
-                                        className="text-slate-500 hover:text-slate-700 text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                        className="text-slate-900 text-sm cursor-pointer transition-all duration-300 hover:scale-115"
                                     >
                                         <FaMinus className="w-3 h-3" />
                                     </button>
@@ -83,7 +83,7 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                                     <button
                                         data-cy="increase-quantity-button"
                                         onClick={() => increaseQuantity(item.id)}
-                                        className="text-slate-500 hover:text-slate-700 sm:text-sm cursor-pointer transition-all duration-300 hover:scale-125"
+                                        className="text-slate-900 sm:text-sm cursor-pointer transition-all duration-300 hover:scale-115"
                                     >
                                         <FaPlus className="w-3 h-3" />
                                     </button>
@@ -94,9 +94,9 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                             < button
                                 onClick={() => removeFromCart(item.id)}
                                 data-cy="remove-from-cart-button"
-                                className="text-slate-500 hover:text-slate-700 ml-auto mt-4 md:mt-0"
+                                className="text-slate-700 ml-auto mt-4 md:mt-0"
                             >
-                                <FaTrashAlt className="w-6 h-6 cursor-pointer transition-all duration-300 hover:scale-125" />
+                                <FaTrashAlt className="w-5 h-5 cursor-pointer transition-all duration-300 hover:scale-115" />
                             </button>
                         </div>
                     ))}
@@ -105,24 +105,24 @@ export default function CartPopup({ isOpen, onClose }: CartPopupProps) {
                 {/* Right Side: Summary and Proceed to Checkout */}
                 <div className="mt-6">
                     <div className="flex justify-between">
-                        <p className="text-gray-600 text-sm md:text-base">Subtotal:</p>
+                        <p className="text-gray-900 text-sm md:text-base">Subtotal:</p>
                         <p className="font-semibold text-sm md:text-base">{totalPrice} SEK</p>
                     </div>
-                    <div className="flex justify-between">
-                        <p className="text-gray-600 text-sm md:text-base">Shipping:</p>
+                    <div className="flex justify-between pb-2">
+                        <p className="text-gray-900 text-sm md:text-base">Shipping:</p>
                         <p className="font-semibold text-sm md:text-base">0 SEK</p>
                     </div>
-                    <div className="flex justify-between border-t pt-4">
-                        <p className="text-gray-600 text-sm md:text-base">Total:</p>
+                    <div className="flex justify-between border-t pt-4 border-t-[#4B352A]">
+                        <p className="text-gray-900 text-sm md:text-base">Total:</p>
                         <p data-cy="total-price" className="font-semibold text-sm md:text-base">{totalPrice} SEK</p>
                     </div>
                     <Link
                         href="/checkout"
                         data-cy="cart-link"
                         onClick={handleClose}
-                        className="mt-6 w-full bg-[#616F47] text-white py-3 px-4 rounded block text-center transition-all duration-300 hover:scale-105"
+                        className="mt-6 w-full bg-[#616F47] text-[#fffdef] py-3 px-4 rounded block text-center transition-all duration-300 hover:scale-105"
                     >
-                        To the checkout
+                        Checkout
                     </Link>
                 </div>
             </SheetContent >

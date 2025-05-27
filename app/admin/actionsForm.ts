@@ -1,7 +1,7 @@
 "use server";
 
 import { createProduct, deleteProduct, updateProduct } from "./actions";
-import { productSchema } from "@/lib/schemas";
+import { productSchema } from "@/lib/schemas"
 
 // Wrapper for creating a product via form submission.
 export async function createProductAction(formData: FormData) {

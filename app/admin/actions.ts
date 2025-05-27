@@ -1,4 +1,3 @@
-// app\admin\actions.ts
 'use server';
 
 import { Product } from '@/generated/prisma';
@@ -6,25 +5,20 @@ import { nanoid } from 'nanoid';
 import { revalidatePath } from 'next/cache';
 import { db } from 'prisma/client';
 import { z } from 'zod';
+import { productSchema } from '@/lib/schemas';
 
-const productSchema = z.object({
-  title: z.string().nonempty('Title is required'),
-  image: z
-    .string()
-    .nonempty('Image URL is required')
-    .url('Please enter a valid URL'),
-  price: z
-    .number({ invalid_type_error: 'Price must be a number' })
-    .min(0, 'Price must be at least 0'),
-  description: z.string().nonempty('Description is required'),
-  category: z.string().nonempty('Category is required'),
-});
+
+export async function getAllProducts() {
+  return await db.product.findMany({
+    include: { categories: true },
+  });
+}
+
 
 export async function createProduct(
   data: Partial<Product>,
   categoryName?: string
 ) {
-  // Validate data
   const result = productSchema.safeParse({
     title: data.title,
     image: data.image,
@@ -33,7 +27,6 @@ export async function createProduct(
     category: categoryName,
   });
 
-  // If validation fails, return error
   if (!result.success) {
     return {
       success: false,
@@ -53,9 +46,7 @@ export async function createProduct(
         description: result.data.description,
         price: result.data.price,
         categories: categoryName
-          ? {
-              connect: [{ name: categoryName }],
-            }
+          ? { connect: [{ name: categoryName }] }
           : undefined,
       },
     });
@@ -71,12 +62,12 @@ export async function createProduct(
   }
 }
 
+
 export async function updateProduct(
   articleNumber: string,
   data: Partial<Product>,
   categoryName?: string
 ) {
-  // Validate data
   const result = productSchema.safeParse({
     title: data.title,
     image: data.image,
@@ -85,7 +76,6 @@ export async function updateProduct(
     category: categoryName,
   });
 
-  // If validation fails, return error
   if (!result.success) {
     return {
       success: false,
@@ -104,8 +94,8 @@ export async function updateProduct(
         price: data.price,
         categories: categoryName
           ? {
-              set: [], // Rensa befintliga kategorier
-              connect: [{ name: categoryName }], // Koppla till den valda kategorin
+              set: [], // Clear existing categories
+              connect: [{ name: categoryName }],
             }
           : undefined,
       },
@@ -119,6 +109,7 @@ export async function updateProduct(
   }
 }
 
+
 export async function deleteProduct(articleNumber: string) {
   await db.product.delete({
     where: { articleNumber },
@@ -126,10 +117,14 @@ export async function deleteProduct(articleNumber: string) {
   revalidatePath('/admin');
 }
 
+
 export async function getCategories() {
-  const categories = await db.category.findMany({
+  return await db.category.findMany({
     select: { name: true, id: true },
   });
+}
 
-  return categories;
+
+export async function updateOrderStatus() {
+  // TODO: Implement order status update logic
 }
