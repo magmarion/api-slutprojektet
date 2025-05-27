@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import EmailSignInButton from "./providers/email-button";
 import GitHubSignInButton from "./providers/github-button";
 import GoogleSignInButton from "./providers/google-button";
+import { GrUserAdmin } from "react-icons/gr";
 import { FaLeaf } from "react-icons/fa";
 import Link from "next/link";
 
@@ -36,7 +37,8 @@ export default function SignInPage() {
                 <div className="space-y-4">
                     <GitHubSignInButton />
                     <GoogleSignInButton />
-                    <Link href="/signin/admin" className="bg-[#3D5300] text-white px-4 py-2 rounded hover:bg-[#616F47] transition-colors">
+                    <Link href="/signin/admin" className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:border-[#616F47] text-[#616F47] font-medium py-2 px-4 rounded-lg shadow-sm transition-all">
+                        <GrUserAdmin className="w-5 h-5" />
                         Logga in som admin
                     </Link>
                 </div>
