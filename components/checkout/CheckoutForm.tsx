@@ -3,6 +3,7 @@
 import useCartStore from "@/stores/cartStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { nanoid } from "nanoid";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -58,7 +59,7 @@ export default function CheckoutForm() {
       city: data.city,
     });
 
-    
+
     const orderNumber = nanoid(8);
 
     const { setCheckoutItems, clearCart } = useCartStore.getState();
@@ -67,10 +68,10 @@ export default function CheckoutForm() {
 
     clearCart();
 
-    
+
     router.push(`/confirmation/${orderNumber}`);
 
-    };
+  };
 
   return (
     <form
@@ -197,10 +198,12 @@ export default function CheckoutForm() {
           </p>
         )}
         <div className="w-full md:w-[50%] flex justify-center items-center mt-4">
-          <img
+          <Image
             className="cursor-pointer"
             src="/Credit-Card-Icons.png"
             alt="credit cards"
+            width={300}
+            height={50}
           />
         </div>
       </div>

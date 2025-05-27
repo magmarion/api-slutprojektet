@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import useCartStore from "@/stores/cartStore";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ConfirmationPageProps {
   params: {
@@ -138,9 +139,11 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
           <CardContent className="flex flex-col gap-2">
             {/* Button linking back to homepage */}
             <Button asChild>
-              <a href="/" data-cy="continue-shopping-button">
-                Fortsätt Handla
-              </a>
+
+              <Link href="/" data-cy="continue-shopping-button">
+                Fortsätt handla
+              </Link>
+
             </Button>
             {/* Additional post-checkout details if needed */}
           </CardContent>

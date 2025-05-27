@@ -1,5 +1,5 @@
 import AddToCartButton from "@/components/buttons/AddToCartButton";
-import { db } from "prisma/client";
+import { db } from "@/prisma/client";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
