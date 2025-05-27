@@ -4,7 +4,17 @@ import { z } from "zod";
 
 const orderSchema = z.object({
   userId: z.string().nonempty("User ID is required"),
-  items: z.array(z.any()).nonempty("Items cannot be empty"),
+  items: z
+    .array(
+      z.object({
+        productId: z.string().nonempty("Product ID is required"),
+        quantity: z
+          .number()
+          .int()
+          .positive("Quantity must be a positive integer"),
+      })
+    )
+    .nonempty("Items cannot be empty"),
   total: z.number().min(0, "Total must be at least 0"),
   status: z.string().nonempty("Status is required"),
 });
@@ -52,10 +62,24 @@ export async function createOrder(data: {
   total: number;
   status: string;
 }) {
+
+  // Validera inkommande data med zod
+  const result = orderSchema.safeParse(data);
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Validation failed",
+      details: result.error.flatten().fieldErrors,
+    };
+  }
+
   // Kontrollera att användaren finns
   const user = await db.user.findUnique({ where: { id: data.userId } });
   if (!user) {
-    throw new Error(`User with id ${data.userId} not found`);
+    return {
+      success: false,
+      error: `User with id ${data.userId} not found`,
+    };
   }
 
   // Kontrollera att alla produkter finns
@@ -64,32 +88,38 @@ export async function createOrder(data: {
       where: { id: item.productId },
     });
     if (!product) {
-      throw new Error(`Product with id ${item.productId} not found`);
+      return {
+        success: false,
+        error: `Product with id ${item.productId} not found`,
+      };
     }
   }
 
-  console.log("Creating order with data:", data);
-
-  const order = await db.order.create({
-    data: {
-      userId: data.userId,
-      total: data.total,
-      status: data.status,
-      items: {
-        create: data.items.map((i) => ({
-          productId: i.productId,
-          quantity: i.quantity,
-        })),
+  // Skapa ordern
+  try {
+    const order = await db.order.create({
+      data: {
+        userId: data.userId,
+        total: data.total,
+        status: data.status,
+        items: {
+          create: data.items.map((i) => ({
+            productId: i.productId,
+            quantity: i.quantity,
+          })),
+        },
       },
-    },
-    include: {
-      user: { select: { id: true, name: true } },
-      items: { include: { product: { select: { id: true, title: true } } } },
-    },
-  });
+      include: {
+        user: { select: { id: true, name: true } },
+        items: { include: { product: { select: { id: true, title: true } } } },
+      },
+    });
 
-  console.log("Order created:", order);
-  return order;
+    return { success: true, order };
+  } catch (error) {
+    console.error("Error creating order:", error);
+    return { success: false, error: "Failed to create order" };
+  }
 }
 
 export async function getOrderById(
