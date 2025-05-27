@@ -1,9 +1,14 @@
+// app/admin/page.tsx
 import AddProductForm from "@/components/admin/AddProductForm";
 import AdminProductsGrid from "@/components/admin/AdminTable";
-import { getAllProducts } from "@/app/admin/actions"; 
+import { getAllProducts } from "@/app/admin/actions";
+import { requireAdminSession } from "@/lib/requiredSession";
 
 export default async function AdminPage() {
-  const products = await getAllProducts(); 
+  // Använd direkt utan att lagra i variabel om du inte behöver data från sessionen
+  await requireAdminSession();
+
+  const products = await getAllProducts();
 
   return (
     <main className="p-6 max-w-7xl mx-auto">

@@ -1,9 +1,11 @@
-
+// lib/requiredSession.ts
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 
-export async function requireSession() {
+export async function requireAdminSession() {
   const session = await getSession();
-  if (!session) redirect("/signin");
+  if (!session || !session.user.isAdmin) {
+    redirect("/signin");
+  }
   return session;
 }
