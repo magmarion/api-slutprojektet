@@ -77,7 +77,7 @@ export default function AddProductForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Create Product</CardTitle>
+        <CardTitle>Lägg till produkt</CardTitle>
       </CardHeader>
 
       <CardContent>
@@ -89,7 +89,7 @@ export default function AddProductForm() {
         >
           {/* Title */}
           <div>
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title">Rubrik</Label>
             <Input
               id="title"
               placeholder="Product Title"
@@ -108,7 +108,7 @@ export default function AddProductForm() {
 
           {/* Image URL */}
           <div>
-            <Label htmlFor="image">Image URL</Label>
+            <Label htmlFor="image">Bild URL</Label>
             <Input
               id="image"
               placeholder="https://example.com/image.jpg"
@@ -127,7 +127,7 @@ export default function AddProductForm() {
 
           {/* Price */}
           <div>
-            <Label htmlFor="price">Price</Label>
+            <Label htmlFor="price">Pris</Label>
             <Input
               id="price"
               type="number"
@@ -147,7 +147,7 @@ export default function AddProductForm() {
 
           {/* Description */}
           <div>
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">Beskrivning</Label>
             <Input
               id="description"
               placeholder="Short description..."
@@ -166,14 +166,14 @@ export default function AddProductForm() {
 
           {/* Kategori fält */}
           <div className="space-y-2">
-            <Label htmlFor="category">Category</Label>
+            <Label htmlFor="category">Kategori</Label>
             <select
               id="category"
               {...register("category")}
               disabled={isLoadingCategories}
               className="w-full p-2 border rounded-md"
             >
-              <option value="">Select a category...</option>
+              <option value="">Välj en kategori...</option>
               {categories.map((category) => (
                 <option key={category.name} value={category.name}>
                   {category.name}
@@ -184,13 +184,13 @@ export default function AddProductForm() {
               <p className="text-red-500 text-sm">{errors.category.message}</p>
             )}
             {isLoadingCategories && (
-              <p className="text-sm">Loading categories...</p>
+              <p className="text-sm">Laddar kategorier...</p>
             )}
           </div>
 
           {/* Submit */}
           <Button type="submit" data-cy="product-submit">
-            Save
+            Spara
           </Button>
         </form>
       </CardContent>
