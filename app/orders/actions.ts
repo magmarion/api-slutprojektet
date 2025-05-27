@@ -24,7 +24,11 @@ export type OrderWithRelations = {
   createdAt: Date;
   updatedAt: Date;
   user: { id: string; name: string };
-  items: Array<{ id: string; quantity: string; product: { id: string; title: string } }>;
+  items: Array<{
+    id: string;
+    quantity: number;
+    product: { id: string; title: string };
+  }>;
 };
 
 export async function getOrders(): Promise<OrderWithRelations[]> {
@@ -34,7 +38,7 @@ export async function getOrders(): Promise<OrderWithRelations[]> {
         user: { select: { id: true, name: true } },
         items: { include: { product: { select: { id: true, title: true } } } },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     });
   } catch (error) {
     console.error("Error fetching orders:", error);
@@ -42,20 +46,40 @@ export async function getOrders(): Promise<OrderWithRelations[]> {
   }
 }
 
-
 export async function createOrder(data: {
   userId: string;
-  items: Array<{ productId: string; quantity: string }>;
+  items: Array<{ productId: string; quantity: number }>;
   total: number;
   status: string;
 }) {
-  return db.order.create({
+  // Kontrollera att användaren finns
+  const user = await db.user.findUnique({ where: { id: data.userId } });
+  if (!user) {
+    throw new Error(`User with id ${data.userId} not found`);
+  }
+
+  // Kontrollera att alla produkter finns
+  for (const item of data.items) {
+    const product = await db.product.findUnique({
+      where: { id: item.productId },
+    });
+    if (!product) {
+      throw new Error(`Product with id ${item.productId} not found`);
+    }
+  }
+
+  console.log("Creating order with data:", data);
+
+  const order = await db.order.create({
     data: {
       userId: data.userId,
       total: data.total,
       status: data.status,
       items: {
-        create: data.items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
+        create: data.items.map((i) => ({
+          productId: i.productId,
+          quantity: i.quantity,
+        })),
       },
     },
     include: {
@@ -63,9 +87,14 @@ export async function createOrder(data: {
       items: { include: { product: { select: { id: true, title: true } } } },
     },
   });
+
+  console.log("Order created:", order);
+  return order;
 }
 
-export async function getOrderById(id: string): Promise<OrderWithRelations | null> {
+export async function getOrderById(
+  id: string
+): Promise<OrderWithRelations | null> {
   try {
     return await db.order.findUnique({
       where: { id },
@@ -80,13 +109,11 @@ export async function getOrderById(id: string): Promise<OrderWithRelations | nul
   }
 }
 
-
-
 export async function updateOrder(
   id: string,
   data: {
     userId?: string;
-    items?: any[];
+    items?: { productId: string; quantity: number }[];
     total?: number;
     status?: string;
   }
@@ -100,10 +127,43 @@ export async function updateOrder(
     };
   }
 
+  type UpdateData = {
+    userId?: string;
+    items?: { productId: string; quantity: number }[];
+    total?: number;
+    status?: string;
+  };
+  // Skapa en kopia och filtrera undefined
+  const filteredData = Object.fromEntries(
+    Object.entries(result.data).filter(([_, value]) => value !== undefined)
+  ) as UpdateData;
+
+  const prismaData: any = { ...filteredData };
+
+  // Om userId finns, använd relationsformat
+  if (filteredData.userId) {
+    prismaData.user = { connect: { id: filteredData.userId } };
+    delete prismaData.userId;
+  }
+
+  // Om items finns, använd create + set (eller updateMany)
+  if (filteredData.items) {
+    prismaData.items = {
+      set: [], // Rensar gamla rader
+      create: filteredData.items.map(
+        (item: { productId: string; quantity: number }) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+        })
+      ),
+    };
+    delete prismaData.items;
+  }
+
   try {
     const updatedOrder = await db.order.update({
       where: { id },
-      data: result.data,
+      data: prismaData,
       include: {
         user: { select: { id: true, name: true } },
         items: {
@@ -130,14 +190,16 @@ export async function deleteOrder(id: string) {
     return { success: false, error: "Failed to delete order" };
   }
 }
-export async function getOrdersByUserId(userId: string): Promise<OrderWithRelations[]> {
+export async function getOrdersByUserId(
+  userId: string
+): Promise<OrderWithRelations[]> {
   return db.order.findMany({
     where: { userId },
     include: {
       user: { select: { id: true, name: true } },
       items: { include: { product: { select: { id: true, title: true } } } },
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 }
 export async function getOrderCount(): Promise<number> {
@@ -161,7 +223,7 @@ export async function getOrdersWithPagination(
         user: { select: { id: true, name: true } },
         items: { include: { product: { select: { id: true, title: true } } } },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     }),
     db.order.count(),
   ]);
@@ -176,7 +238,7 @@ export async function getOrdersByStatus(
       user: { select: { id: true, name: true } },
       items: { include: { product: { select: { id: true, title: true } } } },
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 }
 export async function getOrdersByDateRange(
@@ -194,7 +256,7 @@ export async function getOrdersByDateRange(
       user: { select: { id: true, name: true } },
       items: { include: { product: { select: { id: true, title: true } } } },
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 }
 export async function getOrdersByUserIdWithPagination(
@@ -211,7 +273,7 @@ export async function getOrdersByUserIdWithPagination(
         user: { select: { id: true, name: true } },
         items: { include: { product: { select: { id: true, title: true } } } },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     }),
     db.order.count({ where: { userId } }),
   ]);
