@@ -14,9 +14,9 @@ export default async function ProfilePage() {
   return (
     <main className="min-h-screen bg-slate-900 text-white px-4 py-10 flex flex-col items-center">
       <div className="max-w-xl w-full bg-slate-800 rounded shadow-md p-6 space-y-4">
-        <h1 className="text-3xl font-bold mb-4">Your Profile</h1>
+        <h1 className="text-3xl font-bold mb-4">Din Profil</h1>
         <p>
-          <span className="font-semibold">Name:</span> {userSession.user.name}
+          <span className="font-semibold">Namn:</span> {userSession.user.name}
         </p>
         <p>
           <span className="font-semibold">Email:</span> {userSession.user.email}
@@ -24,13 +24,13 @@ export default async function ProfilePage() {
 
         <hr className="border-slate-600 my-4" />
 
-        <h2 className="text-xl font-semibold">Order History</h2>
+        <h2 className="text-xl font-semibold">Beställning Historik</h2>
         {orders.length > 0 ? (
           <ul className="space-y-2 text-sm">
             {orders.map((order) => (
               <li key={order.id} className="bg-slate-700 p-3 rounded">
-                <div className="font-medium">Order ID: {order.id}</div>
-                <div className="font-medium">Products:</div>
+                <div className="font-medium">Beställning ID: {order.id}</div>
+                <div className="font-medium">Produkter:</div>
                 <ul className="ml-4 list-disc">
                   {order.items.map((item) => (
                     <li key={item.id}>
@@ -47,7 +47,7 @@ export default async function ProfilePage() {
           </ul>
         ) : (
           <div className="bg-slate-700 p-4 rounded text-sm">
-            You haven’t placed any orders yet.
+            Du har inte gjort några beställningar ännu.
           </div>
         )}
       </div>

@@ -204,9 +204,9 @@ export default function Header() {
                                 <hr className="my-2" />
                                 <button
                                     onClick={() => signOut()}
-                                    className="w-full bg-[#AF3E3E] hover:bg-[#ff5959] text-white px-4 py-2 rounded transition-colors"
+                                    className="w-full bg-[#AF3E3E] hover:bg-[#8B322C] text-white px-4 py-2 rounded transition-all cursor-pointer"
                                 >
-                                    Sign Out
+                                    Logga ut
                                 </button>
                             </div>
                         )}
