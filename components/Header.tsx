@@ -133,13 +133,9 @@ export default function Header() {
             <div className="flex gap-4 pr-4 items-center relative">
 
                 {/* Admin Link */}
-                {session?.user && 'isAdmin' in session.user && (session.user as { isAdmin: boolean }).isAdmin && (
-                    <Link
-                        href="/admin"
-                        data-cy="admin-link"
-                        className="text-[#FEFAE1] hover:text-[#F4D794] transition-colors"
-                    >
-                        <RiAdminFill className="w-6 h-6 cursor-pointer" />
+                {(session?.user as { isAdmin?: boolean })?.isAdmin && (
+                    <Link href="/admin">
+                        <RiAdminFill className="w-6 h-6" />
                     </Link>
                 )}
 

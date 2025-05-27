@@ -19,3 +19,18 @@ type AuthenticatedSession = {
     accessToken: string | null;
 };
 
+export function useAuthenticatedSession() {
+    const session = useSession() as unknown as AuthenticatedSession | null;
+
+    if (!session) {
+        return null;
+    }
+
+    return {
+        ...session,
+        user: {
+            ...session.user,
+            isAdmin: session.user.isAdmin || false, 
+        },
+    };
+}
