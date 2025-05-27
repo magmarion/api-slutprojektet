@@ -21,14 +21,30 @@ export async function getSession() {
   });
 
   if (session?.user) {
-    // Fetch the full user data including isAdmin
+    console.log("Before fetching user:", session.user);
     const user = await db.user.findUnique({
       where: { id: session.user.id },
       select: { id: true, name: true, email: true, isAdmin: true },
     });
 
+    console.log("After fetching user from DB:", user);
+
     if (user) {
-      return { ...session, user };
+      console.log('MER DEBUGGING:', {
+        sessionBefore: session.user,
+        userFromDB: user,
+        mergedUser: {
+          ...session.user,
+          isAdmin: user.isAdmin,
+        }
+      });
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          isAdmin: user.isAdmin,
+        },
+      };
     }
   }
 

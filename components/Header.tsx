@@ -60,7 +60,7 @@ export default function Header() {
         loadCategories();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div className="text-md">Loading...</div>;
 
     return (
         <header className="sticky top-0 z-50 bg-gradient-to-b from-[#3D5300] to-[#616F47] text-[#FEFAE1] shadow-lg flex justify-between items-center px-5 py-4">
@@ -131,8 +131,9 @@ export default function Header() {
 
             {/* Icons Section */}
             <div className="flex gap-4 pr-4 items-center relative">
+
                 {/* Admin Link */}
-                {session?.user && (session.user as { isAdmin?: boolean }).isAdmin && (
+                {session?.user && 'isAdmin' in session.user && (session.user as { isAdmin: boolean }).isAdmin && (
                     <Link
                         href="/admin"
                         data-cy="admin-link"
