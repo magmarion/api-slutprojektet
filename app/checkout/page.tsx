@@ -23,7 +23,7 @@ export default function CheckoutPage() {
                 transition={{ duration: 0.8 }}
                 className="w-full lg:w-2/3 bg-[#FFF6DA] shadow-xl rounded-2xl p-6"
             >
-                <h1 className="text-3xl font-bold text-[#3D5300] mb-6">Checkout</h1>
+                <h1 className="text-3xl font-bold text-[#3D5300] mb-6">Kassa</h1>
 
                 {cartItems.length > 0 ? (
                     <>
@@ -87,7 +87,7 @@ export default function CheckoutPage() {
                         </div>
                     </>
                 ) : (
-                    <p className="text-gray-600">No items in cart.</p>
+                    <p className="text-gray-600">Inga varor i varukorgen.</p>
                 )}
             </motion.div>
 

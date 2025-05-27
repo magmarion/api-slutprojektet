@@ -21,7 +21,7 @@ export default function AddToCartButton({ id, title, price, image }: AddToCartBu
     toast.success(
       <>
         <span>
-          <strong>{title}</strong> has been added!
+          <strong>{title}</strong> has been added to cart!
         </span>
       </>
     );
@@ -32,7 +32,7 @@ export default function AddToCartButton({ id, title, price, image }: AddToCartBu
       onClick={handleAddToCart}
       className="mt-3 w-full cursor-pointer py-4"
     >
-      Buy
+      Lägg i varukorg
     </Button>
   );
 }

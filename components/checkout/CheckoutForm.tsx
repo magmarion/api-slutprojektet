@@ -81,7 +81,7 @@ export default function CheckoutForm() {
     >
       {/* Name */}
       <div className="mb-4">
-        <label className="block font-medium mb-1">Name</label>
+        <label className="block font-medium mb-1">Namn</label>
         <input
           type="text"
           data-cy="customer-name"
@@ -101,7 +101,7 @@ export default function CheckoutForm() {
 
       {/* E-mail */}
       <div className="mb-4">
-        <label className="block font-medium mb-1">E-mail</label>
+        <label className="block font-medium mb-1">E-post</label>
         <input
           type="email"
           data-cy="customer-email"
@@ -121,7 +121,7 @@ export default function CheckoutForm() {
 
       {/* Phone */}
       <div className="mb-4">
-        <label className="block font-medium mb-1">Phone</label>
+        <label className="block font-medium mb-1">Tel</label>
         <input
           type="tel"
           data-cy="customer-phone"
@@ -141,7 +141,7 @@ export default function CheckoutForm() {
 
       {/* Address */}
       <div className="mb-4">
-        <label className="block font-medium mb-1">Address</label>
+        <label className="block font-medium mb-1">Adress</label>
         <input
           type="text"
           data-cy="customer-address"
@@ -161,7 +161,7 @@ export default function CheckoutForm() {
 
       {/* Zip code */}
       <div className="mb-4">
-        <label className="block font-medium mb-1">Zip code</label>
+        <label className="block font-medium mb-1">Postnummer</label>
         <input
           type="text"
           data-cy="customer-zipcode"
@@ -181,7 +181,7 @@ export default function CheckoutForm() {
 
       {/* City */}
       <div className="mb-4">
-        <label className="block font-medium mb-1">City</label>
+        <label className="block font-medium mb-1">Ort</label>
         <input
           type="text"
           data-cy="customer-city"
@@ -210,7 +210,7 @@ export default function CheckoutForm() {
 
       {/* Card number (static text) */}
       <div className="mb-4">
-        <label className="block font-medium mb-1">Card number</label>
+        <label className="block font-medium mb-1">Kortnummer</label>
         <p className="p-2 border border-gray-300 rounded bg-[#FFF6DA]">
           4242 4242 4242 4242
         </p>
@@ -218,7 +218,7 @@ export default function CheckoutForm() {
 
       {/* Expiration date (static text) */}
       <div className="mb-4">
-        <label className="block font-medium mb-1">Expiration (MM/YY)</label>
+        <label className="block font-medium mb-1">Utgångsdatum (MM/YY)</label>
         <p className="p-2 border border-gray-300 rounded bg-[#FFF6DA]">12/30</p>
       </div>
 
@@ -233,7 +233,7 @@ export default function CheckoutForm() {
         type="submit"
         className="bg-[#616F47] hover:bg-[#3D5300] text-white  font-semibold py-2 px-4 rounded cursor-pointer"
       >
-        Pay with Card
+        Betala med kort
       </Button>
     </form>
   );

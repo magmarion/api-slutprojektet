@@ -14,12 +14,12 @@ export default async function EditProductPage({ params }: PageProps) {
     });
 
     if (!product) {
-        return <div>Product not found.</div>;
+        return <div>Produkt hittades inte.</div>;
     }
 
     return (
         <div className="p-4 md:p-10">
-            <h1 className="text-2xl font-bold mb-6">Edit Product</h1>
+            <h1 className="text-2xl font-bold mb-6">Redigera Produkt</h1>
             <EditProductForm product={product} />
         </div>
     );
