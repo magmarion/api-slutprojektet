@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import useCartStore from "@/stores/cartStore";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ConfirmationPageProps {
   params: {
@@ -26,7 +27,7 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -139,9 +140,9 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
           <CardContent className="flex flex-col gap-2">
             {/* Button linking back to homepage */}
             <Button asChild>
-              <a href="/" data-cy="continue-shopping-button">
+              <Link href="/" data-cy="continue-shopping-button">
                 Continue Shopping
-              </a>
+              </Link>
             </Button>
             {/* Additional post-checkout details if needed */}
           </CardContent>
@@ -150,5 +151,5 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
 
     </div>
   );
-} 
+}
 
