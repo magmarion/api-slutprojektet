@@ -1,20 +1,6 @@
 // app/orders/actions.ts
 import { db } from "@/prisma/client";
-import { z } from "zod";
-
-const orderSchema = z.object({
-  userId: z.string().nonempty("User ID is required"),
-  items: z.array(z.any()).nonempty("Items cannot be empty"),
-  total: z.number().min(0, "Total must be at least 0"),
-  status: z.string().nonempty("Status is required"),
-});
-
-const updateOrderSchema = z.object({
-  userId: z.string().optional(),
-  items: z.array(z.any()).optional(),
-  total: z.number().min(0).optional(),
-  status: z.string().optional(),
-});
+import { orderSchema, updateOrderSchema } from "@/lib/schemas"
 
 // Type för order med relationer
 export type OrderWithRelations = {
@@ -24,7 +10,11 @@ export type OrderWithRelations = {
   createdAt: Date;
   updatedAt: Date;
   user: { id: string; name: string };
-  items: Array<{ id: string; quantity: string; product: { id: string; title: string } }>;
+  items: Array<{
+    id: string;
+    quantity: number;
+    product: { id: string; title: string };
+  }>;
 };
 
 export async function getOrders(): Promise<OrderWithRelations[]> {
@@ -34,7 +24,7 @@ export async function getOrders(): Promise<OrderWithRelations[]> {
         user: { select: { id: true, name: true } },
         items: { include: { product: { select: { id: true, title: true } } } },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     });
   } catch (error) {
     console.error("Error fetching orders:", error);
@@ -42,30 +32,75 @@ export async function getOrders(): Promise<OrderWithRelations[]> {
   }
 }
 
-
 export async function createOrder(data: {
   userId: string;
-  items: Array<{ productId: string; quantity: string }>;
+  items: Array<{ productId: string; quantity: number }>;
   total: number;
   status: string;
 }) {
-  return db.order.create({
-    data: {
-      userId: data.userId,
-      total: data.total,
-      status: data.status,
-      items: {
-        create: data.items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
+
+  // Validera inkommande data med zod
+  const result = orderSchema.safeParse(data);
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Validation failed",
+      details: result.error.flatten().fieldErrors,
+    };
+  }
+
+  // Kontrollera att användaren finns
+  const user = await db.user.findUnique({ where: { id: data.userId } });
+  if (!user) {
+    return {
+      success: false,
+      error: `User with id ${data.userId} not found`,
+    };
+  }
+
+  // Kontrollera att alla produkter finns
+  for (const item of data.items) {
+    const product = await db.product.findUnique({
+      where: { id: item.productId },
+    });
+    if (!product) {
+      return {
+        success: false,
+        error: `Product with id ${item.productId} not found`,
+      };
+    }
+  }
+
+  // Skapa ordern
+  try {
+    const order = await db.order.create({
+      data: {
+        userId: data.userId,
+        total: data.total,
+        status: data.status,
+        items: {
+          create: data.items.map((i) => ({
+            productId: i.productId,
+            quantity: i.quantity,
+          })),
+        },
       },
-    },
-    include: {
-      user: { select: { id: true, name: true } },
-      items: { include: { product: { select: { id: true, title: true } } } },
-    },
-  });
+      include: {
+        user: { select: { id: true, name: true } },
+        items: { include: { product: { select: { id: true, title: true } } } },
+      },
+    });
+
+    return { success: true, order };
+  } catch (error) {
+    console.error("Error creating order:", error);
+    return { success: false, error: "Failed to create order" };
+  }
 }
 
-export async function getOrderById(id: string): Promise<OrderWithRelations | null> {
+export async function getOrderById(
+  id: string
+): Promise<OrderWithRelations | null> {
   try {
     return await db.order.findUnique({
       where: { id },
@@ -80,13 +115,11 @@ export async function getOrderById(id: string): Promise<OrderWithRelations | nul
   }
 }
 
-
-
 export async function updateOrder(
   id: string,
   data: {
     userId?: string;
-    items?: any[];
+    items?: { productId: string; quantity: number }[];
     total?: number;
     status?: string;
   }
@@ -100,10 +133,43 @@ export async function updateOrder(
     };
   }
 
+  type UpdateData = {
+    userId?: string;
+    items?: { productId: string; quantity: number }[];
+    total?: number;
+    status?: string;
+  };
+  // Skapa en kopia och filtrera undefined
+  const filteredData = Object.fromEntries(
+    Object.entries(result.data).filter(([_, value]) => value !== undefined)
+  ) as UpdateData;
+
+  const prismaData: any = { ...filteredData };
+
+  // Om userId finns, använd relationsformat
+  if (filteredData.userId) {
+    prismaData.user = { connect: { id: filteredData.userId } };
+    delete prismaData.userId;
+  }
+
+  // Om items finns, använd create + set (eller updateMany)
+  if (filteredData.items) {
+    prismaData.items = {
+      set: [], // Rensar gamla rader
+      create: filteredData.items.map(
+        (item: { productId: string; quantity: number }) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+        })
+      ),
+    };
+    delete prismaData.items;
+  }
+
   try {
     const updatedOrder = await db.order.update({
       where: { id },
-      data: result.data,
+      data: prismaData,
       include: {
         user: { select: { id: true, name: true } },
         items: {
@@ -130,14 +196,16 @@ export async function deleteOrder(id: string) {
     return { success: false, error: "Failed to delete order" };
   }
 }
-export async function getOrdersByUserId(userId: string): Promise<OrderWithRelations[]> {
+export async function getOrdersByUserId(
+  userId: string
+): Promise<OrderWithRelations[]> {
   return db.order.findMany({
     where: { userId },
     include: {
       user: { select: { id: true, name: true } },
       items: { include: { product: { select: { id: true, title: true } } } },
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 }
 export async function getOrderCount(): Promise<number> {
@@ -161,7 +229,7 @@ export async function getOrdersWithPagination(
         user: { select: { id: true, name: true } },
         items: { include: { product: { select: { id: true, title: true } } } },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     }),
     db.order.count(),
   ]);
@@ -176,7 +244,7 @@ export async function getOrdersByStatus(
       user: { select: { id: true, name: true } },
       items: { include: { product: { select: { id: true, title: true } } } },
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 }
 export async function getOrdersByDateRange(
@@ -194,7 +262,7 @@ export async function getOrdersByDateRange(
       user: { select: { id: true, name: true } },
       items: { include: { product: { select: { id: true, title: true } } } },
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 }
 export async function getOrdersByUserIdWithPagination(
@@ -211,7 +279,7 @@ export async function getOrdersByUserIdWithPagination(
         user: { select: { id: true, name: true } },
         items: { include: { product: { select: { id: true, title: true } } } },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     }),
     db.order.count({ where: { userId } }),
   ]);
