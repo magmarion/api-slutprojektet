@@ -1,6 +1,20 @@
-'use server';
+// app/orders/actions.ts
+import { db } from "@/prisma/client";
+import { z } from "zod";
 
-import { db } from '@/prisma/client';
+const orderSchema = z.object({
+  userId: z.string().nonempty("User ID is required"),
+  items: z.array(z.any()).nonempty("Items cannot be empty"),
+  total: z.number().min(0, "Total must be at least 0"),
+  status: z.string().nonempty("Status is required"),
+});
+
+const updateOrderSchema = z.object({
+  userId: z.string().optional(),
+  items: z.array(z.any()).optional(),
+  total: z.number().min(0).optional(),
+  status: z.string().optional(),
+});
 
 // Type för order med relationer
 export type OrderWithRelations = {
@@ -14,14 +28,20 @@ export type OrderWithRelations = {
 };
 
 export async function getOrders(): Promise<OrderWithRelations[]> {
-  return db.order.findMany({
-    include: {
-      user: { select: { id: true, name: true } },
-      items: { include: { product: { select: { id: true, title: true } } } },
-    },
-    orderBy: { createdAt: 'desc' },
-  });
+  try {
+    return await db.order.findMany({
+      include: {
+        user: { select: { id: true, name: true } },
+        items: { include: { product: { select: { id: true, title: true } } } },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    return []; // Returnera en tom lista som fallback
+  }
 }
+
 
 export async function createOrder(data: {
   userId: string;
@@ -45,37 +65,70 @@ export async function createOrder(data: {
   });
 }
 
-export async function getOrderById(id: string): Promise<OrderWithRelations> {
-  const order = await db.order.findUnique({
-    where: { id },
-    include: {
-      user: { select: { id: true, name: true } },
-      items: { include: { product: { select: { id: true, title: true } } } },
-    },
-  });
-  if (!order) throw new Error('Order not found');
-  return order;
+export async function getOrderById(id: string): Promise<OrderWithRelations | null> {
+  try {
+    return await db.order.findUnique({
+      where: { id },
+      include: {
+        user: { select: { id: true, name: true } },
+        items: { include: { product: { select: { id: true, title: true } } } },
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching order by ID:", error);
+    return null;
+  }
 }
+
+
 
 export async function updateOrder(
   id: string,
-  data: { status?: string; total?: number }
+  data: {
+    userId?: string;
+    items?: any[];
+    total?: number;
+    status?: string;
+  }
 ) {
-  return db.order.update({
-    where: { id },
-    data: {
-      status: data.status,
-      total: data.total,
-    },
-    include: {
-      user: { select: { id: true, name: true } },
-      items: { include: { product: { select: { id: true, title: true } } } },
-    },
+  const result = updateOrderSchema.safeParse(data);
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Validation failed",
+      details: result.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    const updatedOrder = await db.order.update({
+      where: { id },
+      data: result.data,
+      include: {
+        user: { select: { id: true, name: true } },
+        items: {
+          include: {
+            product: { select: { id: true, title: true } },
+          },
+        },
+      },
     });
-    }
+
+    return { success: true, updatedOrder };
+  } catch (error) {
+    console.error("Error updating order:", error);
+    return { success: false, error: "Failed to update order" };
+  }
+}
 
 export async function deleteOrder(id: string) {
-  return db.order.delete({ where: { id } });
+  try {
+    await db.order.delete({ where: { id } });
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting order:", error);
+    return { success: false, error: "Failed to delete order" };
+  }
 }
 export async function getOrdersByUserId(userId: string): Promise<OrderWithRelations[]> {
   return db.order.findMany({

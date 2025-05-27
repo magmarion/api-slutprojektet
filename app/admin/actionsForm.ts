@@ -1,4 +1,3 @@
-// app/admin/actionsForm.ts
 "use server";
 
 import { createProduct, deleteProduct, updateProduct } from "./actions";
@@ -16,13 +15,20 @@ export async function createProductAction(formData: FormData) {
 
     const result = productSchema.safeParse(data);
     if (!result.success) {
-        throw new Error(
-            "Validation failed: " +
-            JSON.stringify(result.error.flatten().fieldErrors)
-        );
+        return {
+            success: false,
+            error: "Validation failed",
+            details: result.error.flatten().fieldErrors,
+        };
     }
-    await createProduct(result.data);
-    // The revalidatePath is handled in the action.
+
+    try {
+        await createProduct(result.data);
+        return { success: true };
+    } catch (error) {
+        console.error("Error creating product:", error);
+        return { success: false, error: "Failed to create product" };
+    }
 }
 
 // Wrapper for updating a product via form submission.
@@ -40,17 +46,35 @@ export async function updateProductAction(
 
     const result = productSchema.safeParse(data);
     if (!result.success) {
-        throw new Error(
-            "Validation failed: " +
-            JSON.stringify(result.error.flatten().fieldErrors)
-        );
+        return {
+            success: false,
+            error: "Validation failed",
+            details: result.error.flatten().fieldErrors,
+        };
     }
-    await updateProduct(articleNumber, result.data);
+
+    try {
+        await updateProduct(articleNumber, result.data);
+        return { success: true };
+    } catch (error) {
+        console.error("Error updating product:", error);
+        return { success: false, error: "Failed to update product" };
+    }
 }
 
 // Wrapper for deleting a product via form submission.
 export async function deleteProductAction(formData: FormData) {
     const articleNumber = formData.get("articleNumber") as string;
-    if (!articleNumber) throw new Error("Article number missing");
-    await deleteProduct(articleNumber);
+
+    if (!articleNumber) {
+        return { success: false, error: "Article number is missing" };
+    }
+
+    try {
+        await deleteProduct(articleNumber);
+        return { success: true };
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        return { success: false, error: "Failed to delete product" };
+    }
 }
