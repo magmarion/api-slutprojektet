@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Toaster } from "@/components/ui/sonner";
-import { Bangers, Inter, Roboto, Quantico } from "next/font/google";  // Import Quantico
+import { Bangers, Inter, Roboto, Quantico } from "next/font/google"; 
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
 import "../app/global.css";
