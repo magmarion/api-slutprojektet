@@ -1,4 +1,3 @@
-// app\admin\actions.ts
 'use server';
 
 import { Product } from '@/generated/prisma';
@@ -8,12 +7,22 @@ import { db } from 'prisma/client';
 import { z } from 'zod';
 import { productSchema } from '@/lib/schemas';
 
+/**
+ * Fetch all products with their categories
+ */
+export async function getAllProducts() {
+  return await db.product.findMany({
+    include: { categories: true },
+  });
+}
 
+/**
+ * Create a new product
+ */
 export async function createProduct(
   data: Partial<Product>,
   categoryName?: string
 ) {
-  // Validate data
   const result = productSchema.safeParse({
     title: data.title,
     image: data.image,
@@ -22,7 +31,6 @@ export async function createProduct(
     category: categoryName,
   });
 
-  // If validation fails, return error
   if (!result.success) {
     return {
       success: false,
@@ -42,9 +50,7 @@ export async function createProduct(
         description: result.data.description,
         price: result.data.price,
         categories: categoryName
-          ? {
-              connect: [{ name: categoryName }],
-            }
+          ? { connect: [{ name: categoryName }] }
           : undefined,
       },
     });
@@ -60,12 +66,14 @@ export async function createProduct(
   }
 }
 
+/**
+ * Update a product by articleNumber
+ */
 export async function updateProduct(
   articleNumber: string,
   data: Partial<Product>,
   categoryName?: string
 ) {
-  // Validate data
   const result = productSchema.safeParse({
     title: data.title,
     image: data.image,
@@ -74,7 +82,6 @@ export async function updateProduct(
     category: categoryName,
   });
 
-  // If validation fails, return error
   if (!result.success) {
     return {
       success: false,
@@ -93,8 +100,8 @@ export async function updateProduct(
         price: data.price,
         categories: categoryName
           ? {
-              set: [], // Rensa befintliga kategorier
-              connect: [{ name: categoryName }], // Koppla till den valda kategorin
+              set: [], // Clear existing categories
+              connect: [{ name: categoryName }],
             }
           : undefined,
       },
@@ -108,6 +115,9 @@ export async function updateProduct(
   }
 }
 
+/**
+ * Delete a product by articleNumber
+ */
 export async function deleteProduct(articleNumber: string) {
   await db.product.delete({
     where: { articleNumber },
@@ -115,15 +125,18 @@ export async function deleteProduct(articleNumber: string) {
   revalidatePath('/admin');
 }
 
+/**
+ * Fetch all product categories
+ */
 export async function getCategories() {
-  const categories = await db.category.findMany({
+  return await db.category.findMany({
     select: { name: true, id: true },
   });
-
-  return categories;
 }
 
+/**
+ * Placeholder for updating order status
+ */
 export async function updateOrderStatus() {
-
-  // Write code here
+  // TODO: Implement order status update logic
 }
