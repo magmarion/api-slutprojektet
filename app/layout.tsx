@@ -38,7 +38,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
           toastOptions={{
             style: {
               background: "#ceeb94",
-              border: '1px solid #ccc',
             },
           }}
         />
