@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="swe">
+    <html lang="en">
       <body className={`flex flex-col min-h-screen ${raleway.className}`}>
         <Header />
         <main className="flex-grow">{children}</main>
