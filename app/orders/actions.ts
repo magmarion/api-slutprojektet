@@ -1,6 +1,6 @@
 // app/orders/actions.ts
+import { orderSchema, updateOrderSchema } from "@/lib/schemas";
 import { db } from "@/prisma/client";
-import { orderSchema, updateOrderSchema } from "@/lib/schemas"
 
 // Type för order med relationer
 export type OrderWithRelations = {
@@ -38,7 +38,6 @@ export async function createOrder(data: {
   total: number;
   status: string;
 }) {
-
   // Validera inkommande data med zod
   const result = orderSchema.safeParse(data);
   if (!result.success) {
@@ -69,6 +68,16 @@ export async function createOrder(data: {
         error: `Product with id ${item.productId} not found`,
       };
     }
+    if (product.stock < item.quantity) {
+      return {
+        success: false,
+        error: `Not enough in stock for ${product.title}`,
+      };
+    }
+    await db.product.update({
+        where: { id: item.productId },
+        data: { stock: product.stock - item.quantity }
+    })
   }
 
   // Skapa ordern
@@ -90,6 +99,7 @@ export async function createOrder(data: {
         items: { include: { product: { select: { id: true, title: true } } } },
       },
     });
+
 
     return { success: true, order };
   } catch (error) {
