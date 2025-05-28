@@ -49,3 +49,19 @@ export const RegisterSchema = z.object({
     username: z.string().min(3, { message: 'Användarnamnet måste vara minst 3 tecken långt' }),
 
 });
+
+export const checkoutSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email("Email is invalid"),
+  address: z.string().min(1, { message: "Address is required" }),
+  zipcode: z
+    .string()
+    .regex(/^\d{5}$/, { message: "Zip must be exactly 5 digits, remove any spaces" }),
+  city: z.string().min(1, { message: "City is required" }),
+  phone: z
+    .string()
+    .regex(/^\d{10}$/, { message: "Phone must be exactly 10 digits" }),
+});

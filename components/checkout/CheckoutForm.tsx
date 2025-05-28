@@ -9,24 +9,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
-
-
-// Zod schema: zip must be exactly 5 digits, e.g. "12345"
-const checkoutSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  email: z
-    .string()
-    .min(1, { message: "Email is required" })
-    .email("Email is invalid"),
-  address: z.string().min(1, { message: "Address is required" }),
-  zipcode: z
-    .string()
-    .regex(/^\d{5}$/, { message: "Zip must be exactly 5 digits" }),
-  city: z.string().min(1, { message: "City is required" }),
-  phone: z
-    .string()
-    .regex(/^\d{10}$/, { message: "Phone must be exactly 10 digits" }),
-});
+import { checkoutSchema } from "@/lib/schemas";
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
@@ -67,7 +50,6 @@ export default function CheckoutForm() {
     setCheckoutItems(cartItems);
 
     clearCart();
-
 
     router.push(`/confirmation/${orderNumber}`);
 
