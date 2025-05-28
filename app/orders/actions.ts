@@ -68,7 +68,7 @@ export async function createOrder(data: {
     if (product.stock < item.quantity) {
       return {
         success: false,
-        error: `Otillräckligt lagersaldo för ${product.title}. Endast ${product.stock} kvar.`,
+        error: `Otillräckligt lagersaldo för ${product.title}. Endast ${product.stock} st kvar.`,
       };
     }
 
