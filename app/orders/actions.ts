@@ -39,7 +39,7 @@ export async function createOrder(data: {
 }) {
   const session = await getSession(); // Hämtar aktiv session
   if (!session?.user?.id) {
-    return { success: false, error: "User not authenticated" };
+    return { success: false, error: "Du behöver logga in för att göra en beställning!" };
   }
 
   const userId = session.user.id;
@@ -61,14 +61,14 @@ export async function createOrder(data: {
     if (!product) {
       return {
         success: false,
-        error: `Product with id ${item.productId} not found`,
+        error: `Produkt med id ${item.productId} hittas ej`,
       };
     }
 
     if (product.stock < item.quantity) {
       return {
         success: false,
-        error: `Not enough in stock for ${product.title}. Only ${product.stock} left.`,
+        error: `Otillräckligt lagersaldo för ${product.title}. Endast ${product.stock} kvar.`,
       };
     }
 
