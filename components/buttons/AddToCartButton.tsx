@@ -21,7 +21,7 @@ export default function AddToCartButton({ id, title, price, image }: AddToCartBu
     toast.success(
       <>
         <span>
-          <strong>{title}</strong> has been added to cart!
+          <strong>{title}</strong> har lagts till i varukorgen!
         </span>
       </>
     );
