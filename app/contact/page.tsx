@@ -76,17 +76,17 @@ export default function Contact() {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="bg-[#FFF6DA] p-8 shadow-lg"
                         >
-                            <h2 className="text-3xl font-bold text-[#616F47] mb-6">
+                            <h2 className="text-3xl font-bold text-[#000000] mb-6">
                                 Kontaktuppgifter
                             </h2>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-4">
                                     <FaEnvelope className="w-6 h-6 text-[#616F47]" />
-                                    <p className="text-[#616F47]">kontakt@bloom.se</p>
+                                    <p className="text-[#000000]">kontakt@bloom.se</p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <FaUser className="w-6 h-6 text-[#616F47]" />
-                                    <p className="text-[#616F47]">+46 123 456 789</p>
+                                    <p className="text-[#000000]">+46 123 456 789</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -110,7 +110,7 @@ export default function Contact() {
                     >
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
-                                <label className="block text-[#616F47] mb-2">Namn</label>
+                                <label className="block text-[#000000] mb-2">Namn</label>
                                 <Input
                                     type="text"
                                     name="name"
@@ -124,7 +124,7 @@ export default function Contact() {
                             </div>
 
                             <div>
-                                <label className="block text-[#616F47] mb-2">E-post</label>
+                                <label className="block text-[#000000] mb-2">E-post</label>
                                 <Input
                                     type="email"
                                     name="email"
@@ -138,7 +138,7 @@ export default function Contact() {
                             </div>
 
                             <div>
-                                <label className="block text-[#616F47] mb-2">Meddelande</label>
+                                <label className="block text-[#000000] mb-2">Meddelande</label>
                                 <Textarea
                                     name="message"
                                     placeholder="Ditt meddelande..."
@@ -156,7 +156,7 @@ export default function Contact() {
                             >
                                 <Button
                                     type="submit"
-                                    className="w-full bg-[#616F47] hover:bg-[#4f5e3c] text-white py-5 transition-all cursor-pointer"
+                                    className="w-full bg-[#465232] hover:bg-[#4f5e3c] text-white py-5 transition-all cursor-pointer"
                                 >
                                     Skicka Meddelande
                                 </Button>
