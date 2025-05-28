@@ -131,11 +131,15 @@ export default function Header() {
 
             {/* Icons Section */}
             <div className="flex gap-4 pr-4 items-center relative">
-
                 {/* Admin Link */}
+
                 {(session?.user as { isAdmin?: boolean })?.isAdmin && (
-                    <Link href="/admin">
-                        <RiAdminFill className="w-6 h-6" />
+                    <Link
+                        href="/admin"
+                        data-cy="admin-link"
+                        className="text-[#FEFAE1] hover:text-[#F4D794] transition-colors"
+                    >
+                        <RiAdminFill className="w-6 h-6 cursor-pointer" />
                     </Link>
                 )}
 
