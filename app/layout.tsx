@@ -33,7 +33,15 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
-        <Toaster />
+               <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: "#ceeb94",
+              border: '1px solid #ccc',
+            },
+          }}
+        />
       </body>
     </html>
   );
