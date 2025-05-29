@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="p-6 bg-gradient-to-b from-[#3D5300] to-[#616F47] text-[#FEFAE1]">
+        <footer className="p-6 bg-gradient-to-b from-[#3D5300] to-[#516036] text-[#FEFAE1]">
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
 
                 {/* Logo - Centrerad på mobil, vänster på desktop */}

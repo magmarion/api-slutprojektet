@@ -104,7 +104,7 @@ export default function About() {
                     </h2>
                     <Button
                         onClick={handleExploreClick}
-                        className="bg-[#FEFAE1] text-[#000000] px-14 py-4 hover:bg-[#FEFAE1] hover:text-[#616F47] transition-all duration-300 hover:scale-105"
+                        className="bg-[#FEFAE1] text-[#000000] px-14 py-4 hover:bg-[#FEFAE1] transition-all duration-300 hover:scale-105"
                     >
                         Utforska Produkter
                     </Button>

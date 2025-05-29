@@ -63,7 +63,7 @@ export default function Header() {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <header className="sticky top-0 z-50 bg-gradient-to-b from-[#3D5300] to-[#616F47] text-[#FEFAE1] shadow-lg flex justify-between items-center px-5 py-4">
+        <header className="sticky top-0 z-50 bg-gradient-to-b from-[#3D5300] to-[#516036] text-[#FEFAE1] shadow-lg flex justify-between items-center px-5 py-4">
             {/* Logo */}
             <Link href="/" className="hover:opacity-90 transition-opacity">
                 <div className="relative h-12 w-32"> {/* Justera höjd/bredd efter din bild */}
@@ -101,13 +101,13 @@ export default function Header() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                         transition={{ duration: 0.2 }}
-                                        className="absolute mt-7 w-48 bg-[#616F47] text-[#FEFAE1] shadow-xl rounded-xl z-50 overflow-hidden"
+                                        className="absolute mt-7 w-48 bg-[#516036] text-[#FEFAE1] shadow-xl rounded-xl z-50 overflow-hidden"
                                     >
                                         {categories.map((category) => (
                                             <Link
                                                 key={category}
                                                 href={`/categories/${encodeURIComponent(category)}`}
-                                                className="block px-5 py-3 hover:bg-[#4A5A36] hover:text-[#F4D794] transition-colors duration-200 text-sm font-medium"
+                                                className="block px-5 py-3 hover:bg-[#51722a] hover:text-[#F4D794] transition-colors duration-200 text-sm font-medium"
                                                 onClick={() => setIsDropdownOpen(false)}
                                             >
                                                 {category}

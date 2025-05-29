@@ -13,7 +13,7 @@ export default function SignInPage() {
             <div className="absolute top-0 w-full h-64 bg-gradient-to-b from-[#3D5300] to-[#616F47] text-white flex items-center justify-center">
                 <div className="text-center px-4">
                     <FaLeaf className="text-4xl mx-auto mb-2 text-lime-100" />
-                    <h1 className="text-3xl md:text-4xl font-bold">Välkommen till Bloom 🌿</h1>
+                    <h1 className="text-3xl md:text-4xl font-bold">Välkommen till Bloom</h1>
                     <p className="text-sm md:text-base text-lime-200 mt-2">
                         Handla med omtanke – naturligt, hållbart och vackert
                     </p>
