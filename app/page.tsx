@@ -1,6 +1,7 @@
 import AllProductsGrid from "@/components/AllProductsGrid";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import HeroSection from "@/components/HeroSection";
+import Newsletter from "@/components/Newsletter";
 import USPSection from "@/components/USPSection";
 import { db } from "@/prisma/client";
 
@@ -23,6 +24,9 @@ export default async function Home() {
             <FeaturedProducts products={featured} />
 
             <AllProductsGrid products={products} />
+
+            <Newsletter />
+
         </main>
     );
 }
