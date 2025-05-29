@@ -1,16 +1,14 @@
-// app/page.tsx
+import AllProductsGrid from "@/components/AllProductsGrid";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import HeroSection from "@/components/HeroSection";
-import ProductCard from "@/components/products/ProductCard";
 import USPSection from "@/components/USPSection";
 import { db } from "@/prisma/client";
 
 export default async function Home() {
-    const categories = await db.category.findMany({ select: { name: true }, });
-    const products = await db.product.findMany({ include: { categories: true }, });
+    const categories = await db.category.findMany({ select: { name: true } });
+    const products = await db.product.findMany({ include: { categories: true } });
 
     const featured = products.slice(0, 4);
-    const remaining = products.slice(4);
 
     return (
         <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#FEFAE1] to-[#daa400]">
@@ -19,31 +17,12 @@ export default async function Home() {
             <h1 className="text-3xl font-bold text-center text-[#594100] m-6">
                 Gröna drömmar blir verklighet hos oss! Köp nu våra blommor för fan!
             </h1>
-            
+
             <USPSection />
 
             <FeaturedProducts products={featured} />
 
-
-            {/* Visa alla produkter som standard */}
-            <div className="grid grid-cols-2 gap-4 px-4 py-6 md:grid-cols-3 lg:grid-cols-4">
-                {products.map((product) => {
-                    const mappedProduct = {
-                        id: product.id,
-                        createdAt: product.createdAt,
-                        updatedAt: product.updatedAt,
-                        articleNumber: product.articleNumber,
-                        image: product.image,
-                        title: product.title,
-                        description: product.description,
-                        price: product.price,
-                        category: product.categories.map((c: { name: string }) => c.name),
-                    };
-                    return (
-                        <ProductCard key={mappedProduct.articleNumber} product={mappedProduct} />
-                    );
-                })}
-            </div>
+            <AllProductsGrid products={products} />
         </main>
     );
 }
