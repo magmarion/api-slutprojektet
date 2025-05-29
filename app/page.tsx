@@ -1,6 +1,7 @@
 // app/page.tsx
 import HeroSection from "@/components/HeroSection";
 import ProductCard from "@/components/products/ProductCard";
+import USPSection from "@/components/USPSection";
 import { db } from "@/prisma/client";
 
 export default async function Home() {
@@ -10,7 +11,7 @@ export default async function Home() {
     return (
         <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#FEFAE1] to-[#daa400]">
             <HeroSection />
-
+            <USPSection />
             <h1 className="text-3xl font-bold text-center text-[#594100] m-6">
                 Gröna drömmar blir verklighet hos oss! Köp nu våra blommor för fan!
             </h1>
