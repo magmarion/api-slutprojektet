@@ -13,40 +13,17 @@ export const auth = betterAuth({
     },
   },
   trustedOrigins: ['http://localhost:5173'],
+  user: {
+    additionalFields: {
+      isAdmin: {
+        type: "boolean"
+      } 
+    }
+  }
 });
 
 export async function getSession() {
-  const session = await auth.api.getSession({
+  return auth.api.getSession({
     headers: await headers(),
   });
-
-  if (session?.user) {
-    console.log("Before fetching user:", session.user);
-    const user = await db.user.findUnique({
-      where: { id: session.user.id },
-      select: { id: true, name: true, email: true, isAdmin: true },
-    });
-
-    console.log("After fetching user from DB:", user);
-
-    if (user) {
-      console.log('MER DEBUGGING:', {
-        sessionBefore: session.user,
-        userFromDB: user,
-        mergedUser: {
-          ...session.user,
-          isAdmin: user.isAdmin,
-        }
-      });
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          isAdmin: user.isAdmin,
-        },
-      };
-    }
-  }
-
-  return null;
 }
