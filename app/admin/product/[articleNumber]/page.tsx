@@ -11,6 +11,7 @@ export default async function EditProductPage({ params }: PageProps) {
     const { articleNumber } = params;
     const product: Product | null = await db.product.findUnique({
         where: { articleNumber },
+        include: { categories: { select: { name: true } } },
     });
 
     if (!product) {
