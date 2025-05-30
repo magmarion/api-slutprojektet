@@ -97,7 +97,7 @@ export async function updateProduct(
       },
     });
 
-    revalidatePath('/admin');
+    revalidatePath('/admin/dashboard');
     return { success: true, product };
   } catch (error) {
     console.error('Error updating product:', error);
@@ -109,7 +109,7 @@ export async function deleteProduct(articleNumber: string) {
   await db.product.delete({
     where: { articleNumber },
   });
-  revalidatePath('/admin');
+  revalidatePath('/admin/dashboard');
 }
 
 export async function getCategories() {
