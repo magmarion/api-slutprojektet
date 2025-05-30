@@ -17,8 +17,15 @@ export default async function MyOrdersPage() {
     include: {
       orders: {
         include: {
-          items: true,
+          items: {
+            include: {
+              product: true,
+            },
+          },
         },
+        orderBy: {
+          createdAt: "desc"
+        }
       },
     },
   });
@@ -56,18 +63,17 @@ export default async function MyOrdersPage() {
                   className="bg-[#FEFAE1] border border-[#3D5300] p-4 rounded-lg shadow"
                 >
                   <div className="font-medium text-[#3D5300]">
-                    Order ID: {order.orderNr ?? order.id}
+                    Order ID: {order.id}
                   </div>
                   <div className="text-slate-700 mt-1">Status: {order.status}</div>
                   <div className="text-xs text-slate-500 mb-2">
                     Beställd: {new Date(order.createdAt).toLocaleString()}
                   </div>
-
-                  <div className="font-semibold text-slate-800 mt-2">Produkter:</div>
+                  <div className="font-semibold mt-2">Produkter:</div>
                   <ul className="ml-4 list-disc text-slate-700 text-sm">
                     {order.items.map((item) => (
                       <li key={item.id}>
-                        {item.title} (x{item.quantity}) – €{item.price}
+                        {item.product.title} (x{item.quantity}) - €{item.product.price}
                       </li>
                     ))}
                   </ul>
@@ -75,9 +81,9 @@ export default async function MyOrdersPage() {
               ))}
             </ul>
           ) : (
-            <div className="flex flex-col items-center text-center text-slate-600 py-10">
+            <div className="flex flex-col items-center text-center text-[#223500] py-10">
               <FaBoxOpen className="w-16 h-16 mb-4" />
-              <p className="text-lg">Du har inte lagt någon beställning ännu.</p>
+              <p className="text-lg">Du har ingen beställning än.</p>
             </div>
           )}
         </div>

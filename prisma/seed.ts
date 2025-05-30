@@ -5,20 +5,6 @@ async function main() {
   console.log(`Starting seed process...`);
   console.log(`Seeding ${productData.length} products...`);
 
-  const user = await db.user.findUnique({
-    where: { email: 'cr7@mail.com' },
-  });
-
-  if (user) {
-    await db.user.update({
-      where: { id: user.id },
-      data: {
-        name: 'Lionel Messi',
-        email: 'lm10@gmail.com',
-      },
-    });
-  }
-
   for (const product of productData) {
     // Skapa eller hitta alla kategorier för produkten
     const categoryRecords = [];

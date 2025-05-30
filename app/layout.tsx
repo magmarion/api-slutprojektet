@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import UnderHeader from "@/components/UnderHeader";
 import { Toaster } from "@/components/ui/sonner";
 import { Raleway, Dancing_Script } from "next/font/google";
 import type { Metadata } from "next/types";
@@ -26,11 +27,12 @@ export const metadata: Metadata = {
   description: "Your favorite products online at a great price...",
 };
 
-export default function RootLayout({ children }: PropsWithChildren) {
+export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body className={`flex flex-col min-h-screen ${raleway.className}`}>
-        <Header />
+        <Header/>
+        <UnderHeader />
         <main className="flex-grow">{children}</main>
         <Footer />
                <Toaster
