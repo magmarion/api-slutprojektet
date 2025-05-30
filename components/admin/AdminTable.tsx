@@ -22,7 +22,7 @@ import { Edit, Trash } from "lucide-react";
 import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 
 // 🆕 Korrekt typ med relation
-type ProductWithCategory = Product & {
+export type ProductWithCategory = Product & {
   categories: Category[];
 };
 
@@ -42,13 +42,13 @@ export default function AdminProductsGrid({
 
       await deleteProductAction(formData);
 
-      toast.success("Product deleted successfully!");
+      toast.success("Produkt raderad.");
       startTransition(() => {
         router.refresh();
       });
     } catch (error) {
       console.error(error);
-      toast.error("Error deleting product.");
+      toast.error("Något gick fel vid radering av produkten.");
     }
   }
 
@@ -58,27 +58,37 @@ export default function AdminProductsGrid({
         {products.map((product) => (
           <Card
             key={product.articleNumber}
-            data-cy="product"
             className="border hover:shadow-md transition-shadow ease-in-out"
           >
             <CardHeader>
-              <CardTitle data-cy="product-title">{product.title}</CardTitle>
-              <CardDescription data-cy="product-id">
+              <CardTitle>
+                {product.title.includes("(") ? (
+                  <>
+                    {product.title.replace(/\s*\(.*\)$/, "")}
+                    <br />
+                    <span className="text-sm">
+                      {product.title.match(/\(.*\)$/)?.[0]}
+                    </span>
+                  </>
+                ) : (
+                  product.title
+                )}
+              </CardTitle>
+              <CardDescription>
                 {product.articleNumber}
               </CardDescription>
             </CardHeader>
 
-            <CardContent className="flex flex-col items-start space-y-3">
+            <CardContent className="flex flex-col items-start">
               <Image
                 src={product.image}
                 alt={product.title}
                 width={96}
                 height={96}
-                className="w-32 h-32 object-fit rounded-md r"
+                className="w-full h-auto aspect-square object-cover"
               />
               <p
                 className="text-sm text-gray-700 font-semibold"
-                data-cy="product-price"
               >
                 {product.price} SEK
               </p>
@@ -89,15 +99,15 @@ export default function AdminProductsGrid({
               </p>
             </CardContent>
 
-            <CardFooter className="flex items-center justify-between space-x-2">
-              <Link href={`admin/product/${product.articleNumber}`}>
+            <CardFooter className="flex flex-wrap gap-2 items-center justify-between">
+              <Link href={`product/${product.articleNumber}`}>
                 <Button
                   variant="outline"
                   data-cy="admin-edit-product"
                   className="flex items-center gap-1 cursor-pointer"
                 >
                   <Edit size={16} />
-                  Edit
+                  Redigera
                 </Button>
               </Link>
 
@@ -118,7 +128,7 @@ export default function AdminProductsGrid({
                   onClick={() => setOpenDeleteDialog(product.articleNumber)}
                 >
                   <Trash size={16} />
-                  Delete
+                  Radera
                 </Button>
               </ConfirmDeleteDialog>
             </CardFooter>
