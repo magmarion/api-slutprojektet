@@ -4,7 +4,6 @@
   "author": "Plugga Tech",
   "license": "ISC",
   "private": true,
-  "type": "module",
   "scripts": {
     "postinstall": "prisma db push",
     "dev": "next dev --turbopack --port 5173",
@@ -25,6 +24,7 @@
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/postcss": "^4.0.9",
+    "@tanstack/react-query": "^5.79.0",
     "better-auth": "^1.2.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
