@@ -31,6 +31,7 @@ export default function Header() {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const { cartItems, cartCount } = useCartStore();
     const { data: session, isPending: loading } = useSession();
+    // const categories = useQuery({ queryKey: "cat", queryFn: getCategories })
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -46,6 +47,8 @@ export default function Header() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    // TODO: Använd useQuery för att hämta kategorier
 
     useEffect(() => {
         async function loadCategories() {

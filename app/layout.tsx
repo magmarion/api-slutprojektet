@@ -27,11 +27,11 @@ export const metadata: Metadata = {
   description: "Your favorite products online at a great price...",
 };
 
-export default function RootLayout({ children }: PropsWithChildren) {
+export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body className={`flex flex-col min-h-screen ${raleway.className}`}>
-        <Header />
+        <Header/>
         <UnderHeader />
         <main className="flex-grow">{children}</main>
         <Footer />
