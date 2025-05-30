@@ -8,7 +8,7 @@ import { db } from "@/prisma/client";
 export default async function Home() {
     const categories = await db.category.findMany({ select: { name: true } });
     const products = await db.product.findMany({ include: { categories: true } });
-
+    
     const featured = products.slice(0, 4);
 
     return (

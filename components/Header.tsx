@@ -30,6 +30,7 @@ export default function Header() {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const { cartItems, cartCount } = useCartStore();
     const { data: session, isPending: loading } = useSession();
+    // const categories = useQuery({ queryKey: "cat", queryFn: getCategories })
 
     // Handle click outside dropdown
     useEffect(() => {
@@ -48,6 +49,8 @@ export default function Header() {
     }, []);
 
     // Load categories on mount
+    // TODO: Använd useQuery för att hämta kategorier
+
     useEffect(() => {
         async function loadCategories() {
             try {
