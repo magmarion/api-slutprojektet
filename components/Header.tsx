@@ -1,5 +1,4 @@
 "use client";
-
 import { getCategories } from "@/app/admin/actions";
 import { signOut, useSession } from "@/lib/auth-client";
 import { AnimatePresence, motion } from "framer-motion";
@@ -33,6 +32,7 @@ export default function Header() {
     const { data: session, isPending: loading } = useSession();
     // const categories = useQuery({ queryKey: "cat", queryFn: getCategories })
 
+    // Handle click outside dropdown
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -48,6 +48,7 @@ export default function Header() {
         };
     }, []);
 
+    // Load categories on mount
     // TODO: Använd useQuery för att hämta kategorier
 
     useEffect(() => {
@@ -59,19 +60,18 @@ export default function Header() {
                 console.error("Failed to load categories:", error);
             }
         }
-
         loadCategories();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div className="text-md">Loading...</div>;
 
     return (
         <header className="sticky top-0 z-50 bg-gradient-to-b from-[#3D5300] to-[#516036] text-[#FEFAE1] shadow-lg flex justify-between items-center px-5 py-4">
             {/* Logo */}
             <Link href="/" className="hover:opacity-90 transition-opacity">
-                <div className="relative h-12 w-32"> {/* Justera höjd/bredd efter din bild */}
+                <div className="relative h-12 w-32"> {/* Adjust height/width as needed */}
                     <Image
-                        src="/logo.png" // Sökväg till din bild i public-mappen
+                        src="/logo.png" // Path to your image in public folder
                         alt="Bloom Logo"
                         fill
                         className="object-contain scale-110"
@@ -95,7 +95,6 @@ export default function Header() {
                         >
                             {link.label}
                         </Link>
-
                         {link.label === "Produkter" && (
                             <AnimatePresence>
                                 {isDropdownOpen && (
@@ -131,12 +130,13 @@ export default function Header() {
             >
                 {isMenuOpen ? <HiX /> : <HiMenu />}
             </button>
-
             <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
             {/* Icons Section */}
             <div className="flex gap-4 pr-4 items-center relative">
-                {session?.user && (
+                {/* Admin Link */}
+
+                {(session?.user as { isAdmin?: boolean })?.isAdmin && (
                     <Link
                         href="/admin"
                         data-cy="admin-link"
@@ -170,7 +170,6 @@ export default function Header() {
                         >
                             <FaGithub />
                         </button>
-
                         {showDropdown && (
                             <div className="absolute right-0 mt-2 w-64 bg-white text-slate-900 rounded shadow-lg z-50 p-4 space-y-2">
                                 <Link
@@ -222,7 +221,6 @@ export default function Header() {
                         >
                             Logga in
                         </Link>
-
                     </div>
                 )}
             </div>

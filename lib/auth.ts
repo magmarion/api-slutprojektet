@@ -4,7 +4,6 @@ import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { db } from '@/prisma/client';
 import { headers } from "next/headers";
 
-
 export const auth = betterAuth({
   database: prismaAdapter(db, { provider: 'postgresql' }),
   socialProviders: {
@@ -14,11 +13,17 @@ export const auth = betterAuth({
     },
   },
   trustedOrigins: ['http://localhost:5173'],
+  user: {
+    additionalFields: {
+      isAdmin: {
+        type: "boolean"
+      } 
+    }
+  }
 });
 
-// Correct way to fetch session on the server
 export async function getSession() {
   return auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
+    headers: await headers(),
   });
 }
