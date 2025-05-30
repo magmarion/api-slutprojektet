@@ -74,19 +74,19 @@ export default function Contact() {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="bg-[#FFF6DA] p-8 rounded-xl shadow-lg"
+                            className="bg-[#FFF6DA] p-8 shadow-lg"
                         >
-                            <h2 className="text-3xl font-bold text-[#616F47] mb-6">
+                            <h2 className="text-3xl font-bold text-[#000000] mb-6">
                                 Kontaktuppgifter
                             </h2>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-4">
                                     <FaEnvelope className="w-6 h-6 text-[#616F47]" />
-                                    <p className="text-[#616F47]">kontakt@bloom.se</p>
+                                    <p className="text-[#000000]">kontakt@bloom.se</p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <FaUser className="w-6 h-6 text-[#616F47]" />
-                                    <p className="text-[#616F47]">+46 123 456 789</p>
+                                    <p className="text-[#000000]">+46 123 456 789</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -95,7 +95,7 @@ export default function Contact() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="rounded-xl p-8 h-72 flex items-center justify-center"
+                            className="p-8 h-72 flex items-center justify-center"
                         >
                             <FaComment className="w-24 h-24 text-[#616F47]" />
                         </motion.div>
@@ -106,39 +106,39 @@ export default function Contact() {
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="bg-[#FFF6DA] p-8 rounded-xl shadow-lg"
+                        className="bg-[#FFF6DA] p-8 shadow-lg"
                     >
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
-                                <label className="block text-[#616F47] mb-2">Namn</label>
+                                <label className="block text-[#000000] mb-2">Namn</label>
                                 <Input
                                     type="text"
                                     name="name"
-                                    placeholder="Anna Blom"
+                                    placeholder="Lucy Montana"
                                     value={formData.name}
                                     onChange={handleChange}
                                     required
                                     autoComplete="name"
-                                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#616F47]"
+                                    className="w-full p-3 border focus:ring-2 focus:ring-[#616F47]"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-[#616F47] mb-2">E-post</label>
+                                <label className="block text-[#000000] mb-2">E-post</label>
                                 <Input
                                     type="email"
                                     name="email"
-                                    placeholder="anna@example.com"
+                                    placeholder="lucy@example.com"
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
                                     autoComplete="email"
-                                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#616F47]"
+                                    className="w-full p-3 border focus:ring-2 focus:ring-[#616F47]"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-[#616F47] mb-2">Meddelande</label>
+                                <label className="block text-[#000000] mb-2">Meddelande</label>
                                 <Textarea
                                     name="message"
                                     placeholder="Ditt meddelande..."
@@ -146,7 +146,7 @@ export default function Contact() {
                                     onChange={handleChange}
                                     required
                                     autoComplete="off"
-                                    className="w-full p-3 border rounded-lg h-40 focus:ring-2 focus:ring-[#616F47]"
+                                    className="w-full p-3 border h-40 focus:ring-2 focus:ring-[#616F47]"
                                 />
                             </div>
 
@@ -156,7 +156,7 @@ export default function Contact() {
                             >
                                 <Button
                                     type="submit"
-                                    className="w-full bg-[#616F47] hover:bg-[#4f5e3c] text-white py-5 rounded transition-all cursor-pointer"
+                                    className="w-full bg-[#465232] hover:bg-[#4f5e3c] text-white py-5 transition-all cursor-pointer"
                                 >
                                     Skicka Meddelande
                                 </Button>

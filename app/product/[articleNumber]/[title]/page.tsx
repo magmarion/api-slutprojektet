@@ -3,13 +3,16 @@ import { db } from "@/prisma/client";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export default async function ProductDetail({
-    params,
-}: {
-    params: { articleNumber: string };
-}) {
+interface ProductDetailProps {
+    params: Promise<{ articleNumber: string; }>;
+}
+
+export default async function ProductDetail({ params }: ProductDetailProps) {
+    // Await params before using its properties
+    const { articleNumber } = await params;
+
     const product = await db.product.findFirst({
-        where: { articleNumber: params.articleNumber },
+        where: { articleNumber: articleNumber },
     });
 
     if (!product) return notFound();
@@ -18,15 +21,15 @@ export default async function ProductDetail({
         <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400] py-12 px-4">
             <div className="mx-auto max-w-6xl animate-fade-in">
                 {/* Product Card */}
-                <div className="flex flex-col lg:flex-row rounded-2xl shadow-2xl overflow-hidden transition-all hover:shadow-3xl hover:scale-[1.005]">
+                <div className="flex flex-col lg:flex-row p-8 gap-8 shadow-2xl overflow-hidden bg-[#fff6da]">
                     {/* Image Section */}
-                    <div className="lg:w-1/2 p-8 flex items-center justify-center">
-                        <div className="relative aspect-square w-full max-w-md transition-transform duration-300 hover:scale-105">
+                    <div className="w-full lg:flex-1">
+                        <div className="relative w-full aspect-square sm:h-80 lg:h-max mx-auto transition-transform duration-300 hover:scale-103">
                             <Image
                                 src={product.image}
                                 alt={product.title}
                                 fill
-                                className="object-contain rounded-lg shadow-lg"
+                                className="object-cover shadow-lg"
                                 priority
                                 sizes="(max-width: 768px) 100vw, 50vw"
                             />
@@ -34,7 +37,7 @@ export default async function ProductDetail({
                     </div>
 
                     {/* Info Section */}
-                    <div className="lg:w-1/2 p-8 flex flex-col justify-between space-y-6">
+                    <div className="flex-1 flex-col justify-between">
                         <div>
                             <h1 className="text-4xl font-bold text-[#3D5300] mb-4 animate-slide-up">
                                 {product.title}

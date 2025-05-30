@@ -13,47 +13,54 @@ export default async function ProfilePage() {
   const orders = await getMyOrders(userSession.user.id);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400] py-12 px-4">
-      <div className="mx-auto max-w-4xl">
-        <div className="bg-gradient-to-b from-[#FEFAE1] to-[#daa400] rounded-2xl shadow-2xl overflow-hidden p-8 space-y-8">
-          <div>
-            <h1 className="text-4xl font-bold text-[#3D5300] mb-2">
-              Din Profil
-            </h1>
-            <div className="text-[#616F47] space-y-1">
-              <p><span className="font-semibold">Namn:</span> {userSession.user.name}</p>
-              <p><span className="font-semibold">E-post:</span> {userSession.user.email}</p>
-            </div>
+    <>
+      <div className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400]">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-b from-[#3D5300] to-[#616F47] text-white py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">Ditt Konto</h1>
+            <p className="text-xl text-[#FEFAE1] max-w-2xl mx-auto">
+              Se din profilinformation och spåra dina tidigare beställningar hos Bloom.
+            </p>
           </div>
+        </section>
 
-          <hr className="border-[#daa400]" />
+        {/* Profile Content */}
+        <section className="container mx-auto px-4 py-16">
+          <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md p-6 space-y-6">
+            <h2 className="text-3xl font-semibold text-[#3D5300]">Profilinformation</h2>
+            <div className="space-y-2 text-slate-800">
+              <p>
+                <span className="font-semibold">Namn:</span> {userSession.user.name}
+              </p>
+              <p>
+                <span className="font-semibold">Email:</span> {userSession.user.email}
+              </p>
+            </div>
 
-          <div>
-            <h2 className="text-2xl font-semibold text-[#3D5300] mb-4">Beställning Historik</h2>
+            <hr className="border-slate-300" />
 
+            <h3 className="text-2xl font-semibold text-[#3D5300]">Beställningshistorik</h3>
             {orders.length > 0 ? (
-              <ul className="space-y-4 text-sm">
+              <ul className="space-y-4">
                 {orders.map((order) => (
-                  <li key={order.id} className="bg-[#FEFAE1] border border-[#3D5300] p-4 rounded-xl shadow-md">
-                    <div className="font-semibold text-[#3D5300] mb-1">
-                      Beställning ID: {order.id}
+                  <li
+                    key={order.id}
+                    className="bg-[#FEFAE1] border border-[#3D5300] p-4 rounded-lg shadow"
+                  >
+                    <div className="font-medium text-[#3D5300]">
+                      Order ID: {order.id}
                     </div>
-
-                    <div className="text-[#616F47] mb-2">
-                      <div className="font-medium">Produkter:</div>
-                      <ul className="ml-4 list-disc space-y-1">
-                        {order.items.map((item) => (
-                          <li key={item.id}>
-                            {item.product.title} (x{item.quantity})
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="text-[#3D5300] font-medium">
-                      Status: {order.status}
-                    </div>
-                    <div className="text-xs text-[#616F47] mt-1">
+                    <div className="font-semibold mt-2">Produkter:</div>
+                    <ul className="ml-4 list-disc text-slate-700 text-sm">
+                      {order.items.map((item) => (
+                        <li key={item.id}>
+                          {item.product.title} (x{item.quantity})
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="text-slate-700 mt-2">Status: {order.status}</div>
+                    <div className="text-xs text-slate-500">
                       Beställd: {new Date(order.createdAt).toLocaleString()}
                     </div>
                   </li>
@@ -63,10 +70,9 @@ export default async function ProfilePage() {
               <div className="bg-gradient-to-b from-[#FEFAE1] to-[#daa400] text-[#223500] p-4 rounded text-center">
                 <FaBoxOpen className="w-16 h-16 mx-auto mb-4" />
                 Du har inte gjort några beställningar ännu.
-              </div>
             )}
-          </div>
-        </div>
+              </div>
+
 
         {/* Trust Badge */}
         <div className="mt-8 text-center text-[#223500]">
@@ -77,7 +83,11 @@ export default async function ProfilePage() {
             Säker betalning • 30 dagars öppet köp
           </p>
         </div>
+
+            </div>
+          </div>
+        </section>
       </div>
-    </main>
+    </>
   );
 }

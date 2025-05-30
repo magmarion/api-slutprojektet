@@ -44,7 +44,7 @@ export default async function CategoryPage({ params }: Props) {
     <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400] p-6">
       <h1 className="text-3xl font-bold text-center mb-8">{category}</h1>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 px-4 py-6 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

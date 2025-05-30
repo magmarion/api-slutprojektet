@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import UnderHeader from "@/components/UnderHeader";
 import { Toaster } from "@/components/ui/sonner";
 import { Raleway, Dancing_Script } from "next/font/google";
 import type { Metadata } from "next/types";
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en">
       <body className={`flex flex-col min-h-screen ${raleway.className}`}>
         <Header />
+        <UnderHeader />
         <main className="flex-grow">{children}</main>
         <Footer />
         <Toaster />

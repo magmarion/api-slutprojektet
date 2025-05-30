@@ -41,15 +41,15 @@ export default function About() {
                 >
                     {/* Text Content */}
                     <div className="space-y-6">
-                        <h2 className="text-3xl font-bold text-[#616F47]">
+                        <h2 className="text-3xl font-bold text-[#000000]">
                             Vår resa
                         </h2>
-                        <p className="text-[#616F47] text-lg leading-relaxed">
+                        <p className="text-[#000000] text-lg leading-relaxed">
                             BLOOM startades ur kärleken till naturen och viljan att skapa gröna miljöer
                             i alla typer av hem. Från fönsterbrädan till trädgården erbjuder vi noggrant
                             utvalda växter som både är vackra och hållbara.
                         </p>
-                        <p className="text-[#616F47] text-lg leading-relaxed">
+                        <p className="text-[#000000] text-lg leading-relaxed">
                             Vi tror på att varje hem förtjänar liv och färg – och med våra produkter vill vi göra det enkelt för alla att skapa sin egen oas, oavsett erfarenhet.
                         </p>
                     </div>
@@ -66,7 +66,7 @@ export default function About() {
                         {
                             icon: <FaLeaf className="w-12 h-12" />,
                             title: "Naturlig skönhet",
-                            text: "Växter som förvandlar ditt hem med liv och färg."
+                            text: "Växter som förvandlar ditt hem med liv and färg."
                         },
                         {
                             icon: <FaRecycle className="w-12 h-12" />,
@@ -84,11 +84,11 @@ export default function About() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.2 }}
-                            className=" p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow cursor-pointer"
+                            className="p-8 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer"
                         >
                             <div className="text-[#616F47] mb-4">{item.icon}</div>
-                            <h3 className="text-xl font-bold mb-2 text-[#616F47]">{item.title}</h3>
-                            <p className="text-[#616F47]">{item.text}</p>
+                            <h3 className="text-xl font-bold mb-2 text-[#000000]">{item.title}</h3>
+                            <p className="text-[#000000]">{item.text}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -97,19 +97,19 @@ export default function About() {
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    className="text-center mt-20 py-12 bg-[#616F47] rounded-xl"
+                    className="text-center mt-20 py-12 bg-[#465232]"
                 >
                     <h2 className="text-3xl font-bold text-[#FEFAE1] mb-6">
                         Upptäck vårt gröna sortiment
                     </h2>
                     <Button
                         onClick={handleExploreClick}
-                        className="bg-[#FEFAE1] text-[#616F47] px-14 py-4 rounded hover:bg-[#FEFAE1] hover:text-[#616F47] transition-all duration-300 hover:scale-105"
+                        className="bg-[#FEFAE1] text-[#000000] px-14 py-4 hover:bg-[#FEFAE1] transition-all duration-300 hover:scale-105"
                     >
                         Utforska Produkter
                     </Button>
                 </motion.div>
             </div>
         </main>
-    );
+);
 }
