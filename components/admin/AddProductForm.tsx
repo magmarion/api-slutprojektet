@@ -35,6 +35,7 @@ export default function AddProductForm() {
       price: 0,
       description: "",
       category: "",
+      stock: 0,
     },
   });
 
@@ -163,6 +164,27 @@ export default function AddProductForm() {
               </p>
             )}
           </div>
+
+          {/* Stock (Saldo i lager) */}
+<div>
+  <Label htmlFor="stock">Saldo i lager</Label>
+  <Input
+    id="stock"
+    type="number"
+    placeholder="Antal i lager"
+    {...register("stock", { valueAsNumber: true })}
+    data-cy="product-stock"
+  />
+  {errors.stock && (
+    <p
+      data-cy="product-stock-error"
+      className="text-red-500 text-sm mt-1"
+    >
+      {errors.stock.message}
+    </p>
+  )}
+</div>
+
 
           {/* Kategori fält */}
           <div className="space-y-2">

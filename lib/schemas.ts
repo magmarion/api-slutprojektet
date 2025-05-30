@@ -12,6 +12,9 @@ export const productSchema = z.object({
     .min(0, "Price must be at least 0"),
   description: z.string().nonempty("Description is required"),
   category: z.string().nonempty("Category is required"),
+  stock: z
+    .number({ invalid_type_error: "Stock must be a number" })
+    .min(0, "Saldo i lager krävs"),
 });
 
 export const orderSchema = z.object({
@@ -40,14 +43,13 @@ export const updateOrderSchema = z.object({
 
 export const LoginSchema = z.object({
   email: z.string().email({ message: 'Ogiltig e-postadress' }),
-    password: z.string().min(6, { message: 'Lösenordet måste vara minst 6 tecken långt' }),
+  password: z.string().min(6, { message: 'Lösenordet måste vara minst 6 tecken långt' }),
 });
 
 export const RegisterSchema = z.object({
-    email: z.string().email({ message: 'Ogiltig e-postadress' }),
-    password: z.string().min(6, { message: 'Lösenordet måste vara minst 6 tecken långt' }),
-    username: z.string().min(3, { message: 'Användarnamnet måste vara minst 3 tecken långt' }),
-
+  email: z.string().email({ message: 'Ogiltig e-postadress' }),
+  password: z.string().min(6, { message: 'Lösenordet måste vara minst 6 tecken långt' }),
+  username: z.string().min(3, { message: 'Användarnamnet måste vara minst 3 tecken långt' }),
 });
 
 export const checkoutSchema = z.object({
