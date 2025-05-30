@@ -4,7 +4,6 @@
   "author": "Plugga Tech",
   "license": "ISC",
   "private": true,
-  "type": "module",
   "scripts": {
     "postinstall": "prisma db push",
     "dev": "next dev --turbopack --port 5173",
