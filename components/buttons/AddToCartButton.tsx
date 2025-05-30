@@ -9,24 +9,36 @@ interface AddToCartButtonProps {
   title: string;
   price: number;
   image: string;
+  stock: number;
   className?: string;  // Lägg till denna rad
 
 }
 
-export default function AddToCartButton({ id, title, price, image }: AddToCartButtonProps) {
+export default function AddToCartButton({ id, title, price, image, stock }: AddToCartButtonProps) {
   const { addToCart } = useCartStore();
 
-  const handleAddToCart = () => {
-    addToCart({ id, title, price, quantity: 1, image });
-    toast.success(
+
+const handleAddToCart = () => {
+  if (stock < 1) {
+    toast.error(
       <>
         <span>
-          <strong>{title}</strong> has been added to cart!
+          <strong>{title}</strong> är tyvärr slut i lager.
         </span>
       </>
     );
-  };
+    return;
+  }
 
+  addToCart({ id, title, price, quantity: 1, image });
+  toast.success(
+    <>
+      <span>
+        <strong>{title}</strong> har lagts till i varukorgen!
+      </span>
+    </>
+  );
+};
   return (
     <Button
       onClick={handleAddToCart}
@@ -35,4 +47,4 @@ export default function AddToCartButton({ id, title, price, image }: AddToCartBu
       Lägg i varukorg
     </Button>
   );
-}
+};
