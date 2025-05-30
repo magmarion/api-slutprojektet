@@ -5,7 +5,7 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    serverActions: true,
+    serverActions: {},
   },
 };
 
