@@ -11,21 +11,6 @@ interface ConfirmDeleteDialogProps {
     children: React.ReactNode;                 // The trigger button(s) or element(s)
 }
 
-/**
- * A reusable dialog for confirming product deletion.
- * 
- * Usage:
- * <ConfirmDeleteDialog
- *   open={openDeleteDialog === product.articleNumber}
- *   onOpenChange={...}
- *   onConfirm={...}
- *   productTitle={product.title}
- * >
- *   <Button onClick={() => setOpenDeleteDialog(product.articleNumber)}>
- *     Delete
- *   </Button>
- * </ConfirmDeleteDialog>
- */
 export default function ConfirmDeleteDialog({
     open,
     onOpenChange,
@@ -42,26 +27,25 @@ export default function ConfirmDeleteDialog({
 
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Confirm Deletion</DialogTitle>
+                    <DialogTitle>Bekräfta radering</DialogTitle>
                     <DialogDescription>
-                        Are you sure you want to delete <strong>{productTitle}</strong>?
+                        Är du säker på att du vill radera <strong>{productTitle}</strong>?
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="flex flex-col gap-2 sm:flex-row">
                     <Button
                         variant="destructive"
-                        data-cy="confirm-delete-button"
-                        className="w-full sm:w-auto"
+                        className="w-full sm:w-auto bg-red-700"
                         onClick={onConfirm}
                     >
-                        Yes, Delete
+                        Radera
                     </Button>
                     <Button
                         variant="outline"
                         className="w-full sm:w-auto"
                         onClick={() => onOpenChange(false)}
                     >
-                        Cancel
+                        Avbryt
                     </Button>
                 </DialogFooter>
             </DialogContent>
