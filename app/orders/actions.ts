@@ -1,6 +1,7 @@
 // app/orders/actions.ts
-import { db } from "@/prisma/client";
-import { orderSchema, updateOrderSchema } from "@/lib/schemas"
+'use server';
+import { db } from '@/prisma/client';
+import { orderSchema, updateOrderSchema } from '@/lib/schemas';
 
 // Type för order med relationer
 export type OrderWithRelations = {
@@ -24,10 +25,10 @@ export async function getOrders(): Promise<OrderWithRelations[]> {
         user: { select: { id: true, name: true } },
         items: { include: { product: { select: { id: true, title: true } } } },
       },
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: 'desc' },
     });
   } catch (error) {
-    console.error("Error fetching orders:", error);
+    console.error('Error fetching orders:', error);
     return []; // Returnera en tom lista som fallback
   }
 }
@@ -38,13 +39,12 @@ export async function createOrder(data: {
   total: number;
   status: string;
 }) {
-
   // Validera inkommande data med zod
   const result = orderSchema.safeParse(data);
   if (!result.success) {
     return {
       success: false,
-      error: "Validation failed",
+      error: 'Validation failed',
       details: result.error.flatten().fieldErrors,
     };
   }
@@ -93,8 +93,8 @@ export async function createOrder(data: {
 
     return { success: true, order };
   } catch (error) {
-    console.error("Error creating order:", error);
-    return { success: false, error: "Failed to create order" };
+    console.error('Error creating order:', error);
+    return { success: false, error: 'Failed to create order' };
   }
 }
 
@@ -110,7 +110,7 @@ export async function getOrderById(
       },
     });
   } catch (error) {
-    console.error("Error fetching order by ID:", error);
+    console.error('Error fetching order by ID:', error);
     return null;
   }
 }
@@ -128,7 +128,7 @@ export async function updateOrder(
   if (!result.success) {
     return {
       success: false,
-      error: "Validation failed",
+      error: 'Validation failed',
       details: result.error.flatten().fieldErrors,
     };
   }
@@ -182,8 +182,8 @@ export async function updateOrder(
 
     return { success: true, updatedOrder };
   } catch (error) {
-    console.error("Error updating order:", error);
-    return { success: false, error: "Failed to update order" };
+    console.error('Error updating order:', error);
+    return { success: false, error: 'Failed to update order' };
   }
 }
 
@@ -192,8 +192,8 @@ export async function deleteOrder(id: string) {
     await db.order.delete({ where: { id } });
     return { success: true };
   } catch (error) {
-    console.error("Error deleting order:", error);
-    return { success: false, error: "Failed to delete order" };
+    console.error('Error deleting order:', error);
+    return { success: false, error: 'Failed to delete order' };
   }
 }
 export async function getOrdersByUserId(
@@ -205,7 +205,7 @@ export async function getOrdersByUserId(
       user: { select: { id: true, name: true } },
       items: { include: { product: { select: { id: true, title: true } } } },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
   });
 }
 export async function getOrderCount(): Promise<number> {
@@ -229,7 +229,7 @@ export async function getOrdersWithPagination(
         user: { select: { id: true, name: true } },
         items: { include: { product: { select: { id: true, title: true } } } },
       },
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: 'desc' },
     }),
     db.order.count(),
   ]);
@@ -244,7 +244,7 @@ export async function getOrdersByStatus(
       user: { select: { id: true, name: true } },
       items: { include: { product: { select: { id: true, title: true } } } },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
   });
 }
 export async function getOrdersByDateRange(
@@ -262,7 +262,7 @@ export async function getOrdersByDateRange(
       user: { select: { id: true, name: true } },
       items: { include: { product: { select: { id: true, title: true } } } },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
   });
 }
 export async function getOrdersByUserIdWithPagination(
@@ -279,7 +279,7 @@ export async function getOrdersByUserIdWithPagination(
         user: { select: { id: true, name: true } },
         items: { include: { product: { select: { id: true, title: true } } } },
       },
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: 'desc' },
     }),
     db.order.count({ where: { userId } }),
   ]);
