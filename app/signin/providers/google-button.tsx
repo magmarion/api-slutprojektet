@@ -9,7 +9,7 @@ export default function GoogleSignInButton() {
             disabled
         >
             <FaGoogle className="w-5 h-5" />
-            Sign in with Google
+            Logga in med Google
         </button>
     );
 }

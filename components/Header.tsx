@@ -30,7 +30,6 @@ export default function Header() {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const { cartItems, cartCount } = useCartStore();
     const { data: session, isPending: loading } = useSession();
-    // const categories = useQuery({ queryKey: "cat", queryFn: getCategories })
 
     // Handle click outside dropdown
     useEffect(() => {
@@ -49,8 +48,6 @@ export default function Header() {
     }, []);
 
     // Load categories on mount
-    // TODO: Använd useQuery för att hämta kategorier
-
     useEffect(() => {
         async function loadCategories() {
             try {
@@ -63,15 +60,15 @@ export default function Header() {
         loadCategories();
     }, []);
 
-    if (loading) return <div className="text-md">Loading...</div>;
+    if (loading) return <div className="text-md">Laddar...</div>;
 
     return (
         <header className="sticky top-0 z-50 bg-gradient-to-b from-[#3D5300] to-[#516036] text-[#FEFAE1] shadow-lg flex justify-between items-center px-5 py-4">
             {/* Logo */}
             <Link href="/" className="hover:opacity-90 transition-opacity">
-                <div className="relative h-12 w-32"> {/* Adjust height/width as needed */}
+                <div className="relative h-12 w-32">
                     <Image
-                        src="/logo.png" // Path to your image in public folder
+                        src="/logo.png"
                         alt="Bloom Logo"
                         fill
                         className="object-contain scale-110"
@@ -135,7 +132,6 @@ export default function Header() {
             {/* Icons Section */}
             <div className="flex gap-4 pr-4 items-center relative">
                 {/* Admin Link */}
-
                 {(session?.user as { isAdmin?: boolean })?.isAdmin && (
                     <Link
                         href="/admin"
@@ -198,8 +194,19 @@ export default function Header() {
                                     onClick={() => setShowDropdown(false)}
                                     className="flex items-center gap-2 text-sm font-medium hover:underline"
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2h6v2H9zm-3-4v-2h12v2H6zm0-4V7h12v2H6z" />
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-4 h-4"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M9 17v-2h6v2H9zm-3-4v-2h12v2H6zm0-4V7h12v2H6z"
+                                        />
                                     </svg>
                                     Mina Beställningar
                                 </Link>

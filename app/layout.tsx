@@ -7,7 +7,6 @@ import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
 import "../app/global.css";
 
-
 const raleway = Raleway({
   weight: ["400", "700"],  // Specify available weights
   subsets: ["latin"],
@@ -20,18 +19,17 @@ const dancingScript = Dancing_Script({
   display: "swap",
 });
 
-
 /* Metadata for SEO */
 export const metadata: Metadata = {
-  title: "The Webbshop",
-  description: "Your favorite products online at a great price...",
+  title: "Bloom Webbshop",
+  description: "Dina favoritprodukter online till fantastiska priser...",
 };
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en">
+    <html lang="sv">
       <body className={`flex flex-col min-h-screen ${raleway.className}`}>
-        <Header/>
+        <Header />
         <UnderHeader />
         <main className="flex-grow">{children}</main>
         <Footer />

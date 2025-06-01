@@ -13,7 +13,7 @@ export default async function AdminPage() {
   return (
     <main className="p-6 max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold text-center text-[#3D5300] mb-8">
-        Admin Panel
+        Administratörspanel
       </h1>
 
       {/* Product Creation Form */}

@@ -26,12 +26,10 @@ export default function CheckoutForm() {
   });
 
   const onSubmit = (data: CheckoutFormData) => {
-
     if (cartItems.length === 0) {
-      toast.error("Your cart is empty. Please add items to your cart before checking out.");
+      toast.error("Din varukorg är tom. Vänligen lägg till varor innan du avslutar köpet.");
       return;
     }
-    console.log("Form data:", data);
 
     setCheckoutInfo({
       name: data.name,
@@ -42,17 +40,14 @@ export default function CheckoutForm() {
       city: data.city,
     });
 
-
     const orderNumber = nanoid(8);
 
     const { setCheckoutItems, clearCart } = useCartStore.getState();
 
     setCheckoutItems(cartItems);
-
     clearCart();
 
     router.push(`/confirmation/${orderNumber}`);
-
   };
 
   return (
@@ -61,7 +56,7 @@ export default function CheckoutForm() {
       data-cy="customer-form"
       className="flex flex-col"
     >
-      {/* Name */}
+      {/* Namn */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Namn</label>
         <input
@@ -81,7 +76,7 @@ export default function CheckoutForm() {
         )}
       </div>
 
-      {/* E-mail */}
+      {/* E-post */}
       <div className="mb-4">
         <label className="block font-medium mb-1">E-post</label>
         <input
@@ -101,7 +96,7 @@ export default function CheckoutForm() {
         )}
       </div>
 
-      {/* Phone */}
+      {/* Tel */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Tel</label>
         <input
@@ -121,7 +116,7 @@ export default function CheckoutForm() {
         )}
       </div>
 
-      {/* Address */}
+      {/* Adress */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Adress</label>
         <input
@@ -141,7 +136,7 @@ export default function CheckoutForm() {
         )}
       </div>
 
-      {/* Zip code */}
+      {/* Postnummer */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Postnummer</label>
         <input
@@ -161,7 +156,7 @@ export default function CheckoutForm() {
         )}
       </div>
 
-      {/* City */}
+      {/* Ort */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Ort</label>
         <input
@@ -190,7 +185,7 @@ export default function CheckoutForm() {
         </div>
       </div>
 
-      {/* Card number (static text) */}
+      {/* Kortnummer (statisk text) */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Kortnummer</label>
         <p className="p-2 border border-gray-300 rounded bg-[#FFF6DA]">
@@ -198,29 +193,29 @@ export default function CheckoutForm() {
         </p>
       </div>
 
-      {/* Expiration date (static text) */}
+      {/* Utgångsdatum (MM/YY) */}
       <div className="mb-4">
         <label className="block font-medium mb-1">Utgångsdatum (MM/YY)</label>
         <p className="p-2 border border-gray-300 rounded bg-[#FFF6DA]">12/30</p>
       </div>
 
-      {/* CVC (static text) */}
+      {/* CVC */}
       <div className="mb-6">
         <label className="block font-medium mb-1">CVC</label>
         <p className="p-2 border border-gray-300 rounded bg-[#FFF6DA]">123</p>
       </div>
 
-      {/* Payment button */}
+      {/* Betala med kort */}
       <Button
         type="submit"
-        className="bg-[#616F47] hover:bg-[#3D5300] text-white  font-semibold py-2 px-4 rounded cursor-pointer"
+        className="bg-[#616F47] hover:bg-[#3D5300] text-white font-semibold py-2 px-4 rounded cursor-pointer"
       >
         Betala med kort
       </Button>
     </form>
   );
 }
+
 function clearCart() {
   throw new Error("Function not implemented.");
 }
-
