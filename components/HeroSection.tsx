@@ -1,5 +1,4 @@
 import { getCategories } from "@/app/admin/actions";
-import Image from "next/image";
 import Link from "next/link";
 
 export default async function HeroSection() {
@@ -21,7 +20,7 @@ export default async function HeroSection() {
 
             {/* Overlay innehåll */}
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-[#FEFAE1] p-4 md:p-8 z-10 bg-black/20">
-                <h1 className="text-5xl md:text-7xl font-bold mb-4">BLOOM</h1>
+                <h1 className="text-5xl md:text-7xl font-bold mb-4 font-dancingScript">BLOOM</h1>
                 <p className="text-xl md:text-2xl mb-8 max-w-md filter backdrop-blur-sm text-[#FEFAE1] rounded-lg">
                     Utforska vårt sortiment för ett grönare hem och gård!
                 </p>
