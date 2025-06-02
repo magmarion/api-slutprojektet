@@ -11,7 +11,7 @@ export default function GitHubSignInButton() {
         >
             <FaGithub className="w-5 h-5" />
 
-            Logga in med GitHub
+            Logga in med Github
 
         </button>
     );

@@ -10,7 +10,7 @@ export default function EmailSignInButton() {
         >
             <FaEnvelope className="w-5 h-5" />
 
-            Logga in med e-post
+            Logga in med E-post
 
         </button>
     );
