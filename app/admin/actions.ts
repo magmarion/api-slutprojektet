@@ -8,9 +8,18 @@ import { revalidatePath } from 'next/cache';
 
 export async function getAllProducts() {
   return await db.product.findMany({
-    include: { categories: true },
+    select: {
+      id: true,
+      articleNumber: true,
+      title: true,
+      image: true,
+      price: true,
+      stock: true, 
+      categories: true,
+    },
   });
 }
+
 
 export async function createProduct(
   data: Partial<Product> & { stock?: number },
