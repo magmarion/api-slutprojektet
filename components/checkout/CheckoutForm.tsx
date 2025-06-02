@@ -1,5 +1,7 @@
 "use client";
 
+import { createOrder } from "@/app/orders/actions";
+import { checkoutSchema } from "@/lib/schemas";
 import useCartStore from "@/stores/cartStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { nanoid } from "nanoid";
@@ -9,7 +11,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
-import { checkoutSchema } from "@/lib/schemas";
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
@@ -25,28 +26,47 @@ export default function CheckoutForm() {
     resolver: zodResolver(checkoutSchema),
   });
 
-  const onSubmit = (data: CheckoutFormData) => {
+
+  const onSubmit = async (data: CheckoutFormData) => {
     if (cartItems.length === 0) {
-      toast.error("Din varukorg är tom. Vänligen lägg till varor innan du avslutar köpet.");
+      toast.error(
+        "Din varukorg är tom. Lägg till produkter för att göra en beställning."
+      );
       return;
     }
 
-    setCheckoutInfo({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      address: data.address,
-      zipcode: data.zipcode,
-      city: data.city,
+    setCheckoutInfo(data);
+
+    const result = await createOrder({
+      items: cartItems.map((item) => ({
+        productId: item.id,
+        quantity: item.quantity,
+      })),
+      total: cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0),
+      status: "PENDING",
     });
 
+    if (!result.success) {
+      if (result.error === "Du behöver logga in för att göra en beställning!") {
+        toast.error(
+          <>
+            Du behöver vara inloggad för att slutföra din beställning.{" "}
+            <a href="/signin" className="underline text-blue-600">
+              Klicka här för att logga in.
+            </a>
+          </>
+        );
+      } else {
+        toast.error(result.error || "Ordern kunde inte läggas.");
+      }
+      return;
+    }
+
+
     const orderNumber = nanoid(8);
-
     const { setCheckoutItems, clearCart } = useCartStore.getState();
-
     setCheckoutItems(cartItems);
     clearCart();
-
     router.push(`/confirmation/${orderNumber}`);
   };
 

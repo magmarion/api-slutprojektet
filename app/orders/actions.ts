@@ -1,11 +1,9 @@
-// app/orders/actions.ts
 
-'use server';
-import { db } from '@/prisma/client';
-import { orderSchema, updateOrderSchema } from '@/lib/schemas';
+"use server"
+import { orderSchema, updateOrderSchema } from "@/lib/schemas";
+import { db } from "@/prisma/client";
+import { getSession } from "@/lib/auth"; // Hämta userId på serversidan
 
-
-// Typ för order med relationer
 export type OrderWithRelations = {
   id: string;
   total: number;
@@ -38,13 +36,20 @@ export async function getOrders(): Promise<OrderWithRelations[]> {
 }
 
 export async function createOrder(data: {
-  userId: string;
   items: Array<{ productId: string; quantity: number }>;
   total: number;
   status: string;
 }) {
-  // Validera inkommande data med zod
-  const result = orderSchema.safeParse(data);
+
+  const session = await getSession(); // Hämtar aktiv session
+  if (!session?.user?.id) {
+    return { success: false, error: "Du behöver logga in för att göra en beställning!" };
+  }
+
+  const userId = session.user.id;
+
+  const result = orderSchema.safeParse({ ...data, userId });
+
   if (!result.success) {
     return {
       success: false,
@@ -55,6 +60,8 @@ export async function createOrder(data: {
     };
   }
 
+
+
   // Kontrollera att användaren finns
   const user = await db.user.findUnique({ where: { id: data.userId } });
   if (!user) {
@@ -64,24 +71,39 @@ export async function createOrder(data: {
     };
   }
 
-  // Kontrollera att alla produkter finns
+  
+
   for (const item of data.items) {
     const product = await db.product.findUnique({
       where: { id: item.productId },
     });
+
     if (!product) {
       return {
         success: false,
-        error: `Produkt med id ${item.productId} hittades inte`,
+
+        error: `Produkt med id ${item.productId} hittas ej`,
+
       };
     }
+
+    if (product.stock < item.quantity) {
+      return {
+        success: false,
+        error: `Otillräckligt lagersaldo för ${product.title}. Endast ${product.stock} st kvar.`,
+      };
+    }
+
+    await db.product.update({
+      where: { id: item.productId },
+      data: { stock: product.stock - item.quantity },
+    });
   }
 
-  // Skapa ordern
   try {
     const order = await db.order.create({
       data: {
-        userId: data.userId,
+        userId,
         total: data.total,
         status: data.status,
         items: {

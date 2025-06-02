@@ -53,11 +53,10 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
                                 </h2>
                                 <ul className="text-[#616F47] space-y-1">
                                     <li>Artikelnummer: {product.articleNumber}</li>
-                                    <li className="text-green-600 font-medium">✓ I lager</li>
+                                    <li className={`${product.stock < 1 ? "text-red-600" : "text-green-600"} font-medium`}> {product.stock < 1 ? "❌ Ej i lager" : "✔ I lager"}</li>
                                 </ul>
                             </div>
                         </div>
-
                         <div className="animate-slide-up delay-300">
                             <div className="flex items-center justify-between mb-6">
                                 <p className="text-3xl font-bold text-[#3D5300]">
@@ -71,6 +70,7 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
                                 title={product.title}
                                 price={product.price}
                                 image={product.image}
+                                stock={product.stock}
                                 className="w-full py-3 text-lg bg-gradient-to-r from-[#3D5300] to-[#616F47] hover:from-[#616F47] hover:to-[#3D5300] transition-colors"
                             />
                         </div>

@@ -33,13 +33,22 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
     <html lang="sv">
       <body className={`flex flex-col min-h-screen ${nunito.className}`}>
+
         <QueryProvider >
           <Header />
           <UnderHeader />
           <main className="flex-grow">{children}</main>
           <Footer />
-          <Toaster />
+          <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: "#ceeb94",
+            },
+          }}
+        />        
         </QueryProvider>
+        
       </body>
     </html>
   );
