@@ -103,7 +103,7 @@ export async function updateProduct(
         stock: result.data.stock,
         categories: categoryName
           ? {
-              set: [], // Clear existing categories
+              set: [], 
               connect: [{ name: categoryName }],
             }
           : undefined,
@@ -132,5 +132,5 @@ export async function getCategories() {
 }
 
 export async function updateOrderStatus() {
-  // TODO: Implement order status update logic
+  
 }
