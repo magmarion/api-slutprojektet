@@ -8,21 +8,30 @@ import { revalidatePath } from 'next/cache';
 
 export async function getAllProducts() {
   return await db.product.findMany({
-    include: { categories: true },
+    select: {
+      id: true,
+      articleNumber: true,
+      title: true,
+      image: true,
+      price: true,
+      stock: true, 
+      categories: true,
+    },
   });
 }
 
+
 export async function createProduct(
-  data: Partial<Product>,
+  data: Partial<Product> & { stock?: number },
   categoryName?: string
 ) {
   const result = productSchema.safeParse({
     title: data.title,
     image: data.image,
     price: data.price,
-    stock: data.stock,
     description: data.description,
     category: categoryName,
+    stock: data.stock,
   });
 
   if (!result.success) {
@@ -43,14 +52,14 @@ export async function createProduct(
         image: result.data.image,
         description: result.data.description,
         price: result.data.price,
-        stock: result.data.stock ?? 0,
+        stock: result.data.stock,
         categories: categoryName
           ? { connect: [{ name: categoryName }] }
           : undefined,
       },
     });
 
-    revalidatePath('/admin');
+    revalidatePath('/admin/dashboard');
     return { success: true, product };
   } catch (error) {
     console.error('Error creating product:', error);
@@ -63,16 +72,16 @@ export async function createProduct(
 
 export async function updateProduct(
   articleNumber: string,
-  data: Partial<Product>,
+  data: Partial<Product> & { stock?: number },
   categoryName?: string
 ) {
   const result = productSchema.safeParse({
     title: data.title,
     image: data.image,
     price: data.price,
-    stock: data.stock,
     description: data.description,
     category: categoryName,
+    stock: data.stock,
   });
 
   if (!result.success) {
@@ -89,12 +98,12 @@ export async function updateProduct(
       data: {
         title: result.data.title,
         image: result.data.image,
-        price: result.data.price,
-        stock: result.data.stock ?? 0,
         description: result.data.description,
+        price: result.data.price,
+        stock: result.data.stock,
         categories: categoryName
           ? {
-              set: [], // Clear existing categories
+              set: [], 
               connect: [{ name: categoryName }],
             }
           : undefined,
@@ -123,5 +132,5 @@ export async function getCategories() {
 }
 
 export async function updateOrderStatus() {
-  // TODO: Implement order status update logic
+  
 }

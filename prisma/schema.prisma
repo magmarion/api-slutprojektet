@@ -30,9 +30,8 @@ model Product {
   image         String
   title         String
   description   String
-  price         Float // Använder Float istället för Decimal eftersom du använder number i TS
-  stock         Int         @default(10)
-
+  price         Float
+  stock          Int  @default(0)
   categories    Category[]  @relation("ProductCategories")
   orderItems    OrderItem[]
   createdAt     DateTime    @default(now())

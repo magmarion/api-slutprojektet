@@ -7,10 +7,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ProductCardProps {
-    product: Product & { inStock?: boolean };
+    product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+    const inStock = product.stock > 0;
+
     return (
         <div
             key={product.articleNumber}
@@ -18,14 +20,13 @@ export default function ProductCard({ product }: ProductCardProps) {
             className="relative p-4 shadow-sm bg-[#FFF6DA] flex flex-col justify-between hover:shadow-lg
                w-full max-w-[180px] sm:max-w-full mx-auto min-h-[340px]"
         >
-            {/* ✅ Lagerstatus badge – only show if out of stock */}
-            {product.inStock === false && (
-                <span
-                    className="absolute top-2 right-2 px-2 py-1 text-xs rounded-full font-medium z-10 bg-red-100 text-red-700"
-                >
-                    Slut i lager
-                </span>
-            )}
+            {/* ✅ Lagerstatus badge – top-right, green or red */}
+            <span
+                className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full font-medium z-10
+                    ${inStock ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
+            >
+                {inStock ? "I lager" : "Ej i lager"}
+            </span>
 
             {/* Top Section: Mobile = row, Desktop = column */}
             <Link
