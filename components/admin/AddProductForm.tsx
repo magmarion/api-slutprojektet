@@ -10,11 +10,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { createProduct, getCategories } from "@/app/admin/actions";
+import { productSchema } from "@/lib/schemas";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { productSchema } from "@/lib/schemas";
-
 
 type ProductFormData = z.infer<typeof productSchema>;
 
@@ -46,8 +45,8 @@ export default function AddProductForm() {
         const categoriesData = await getCategories();
         setCategories(categoriesData);
       } catch (error) {
-        console.error("Failed to load categories:", error);
-        toast.error("Failed to load categories");
+        console.error("Fel vid inläsning av kategorier:", error);
+        toast.error("Kunde inte ladda kategorier");
       } finally {
         setIsLoadingCategories(false);
       }
@@ -56,22 +55,25 @@ export default function AddProductForm() {
     loadCategories();
   }, []);
 
-  // Handle form submission - nu med direkt anrop till server action
+  // Hantera formulärinlämning
   const onSubmit = async (data: ProductFormData) => {
     try {
-      // Anropa server action direkt
-      await createProduct({
-        title: data.title,
-        image: data.image,
-        price: data.price,
-        description: data.description,
-      }, data.category); // Skicka kategorin som en separat parameter
+      await createProduct(
+        {
+          title: data.title,
+          image: data.image,
+          price: data.price,
+          description: data.description,
+          stock: data.stock,
+        },
+        data.category
+      );
 
-      toast.success("Product created successfully!");
+      toast.success("Produkten skapades!");
       router.push("/admin");
     } catch (error) {
-      console.error(error);
-      toast.error("There was an error creating the product.");
+      console.error("Fel:", error);
+      toast.error("Det gick inte att skapa produkten");
     }
   };
 
@@ -85,21 +87,18 @@ export default function AddProductForm() {
         {/* Product Form */}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          data-cy="product-form"
           className="space-y-6"
         >
-          {/* Title */}
+          {/* Rubrik */}
           <div>
             <Label htmlFor="title">Rubrik</Label>
             <Input
               id="title"
-              placeholder="Product Title"
+              placeholder="Produkttitel"
               {...register("title")}
-              data-cy="product-title"
             />
             {errors.title && (
               <p
-                data-cy="product-title-error"
                 className="text-red-500 text-sm mt-1"
               >
                 {errors.title.message}
@@ -107,18 +106,16 @@ export default function AddProductForm() {
             )}
           </div>
 
-          {/* Image URL */}
+          {/* Bild URL */}
           <div>
-            <Label htmlFor="image">Bild URL</Label>
+            <Label htmlFor="image">Bild-URL</Label>
             <Input
               id="image"
               placeholder="https://example.com/image.jpg"
               {...register("image")}
-              data-cy="product-image"
             />
             {errors.image && (
               <p
-                data-cy="product-image-error"
                 className="text-red-500 text-sm mt-1"
               >
                 {errors.image.message}
@@ -126,7 +123,7 @@ export default function AddProductForm() {
             )}
           </div>
 
-          {/* Price */}
+          {/* Pris */}
           <div>
             <Label htmlFor="price">Pris</Label>
             <Input
@@ -134,30 +131,24 @@ export default function AddProductForm() {
               type="number"
               placeholder="999"
               {...register("price", { valueAsNumber: true })}
-              data-cy="product-price"
             />
             {errors.price && (
-              <p
-                data-cy="product-price-error"
-                className="text-red-500 text-sm mt-1"
-              >
+              <p className="text-red-500 text-sm mt-1">
                 {errors.price.message}
               </p>
             )}
           </div>
 
-          {/* Description */}
+          {/* Beskrivning */}
           <div>
             <Label htmlFor="description">Beskrivning</Label>
             <Input
               id="description"
-              placeholder="Short description..."
+              placeholder="Kort beskrivning..."
               {...register("description")}
-              data-cy="product-description"
             />
             {errors.description && (
               <p
-                data-cy="product-description-error"
                 className="text-red-500 text-sm mt-1"
               >
                 {errors.description.message}
@@ -166,34 +157,33 @@ export default function AddProductForm() {
           </div>
 
           {/* Stock (Saldo i lager) */}
-<div>
-  <Label htmlFor="stock">Saldo i lager</Label>
-  <Input
-    id="stock"
-    type="number"
-    placeholder="Antal i lager"
-    {...register("stock", { valueAsNumber: true })}
-    data-cy="product-stock"
-  />
-  {errors.stock && (
-    <p
-      data-cy="product-stock-error"
-      className="text-red-500 text-sm mt-1"
-    >
-      {errors.stock.message}
-    </p>
-  )}
-</div>
+          <div>
+            <Label htmlFor="stock">Saldo i lager</Label>
+            <Input
+              id="stock"
+              type="number"
+              placeholder="Antal i lager"
+              {...register("stock", { valueAsNumber: true })}
+            />
+            {errors.stock && (
+              <p
+                className="text-red-500 text-sm mt-1"
+              >
+                {errors.stock.message}
+              </p>
+            )}
+          </div>
 
 
           {/* Kategori fält */}
+
           <div className="space-y-2">
             <Label htmlFor="category">Kategori</Label>
             <select
               id="category"
               {...register("category")}
               disabled={isLoadingCategories}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border"
             >
               <option value="">Välj en kategori...</option>
               {categories.map((category) => (
@@ -205,13 +195,11 @@ export default function AddProductForm() {
             {errors.category && (
               <p className="text-red-500 text-sm">{errors.category.message}</p>
             )}
-            {isLoadingCategories && (
-              <p className="text-sm">Laddar kategorier...</p>
-            )}
+            {isLoadingCategories && <p className="text-sm">Laddar kategorier...</p>}
           </div>
 
-          {/* Submit */}
-          <Button type="submit" data-cy="product-submit">
+          {/* Skicka */}
+          <Button type="submit">
             Spara
           </Button>
         </form>

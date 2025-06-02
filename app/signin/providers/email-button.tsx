@@ -9,7 +9,9 @@ export default function EmailSignInButton() {
             disabled
         >
             <FaEnvelope className="w-5 h-5" />
-            Sign in with Email
+
+            Logga in med E-post
+
         </button>
     );
 }

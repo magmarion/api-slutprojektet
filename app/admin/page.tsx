@@ -1,27 +1,37 @@
-// app/admin/page.tsx
-import AddProductForm from "@/components/admin/AddProductForm";
-import AdminProductsGrid from "@/components/admin/AdminTable";
-import { getAllProducts } from "@/app/admin/actions";
-import { requireAdminSession } from "@/lib/requiredSession";
+import AdminProductsGrid, { ProductWithCategory } from "@/components/admin/AdminTable";
+import { Button } from "@/components/ui/button";
+import { db } from "@/prisma/client";
+import Link from "next/link";
 
 export default async function AdminPage() {
-  // Använd direkt utan att lagra i variabel om du inte behöver data från sessionen
-  await requireAdminSession();
 
-  const products = await getAllProducts();
+  const products: ProductWithCategory[] = await db.product.findMany({
+    include: { categories: true },
+  });
 
   return (
-    <main className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold text-center text-[#3D5300] mb-8">
-        Admin Panel
-      </h1>
-
-      {/* Product Creation Form */}
-      <section className="mb-10">
-        <AddProductForm />
-      </section>
-
-      {/* Product List */}
+    <>
+      <header className="flex flex-col md:flex-row items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold uppercase">Administratörspanel</h1>
+        <div className="flex flex-wrap flex-col sm:flex-row items-center gap-2">
+          <Link href="/admin/product/new">
+            <Button className="cursor-pointer" data-cy="admin-add-product">
+              Ny produkt
+            </Button>
+          </Link>
+          {/* Du kan lägga till fler admin-länkar här */}
+          <Link href="/admin/orders">
+            <Button variant="outline" className="cursor-pointer">
+              Ordrar
+            </Button>
+          </Link>
+          <Link href="/admin/users">
+            <Button variant="outline" className="cursor-pointer">
+              Användare
+            </Button>
+          </Link>
+        </div>
+      </header>
       <section>
         <h2 className="text-2xl font-semibold text-[#3D5300] mb-4">
           Alla Produkter
@@ -32,6 +42,6 @@ export default async function AdminPage() {
           <p className="text-gray-500">Inga produkter hittades.</p>
         )}
       </section>
-    </main>
+    </>
   );
 }

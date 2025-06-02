@@ -1,4 +1,4 @@
-// Fil: app/products/actions.ts
+// app/products/actions.ts
 'use server';
 
 import { db } from '@/prisma/client';
@@ -36,7 +36,7 @@ export async function getProductById(
       categories: { select: { id: true, name: true } },
     },
   });
-  if (!product) throw new Error('Product not found');
+  if (!product) throw new Error('Produkt hittades inte');
   return product;
 }
 
