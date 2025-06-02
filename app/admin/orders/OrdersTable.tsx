@@ -40,52 +40,60 @@ export default function OrdersTable({ orders }: Props) {
             </button>
 
             {/* Mobilvy: Cards */}
-            <div className="space-y-4 md:hidden">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 xl:hidden">
                 {orders.map((order) => (
                     <div
                         key={order.id}
-                        className="bg-white border border-gray-200 rounded-xl shadow-sm p-4 space-y-2">
-                        <div className="text-sm text-gray-700">
-                            <strong>Order ID:</strong> {order.id}
+                        className="flex flex-col justify-between bg-white/70 border border-gray-300 rounded-md shadow-md p-4 min-h-[300px] max-h-[350px] overflow-hidden w-full">
+
+                        {/* Innehåll med scroll vid behov */}
+                        <div className="flex flex-col space-y-2 flex-grow text-sm text-gray-700 overflow-y-auto pr-1">
+                            <div>
+                                <strong>Order ID:</strong> <span className="break-all">{order.id}</span>
+                            </div>
+                            <div>
+                                <strong>Kund:</strong> <span className="break-words">{order.user.name}</span>
+                            </div>
+                            <div>
+                                <strong>Produkter:</strong>
+                                <ul className="list-disc pl-4 pr-2 space-y-1">
+                                    {order.items.map((item) => (
+                                        <li key={item.id}>
+                                            <span className="break-words">
+                                                {item.product.title} × {item.quantity}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className="text-green-700 font-medium">
+                                <strong>Totalt:</strong> {order.total} SEK
+                            </div>
+                            <div>
+                                <span
+                                    className={`inline-block px-2 py-1 rounded text-xs font-semibold ${order.status === 'skickat'
+                                        ? 'bg-green-100 text-green-700'
+                                        : 'bg-yellow-100 text-yellow-800'
+                                        }`}>
+                                    {order.status}
+                                </span>
+                            </div>
                         </div>
-                        <div className="text-sm text-gray-700">
-                            <strong>Kund:</strong> {order.user.name}
-                        </div>
-                        <div className="text-sm text-gray-700">
-                            <strong>Produkter:</strong>
-                            <ul className="list-disc pl-5">
-                                {order.items.map((item) => (
-                                    <li key={item.id}>
-                                        {item.product.title} × {item.quantity}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className="text-sm text-green-700 font-medium">
-                            <strong>Totalt:</strong> {order.total} SEK
-                        </div>
-                        <div>
-                            <span
-                                className={`inline-block px-2 py-1 rounded text-xs font-semibold ${order.status === 'skickat'
-                                    ? 'bg-green-100 text-green-700'
-                                    : 'bg-yellow-100 text-yellow-800'
-                                    }`}>
-                                {order.status}
-                            </span>
-                        </div>
-                        <div className="flex gap-2 mt-2">
+
+                        {/* Knappar */}
+                        <div className="mt-4 flex gap-2 shrink-0">
                             <button
                                 onClick={() => onDelete(order.id)}
                                 disabled={isPending}
-                                className="flex-1 px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-xs disabled:opacity-50 transition">
+                                className="flex-1 px-3 py-1 bg-[#d73d3d] hover:bg-[#a72b2b] text-white rounded-md text-xs disabled:opacity-50 transition">
                                 Radera
                             </button>
                             {order.status !== 'skickat' && (
                                 <button
                                     onClick={() => onMarkSent(order.id)}
                                     disabled={isPending}
-                                    className="flex-1 px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded-md text-xs disabled:opacity-50 transition">
-                                    Markera som skickat
+                                    className="flex-1 px-3 py-1 bg-[#688e00] hover:bg-[#4e6a00] text-white rounded-md text-xs disabled:opacity-50 transition">
+                                    Skicka
                                 </button>
                             )}
                         </div>
@@ -93,8 +101,9 @@ export default function OrdersTable({ orders }: Props) {
                 ))}
             </div>
 
+
             {/* Desktopvy: Tabell */}
-            <div className="hidden md:block overflow-x-auto">
+            <div className="hidden xl:block overflow-x-auto">
                 <table className="min-w-full text-sm text-left bg-white border border-gray-200 rounded-lg shadow-md">
                     <thead className="bg-[#3D5300] text-white">
                         <tr>
@@ -130,7 +139,7 @@ export default function OrdersTable({ orders }: Props) {
                                         {order.status}
                                     </span>
                                 </td>
-                                <td className="px-4 py-3 space-x-2">
+                                <td className="px-4 py-3 space-x-5">
                                     <button
                                         onClick={() => onDelete(order.id)}
                                         disabled={isPending}
@@ -142,7 +151,7 @@ export default function OrdersTable({ orders }: Props) {
                                             onClick={() => onMarkSent(order.id)}
                                             disabled={isPending}
                                             className="px-3 py-1 bg-[#688e00] hover:bg-[#4e6a00] text-white rounded-md text-xs disabled:opacity-50 transition">
-                                            Markera som skickat
+                                            Skicka
                                         </button>
                                     )}
                                 </td>
