@@ -48,7 +48,7 @@ const handleAddToCart = () => {
   return (
     <Button
       onClick={handleAddToCart}
-      className={`${className} mt-3 w-full cursor-pointer py-4`}
+      className="mt-3 w-full cursor-pointer py-4"
     >
       Lägg i varukorg
     </Button>

@@ -31,6 +31,7 @@ export default function AllProductsGrid({ products }: AllProductsGridProps) {
                         title: product.title,
                         description: product.description,
                         price: product.price,
+                        stock: product.stock,
                         category: product.categories.map((c: { name: string }) => c.name),
                     };
                     return (

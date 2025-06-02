@@ -1,8 +1,8 @@
 
 "use server"
+import { getSession } from "@/lib/auth"; // Hämta userId på serversidan
 import { orderSchema, updateOrderSchema } from "@/lib/schemas";
 import { db } from "@/prisma/client";
-import { getSession } from "@/lib/auth"; // Hämta userId på serversidan
 
 export type OrderWithRelations = {
   id: string;
@@ -63,15 +63,15 @@ export async function createOrder(data: {
 
 
   // Kontrollera att användaren finns
-  const user = await db.user.findUnique({ where: { id: data.userId } });
+  const user = await db.user.findUnique({ where: { id: userId } });
   if (!user) {
     return {
       success: false,
-      error: `Användare med id ${data.userId} hittades inte`,
+      error: `Användare med id ${userId} hittades inte`,
     };
   }
 
-  
+
 
   for (const item of data.items) {
     const product = await db.product.findUnique({
