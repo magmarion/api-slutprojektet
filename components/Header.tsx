@@ -23,7 +23,9 @@ export default function Header() {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const { cartItems, cartCount } = useCartStore();
     const { data: session, isPending: loading } = useSession();
+
     const { data: categories = [] } = useCategories();
+
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -32,10 +34,12 @@ export default function Header() {
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
+
         return () => document.removeEventListener("mousedown", handleClickOutside);
+
     }, []);
 
-    if (loading) return <div className="text-md">Loading...</div>;
+    if (loading) return <div className="text-md">Laddar...</div>;
 
     return (
         <header className="sticky top-0 z-50 bg-gradient-to-b from-[#3D5300] to-[#516036] text-[#FEFAE1] shadow-lg flex justify-between items-center px-5 py-4">
@@ -66,6 +70,7 @@ export default function Header() {
 
             {/* Icons Section */}
             <div className="flex gap-4 pr-4 items-center relative">
+
                 {(session?.user as { isAdmin?: boolean })?.isAdmin && (
                     <Link
                         href="/admin"
@@ -91,7 +96,9 @@ export default function Header() {
                 </button>
 
                 {session?.user ? (
+
                     <ProfileDropdown showDropdown={showDropdown} setShowDropdown={setShowDropdown} />
+
                 ) : (
                     <div className="flex gap-4">
                         <Link

@@ -42,13 +42,13 @@ export default function AdminProductsGrid({
 
       await deleteProductAction(formData);
 
-      toast.success("Product deleted successfully!");
+      toast.success("Produkten raderades!");
       startTransition(() => {
         router.refresh();
       });
     } catch (error) {
       console.error(error);
-      toast.error("Error deleting product.");
+      toast.error("Fel vid radering av produkt.");
     }
   }
 
@@ -74,7 +74,7 @@ export default function AdminProductsGrid({
                 alt={product.title}
                 width={96}
                 height={96}
-                className="w-32 h-32 object-fit rounded-md r"
+                className="w-32 h-32 object-fit rounded-md"
               />
               <p
                 className="text-sm text-gray-700 font-semibold"
@@ -97,7 +97,7 @@ export default function AdminProductsGrid({
                   className="flex items-center gap-1 cursor-pointer"
                 >
                   <Edit size={16} />
-                  Edit
+                  Redigera
                 </Button>
               </Link>
 
@@ -118,7 +118,7 @@ export default function AdminProductsGrid({
                   onClick={() => setOpenDeleteDialog(product.articleNumber)}
                 >
                   <Trash size={16} />
-                  Delete
+                  Ta bort
                 </Button>
               </ConfirmDeleteDialog>
             </CardFooter>

@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { productSchema } from "@/lib/schemas";
 
-
 type ProductFormData = z.infer<typeof productSchema>;
 
 export default function AddProductForm() {
@@ -46,8 +45,8 @@ export default function AddProductForm() {
         const categoriesData = await getCategories();
         setCategories(categoriesData);
       } catch (error) {
-        console.error("Failed to load categories:", error);
-        toast.error("Failed to load categories");
+        console.error("Fel vid inläsning av kategorier:", error);
+        toast.error("Kunde inte ladda kategorier");
       } finally {
         setIsLoadingCategories(false);
       }
@@ -56,22 +55,24 @@ export default function AddProductForm() {
     loadCategories();
   }, []);
 
-  // Handle form submission - nu med direkt anrop till server action
+  // Hantera formulärinlämning
   const onSubmit = async (data: ProductFormData) => {
     try {
-      // Anropa server action direkt
-      await createProduct({
-        title: data.title,
-        image: data.image,
-        price: data.price,
-        description: data.description,
-      }, data.category); // Skicka kategorin som en separat parameter
+      await createProduct(
+        {
+          title: data.title,
+          image: data.image,
+          price: data.price,
+          description: data.description,
+        },
+        data.category
+      );
 
-      toast.success("Product created successfully!");
+      toast.success("Produkten skapades!");
       router.push("/admin");
     } catch (error) {
-      console.error(error);
-      toast.error("There was an error creating the product.");
+      console.error("Fel:", error);
+      toast.error("Det gick inte att skapa produkten");
     }
   };
 
@@ -82,32 +83,24 @@ export default function AddProductForm() {
       </CardHeader>
 
       <CardContent>
-        {/* Product Form */}
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          data-cy="product-form"
-          className="space-y-6"
-        >
-          {/* Title */}
+        <form onSubmit={handleSubmit(onSubmit)} data-cy="product-form" className="space-y-6">
+          {/* Rubrik */}
           <div>
             <Label htmlFor="title">Rubrik</Label>
             <Input
               id="title"
-              placeholder="Product Title"
+              placeholder="Produkttitel"
               {...register("title")}
               data-cy="product-title"
             />
             {errors.title && (
-              <p
-                data-cy="product-title-error"
-                className="text-red-500 text-sm mt-1"
-              >
+              <p data-cy="product-title-error" className="text-red-500 text-sm mt-1">
                 {errors.title.message}
               </p>
             )}
           </div>
 
-          {/* Image URL */}
+          {/* Bild URL */}
           <div>
             <Label htmlFor="image">Bild URL</Label>
             <Input
@@ -117,16 +110,13 @@ export default function AddProductForm() {
               data-cy="product-image"
             />
             {errors.image && (
-              <p
-                data-cy="product-image-error"
-                className="text-red-500 text-sm mt-1"
-              >
+              <p data-cy="product-image-error" className="text-red-500 text-sm mt-1">
                 {errors.image.message}
               </p>
             )}
           </div>
 
-          {/* Price */}
+          {/* Pris */}
           <div>
             <Label htmlFor="price">Pris</Label>
             <Input
@@ -137,33 +127,28 @@ export default function AddProductForm() {
               data-cy="product-price"
             />
             {errors.price && (
-              <p
-                data-cy="product-price-error"
-                className="text-red-500 text-sm mt-1"
-              >
+              <p data-cy="product-price-error" className="text-red-500 text-sm mt-1">
                 {errors.price.message}
               </p>
             )}
           </div>
 
-          {/* Description */}
+          {/* Beskrivning */}
           <div>
             <Label htmlFor="description">Beskrivning</Label>
             <Input
               id="description"
-              placeholder="Short description..."
+              placeholder="Kort beskrivning..."
               {...register("description")}
               data-cy="product-description"
             />
             {errors.description && (
-              <p
-                data-cy="product-description-error"
-                className="text-red-500 text-sm mt-1"
-              >
+              <p data-cy="product-description-error" className="text-red-500 text-sm mt-1">
                 {errors.description.message}
               </p>
             )}
           </div>
+
 
           {/* Stock (Saldo i lager) */}
 <div>
@@ -187,6 +172,7 @@ export default function AddProductForm() {
 
 
           {/* Kategori fält */}
+
           <div className="space-y-2">
             <Label htmlFor="category">Kategori</Label>
             <select
@@ -205,12 +191,10 @@ export default function AddProductForm() {
             {errors.category && (
               <p className="text-red-500 text-sm">{errors.category.message}</p>
             )}
-            {isLoadingCategories && (
-              <p className="text-sm">Laddar kategorier...</p>
-            )}
+            {isLoadingCategories && <p className="text-sm">Laddar kategorier...</p>}
           </div>
 
-          {/* Submit */}
+          {/* Skicka */}
           <Button type="submit" data-cy="product-submit">
             Spara
           </Button>

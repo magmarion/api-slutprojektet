@@ -34,8 +34,10 @@ export default function EditProductForm({ product }: EditProductFormProps) {
         const categoriesData = await getCategories();
         setCategories(categoriesData);
       } catch (error) {
-        console.error("Failed to load categories:", error);
-        toast.error("Failed to load categories");
+
+        console.error("Fel vid inläsning av kategorier:", error);
+        toast.error("Kunde inte ladda kategorier");
+
       } finally {
         setIsLoadingCategories(false);
       }
@@ -55,19 +57,23 @@ export default function EditProductForm({ product }: EditProductFormProps) {
       image: product.image,
       price: product.price,
       description: product.description,
-      category: product.category,
-      stock: product.stock ?? 0,
+
+      category: categories?.[0]?.name || "",
+        stock: product.stock ?? 0,
+
     },
   });
 
   const onSubmit = async (data: FormData) => {
     try {
       await updateProduct(product.articleNumber, data);
-      toast.success("Product updated successfully!");
+
+      toast.success("Produkten uppdaterades!");
       router.push("/admin");
     } catch (error) {
-      console.error(error);
-      toast.error("There was an error updating the product.");
+      console.error("Fel:", error);
+      toast.error("Det gick inte att uppdatera produkten");
+
     }
   };
 
@@ -79,12 +85,14 @@ export default function EditProductForm({ product }: EditProductFormProps) {
 
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} data-cy="product-form" className="space-y-6">
-          {/* Title */}
+
+          {/* Rubrik */}
           <div>
-            <Label htmlFor="title">Titel</Label>
+            <Label htmlFor="title">Rubrik</Label>
             <Input
               id="title"
-              placeholder="Produktens titel"
+              placeholder="Produkttitel"
+
               {...register("title")}
               data-cy="product-title"
             />
@@ -95,12 +103,14 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             )}
           </div>
 
-          {/* Image URL */}
+
+          {/* Bild-URL */}
           <div>
-            <Label htmlFor="image">Bild URL</Label>
+            <Label htmlFor="image">Bild-URL</Label>
             <Input
               id="image"
-              placeholder="https://example.com/image.jpg"
+              placeholder="https://exempel.com/bild.jpg"
+
               {...register("image")}
               data-cy="product-image"
             />
@@ -111,7 +121,9 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             )}
           </div>
 
-          {/* Price */}
+
+          {/* Pris */}
+
           <div>
             <Label htmlFor="price">Pris</Label>
             <Input
@@ -128,7 +140,9 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             )}
           </div>
 
-          {/* Description */}
+
+          {/* Beskrivning */}
+
           <div>
             <Label htmlFor="description">Beskrivning</Label>
             <Input
@@ -143,6 +157,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
               </p>
             )}
           </div>
+
 
           {/* Stock */}
           <div>
@@ -161,7 +176,8 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             )}
           </div>
 
-          {/* Category */}
+          {/* Kategori */}
+
           <div>
             <Label htmlFor="category">Kategori</Label>
             <select
@@ -185,6 +201,9 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             )}
             {isLoadingCategories && <p className="text-sm">Laddar kategorier...</p>}
           </div>
+
+
+          {/* Spara ändringar */}
 
           <Button type="submit" data-cy="product-submit">
             Spara ändringar

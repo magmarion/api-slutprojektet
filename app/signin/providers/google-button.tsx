@@ -9,7 +9,9 @@ export default function GoogleSignInButton() {
             disabled
         >
             <FaGoogle className="w-5 h-5" />
-            Logga in med Googie
+
+            Logga in med Google
+
         </button>
     );
 }

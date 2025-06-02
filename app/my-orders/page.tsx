@@ -24,8 +24,8 @@ export default async function MyOrdersPage() {
           },
         },
         orderBy: {
-          createdAt: "desc"
-        }
+          createdAt: "desc",
+        },
       },
     },
   });
@@ -33,7 +33,7 @@ export default async function MyOrdersPage() {
   if (!user) {
     return (
       <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400] flex items-center justify-center text-xl font-semibold text-red-600">
-        User not found.
+        Användare hittades inte.
       </main>
     );
   }
@@ -63,7 +63,7 @@ export default async function MyOrdersPage() {
                   className="bg-[#FEFAE1] border border-[#3D5300] p-4 rounded-lg shadow"
                 >
                   <div className="font-medium text-[#3D5300]">
-                    Order ID: {order.id}
+                    Ordernummer: {order.id}
                   </div>
                   <div className="text-slate-700 mt-1">Status: {order.status}</div>
                   <div className="text-xs text-slate-500 mb-2">
@@ -73,7 +73,7 @@ export default async function MyOrdersPage() {
                   <ul className="ml-4 list-disc text-slate-700 text-sm">
                     {order.items.map((item) => (
                       <li key={item.id}>
-                        {item.product.title} (x{item.quantity}) - €{item.product.price}
+                        {item.product.title} (x{item.quantity}) – {item.product.price} SEK
                       </li>
                     ))}
                   </ul>
@@ -83,7 +83,7 @@ export default async function MyOrdersPage() {
           ) : (
             <div className="flex flex-col items-center text-center text-[#223500] py-10">
               <FaBoxOpen className="w-16 h-16 mb-4" />
-              <p className="text-lg">Du har ingen beställning än.</p>
+              <p className="text-lg">Du har inga beställningar än.</p>
             </div>
           )}
         </div>
