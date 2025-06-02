@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,13 +13,10 @@ import useCartStore from "@/stores/cartStore";
 import Image from "next/image";
 import Link from "next/link";
 
-interface ConfirmationPageProps {
-  params: {
-    orderNumber: string;
-  };
-}
+export default function ConfirmationPage() {
+  const params = useParams();
+  const orderNumber = params?.orderNumber as string; // Typ-casta till string
 
-export default function ConfirmationPage({ params: { orderNumber } }: ConfirmationPageProps) {
   const { checkoutItems, checkoutInfo } = useCartStore();
 
   const orderTotal = checkoutItems.reduce(
