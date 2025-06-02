@@ -64,6 +64,7 @@ export default function AddProductForm() {
           image: data.image,
           price: data.price,
           description: data.description,
+          stock: data.stock,
         },
         data.category
       );
@@ -155,24 +156,23 @@ export default function AddProductForm() {
             )}
           </div>
 
-
           {/* Stock (Saldo i lager) */}
-<div>
-  <Label htmlFor="stock">Saldo i lager</Label>
-  <Input
-    id="stock"
-    type="number"
-    placeholder="Antal i lager"
-    {...register("stock", { valueAsNumber: true })}
-  />
-  {errors.stock && (
-    <p
-      className="text-red-500 text-sm mt-1"
-    >
-      {errors.stock.message}
-    </p>
-  )}
-</div>
+          <div>
+            <Label htmlFor="stock">Saldo i lager</Label>
+            <Input
+              id="stock"
+              type="number"
+              placeholder="Antal i lager"
+              {...register("stock", { valueAsNumber: true })}
+            />
+            {errors.stock && (
+              <p
+                className="text-red-500 text-sm mt-1"
+              >
+                {errors.stock.message}
+              </p>
+            )}
+          </div>
 
 
           {/* Kategori fält */}
@@ -197,7 +197,7 @@ export default function AddProductForm() {
             )}
             {isLoadingCategories && <p className="text-sm">Laddar kategorier...</p>}
           </div>
-          
+
           {/* Skicka */}
           <Button type="submit">
             Spara
