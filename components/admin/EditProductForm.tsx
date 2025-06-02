@@ -34,8 +34,10 @@ export default function EditProductForm({ product }: EditProductFormProps) {
         const categoriesData = await getCategories();
         setCategories(categoriesData);
       } catch (error) {
+
         console.error("Fel vid inläsning av kategorier:", error);
         toast.error("Kunde inte ladda kategorier");
+
       } finally {
         setIsLoadingCategories(false);
       }
@@ -55,18 +57,23 @@ export default function EditProductForm({ product }: EditProductFormProps) {
       image: product.image,
       price: product.price,
       description: product.description,
+
       category: categories?.[0]?.name || "",
+        stock: product.stock ?? 0,
+
     },
   });
 
   const onSubmit = async (data: FormData) => {
     try {
       await updateProduct(product.articleNumber, data);
+
       toast.success("Produkten uppdaterades!");
       router.push("/admin");
     } catch (error) {
       console.error("Fel:", error);
       toast.error("Det gick inte att uppdatera produkten");
+
     }
   };
 
@@ -78,12 +85,14 @@ export default function EditProductForm({ product }: EditProductFormProps) {
 
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} data-cy="product-form" className="space-y-6">
+
           {/* Rubrik */}
           <div>
             <Label htmlFor="title">Rubrik</Label>
             <Input
               id="title"
               placeholder="Produkttitel"
+
               {...register("title")}
               data-cy="product-title"
             />
@@ -94,12 +103,14 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             )}
           </div>
 
+
           {/* Bild-URL */}
           <div>
             <Label htmlFor="image">Bild-URL</Label>
             <Input
               id="image"
               placeholder="https://exempel.com/bild.jpg"
+
               {...register("image")}
               data-cy="product-image"
             />
@@ -110,7 +121,9 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             )}
           </div>
 
+
           {/* Pris */}
+
           <div>
             <Label htmlFor="price">Pris</Label>
             <Input
@@ -127,7 +140,9 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             )}
           </div>
 
+
           {/* Beskrivning */}
+
           <div>
             <Label htmlFor="description">Beskrivning</Label>
             <Input
@@ -143,7 +158,26 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             )}
           </div>
 
+
+          {/* Stock */}
+          <div>
+            <Label htmlFor="stock">Saldo i lager</Label>
+            <Input
+              id="stock"
+              type="number"
+              placeholder="Antal i lager"
+              {...register("stock", { valueAsNumber: true })}
+              data-cy="product-stock"
+            />
+            {errors.stock && (
+              <p data-cy="product-stock-error" className="text-red-500 text-sm mt-1">
+                {errors.stock.message}
+              </p>
+            )}
+          </div>
+
           {/* Kategori */}
+
           <div>
             <Label htmlFor="category">Kategori</Label>
             <select
@@ -168,7 +202,9 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             {isLoadingCategories && <p className="text-sm">Laddar kategorier...</p>}
           </div>
 
+
           {/* Spara ändringar */}
+
           <Button type="submit" data-cy="product-submit">
             Spara ändringar
           </Button>

@@ -5,7 +5,6 @@ import { getAllProducts } from "@/app/admin/actions";
 import { requireAdminSession } from "@/lib/requiredSession";
 
 export default async function AdminPage() {
-  // Använd direkt utan att lagra i variabel om du inte behöver data från sessionen
   await requireAdminSession();
 
   const products = await getAllProducts();
