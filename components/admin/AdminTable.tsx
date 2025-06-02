@@ -54,53 +54,55 @@ export default function AdminProductsGrid({
 
   return (
     <section className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {products.map((product) => (
           <Card
             key={product.articleNumber}
-            className="border hover:shadow-md transition-shadow ease-in-out"
+            className="border hover:shadow-md transition-shadow ease-in-out flex flex-col justify-between h-full"
           >
-            <CardHeader>
-              <CardTitle>
-                {product.title.includes("(") ? (
-                  <>
-                    {product.title.replace(/\s*\(.*\)$/, "")}
-                    <br />
-                    <span className="text-sm">
-                      {product.title.match(/\(.*\)$/)?.[0]}
-                    </span>
-                  </>
-                ) : (
-                  product.title
-                )}
-              </CardTitle>
-              <CardDescription>
-                {product.articleNumber}
-              </CardDescription>
-            </CardHeader>
+            <div>
+              <CardHeader>
+                <CardTitle>
+                  {product.title.includes("(") ? (
+                    <>
+                      {product.title.replace(/\s*\(.*\)$/, "")}
+                      <br />
+                      <span className="text-sm">
+                        {product.title.match(/\(.*\)$/)?.[0]}
+                      </span>
+                    </>
+                  ) : (
+                    product.title
+                  )}
+                </CardTitle>
+                <CardDescription>
+                  {product.articleNumber}
+                </CardDescription>
+              </CardHeader>
 
-            <CardContent className="flex flex-col items-start">
-              <Image
-                src={product.image}
-                alt={product.title}
-                width={96}
-                height={96}
-                className="w-full h-auto aspect-square object-cover"
-              />
-              <p
-                className="text-sm text-gray-700 font-semibold"
-              >
-                {product.price} SEK
-              </p>
+              <CardContent className="flex flex-col items-start">
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  width={96}
+                  height={96}
+                  className="w-full h-auto aspect-square object-cover"
+                />
+                <p
+                  className="text-sm text-gray-700 font-semibold"
+                >
+                  {product.price} SEK
+                </p>
 
-              {/* 🆕 Visa kategorier */}
-              <p className="text-xs text-gray-600">
-                {product.categories.map((c) => c.name).join(", ")}
-              </p>
-            </CardContent>
+                {/* 🆕 Visa kategorier */}
+                <p className="text-xs text-gray-600">
+                  {product.categories.map((c) => c.name).join(", ")}
+                </p>
+              </CardContent>
+            </div>
 
             <CardFooter className="flex flex-wrap gap-2 items-center justify-between">
-              <Link href={`product/${product.articleNumber}`}>
+              <Link href={`admin/product/${product.articleNumber}`}>
                 <Button
                   variant="outline"
                   data-cy="admin-edit-product"
