@@ -36,7 +36,7 @@ export default function SignInPage() {
                 {/* Innehåll ovanpå bilden */}
                 <div className="relative z-10 text-center mb-6">
                     <h2 className="text-2xl font-semibold text-[#3D5300]">Välkommen tillbaka!</h2>
-                    <p className="text-md text-gray-700 mt-1">Logga in för att fortsätta handla hållbart</p>
+                    <p className="text-md text-gray-700 mt-1 backdrop-blur-3xl">Logga in för att fortsätta handla hållbart</p>
                 </div>
 
                 <div className="relative z-10 space-y-4 mb-6">

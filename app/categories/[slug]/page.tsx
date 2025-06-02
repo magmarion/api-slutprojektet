@@ -1,4 +1,3 @@
-import FlowerParticles from "@/components/FlowerParticles";
 import ProductCard from "@/components/products/ProductCard";
 import { db } from "@/prisma/client";
 import { notFound } from "next/navigation";
@@ -28,8 +27,6 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     return (
         <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400] px-4 py-8">
             {/* Förbättrad rubriksektion */}
-            <FlowerParticles />
-
             <section className="max-w-6xl mx-auto text-center mb-12">
                 <h1 className="text-4xl md:text-5xl font-bold text-[#4B352A] mb-3 font-playfair">
                     {category}
