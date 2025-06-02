@@ -125,7 +125,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
 
                     {/* Price */}
                     <div>
-                        <Label htmlFor="price">Price</Label>
+                        <Label htmlFor="price">Pris</Label>
                         <Input
                             id="price"
                             type="number"
