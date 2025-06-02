@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ProductCardProps {
-    product: Product;
+    product: Product & { inStock?: boolean };
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -15,9 +15,16 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div
             key={product.articleNumber}
             data-cy="product"
-            className="p-4 shadow-sm bg-[#FFF6DA] flex flex-col justify-between hover:shadow-lg
+            className="relative p-4 shadow-sm bg-[#FFF6DA] flex flex-col justify-between hover:shadow-lg
                w-full max-w-[180px] sm:max-w-full mx-auto min-h-[340px]"
         >
+            {/* ✅ Lagerstatus badge */}
+            <span
+                className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full font-medium z-10
+                  ${product.inStock ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
+            >
+                {product.inStock ? "I lager" : "Slut i lager"}
+            </span>
 
             {/* Top Section: Mobile = row, Desktop = column */}
             <Link
@@ -72,6 +79,5 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </Link>
             </div>
         </div>
-
     );
 }
