@@ -4,7 +4,6 @@ import { db } from "@/prisma/client";
 import Link from "next/link";
 
 export default async function AdminPage() {
-  await requireAdminSession();
 
   const products: ProductWithCategory[] = await db.product.findMany({
     include: { categories: true },
@@ -23,7 +22,7 @@ export default async function AdminPage() {
           {/* Du kan lägga till fler admin-länkar här */}
           <Link href="/admin/orders">
             <Button variant="outline" className="cursor-pointer">
-              Beställningar
+              Ordrar
             </Button>
           </Link>
           <Link href="/admin/users">

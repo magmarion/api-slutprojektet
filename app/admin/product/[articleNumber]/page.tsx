@@ -8,7 +8,7 @@ interface PageProps {
 }
 
 export default async function EditProductPage({ params }: PageProps) {
-    const { articleNumber } = params;
+    const { articleNumber } = await params;
     const product: Product | null = await db.product.findUnique({
         where: { articleNumber },
         include: { categories: { select: { name: true } } },

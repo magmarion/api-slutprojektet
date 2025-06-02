@@ -20,6 +20,7 @@ export async function createProduct(
     title: data.title,
     image: data.image,
     price: data.price,
+    stock: data.stock,
     description: data.description,
     category: categoryName,
   });
@@ -42,6 +43,7 @@ export async function createProduct(
         image: result.data.image,
         description: result.data.description,
         price: result.data.price,
+        stock: result.data.stock ?? 0,
         categories: categoryName
           ? { connect: [{ name: categoryName }] }
           : undefined,
@@ -68,6 +70,7 @@ export async function updateProduct(
     title: data.title,
     image: data.image,
     price: data.price,
+    stock: data.stock,
     description: data.description,
     category: categoryName,
   });
@@ -84,10 +87,11 @@ export async function updateProduct(
     const product = await db.product.update({
       where: { articleNumber },
       data: {
-        title: data.title,
-        image: data.image,
-        description: data.description,
-        price: data.price,
+        title: result.data.title,
+        image: result.data.image,
+        price: result.data.price,
+        stock: result.data.stock ?? 0,
+        description: result.data.description,
         categories: categoryName
           ? {
               set: [], // Clear existing categories

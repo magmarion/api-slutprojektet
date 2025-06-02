@@ -72,6 +72,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     title={product.title}
                     price={product.price}
                     image={product.image}
+                    stock={product.stock}
                 />
                 <Link href={`/product/${product.articleNumber}/${product.title}`}>
                     <Button variant="secondary" size="full">
