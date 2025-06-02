@@ -13,7 +13,7 @@ export async function getAllProducts() {
 }
 
 export async function createProduct(
-  data: Partial<Product>,
+  data: Partial<Product> & { stock?: number },
   categoryName?: string
 ) {
   const result = productSchema.safeParse({
@@ -22,6 +22,7 @@ export async function createProduct(
     price: data.price,
     description: data.description,
     category: categoryName,
+    stock: data.stock,
   });
 
   if (!result.success) {
@@ -42,6 +43,7 @@ export async function createProduct(
         image: result.data.image,
         description: result.data.description,
         price: result.data.price,
+        stock: result.data.stock,
         categories: categoryName
           ? { connect: [{ name: categoryName }] }
           : undefined,
@@ -61,7 +63,7 @@ export async function createProduct(
 
 export async function updateProduct(
   articleNumber: string,
-  data: Partial<Product>,
+  data: Partial<Product> & { stock?: number },
   categoryName?: string
 ) {
   const result = productSchema.safeParse({
@@ -70,6 +72,7 @@ export async function updateProduct(
     price: data.price,
     description: data.description,
     category: categoryName,
+    stock: data.stock,
   });
 
   if (!result.success) {
@@ -84,10 +87,11 @@ export async function updateProduct(
     const product = await db.product.update({
       where: { articleNumber },
       data: {
-        title: data.title,
-        image: data.image,
-        description: data.description,
-        price: data.price,
+        title: result.data.title,
+        image: result.data.image,
+        description: result.data.description,
+        price: result.data.price,
+        stock: result.data.stock,
         categories: categoryName
           ? {
               set: [], // Clear existing categories
