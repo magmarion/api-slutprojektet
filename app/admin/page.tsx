@@ -22,7 +22,7 @@ export default async function AdminPage() {
           {/* Du kan lägga till fler admin-länkar här */}
           <Link href="/admin/orders">
             <Button variant="outline" className="cursor-pointer">
-              Beställningar
+              Ordrar
             </Button>
           </Link>
           <Link href="/admin/users">
