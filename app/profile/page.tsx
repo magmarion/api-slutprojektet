@@ -34,7 +34,7 @@ export default async function ProfilePage() {
                 <span className="font-semibold">Namn:</span> {userSession.user.name}
               </p>
               <p>
-                <span className="font-semibold">Email:</span> {userSession.user.email}
+                <span className="font-semibold">E-post:</span> {userSession.user.email}
               </p>
             </div>
 
@@ -49,7 +49,7 @@ export default async function ProfilePage() {
                     className="bg-[#FEFAE1] border border-[#3D5300] p-4 rounded-lg shadow"
                   >
                     <div className="font-medium text-[#3D5300]">
-                      Order ID: {order.id}
+                      Ordernummer: {order.id}
                     </div>
                     <div className="font-semibold mt-2">Produkter:</div>
                     <ul className="ml-4 list-disc text-slate-700 text-sm">
@@ -73,7 +73,6 @@ export default async function ProfilePage() {
               </div>
             )}
 
-
             {/* Trust Badge */}
             <div className="mt-8 text-center text-[#223500]">
               <p className="inline-flex items-center gap-2">
@@ -83,7 +82,6 @@ export default async function ProfilePage() {
                 Säker betalning • 30 dagars öppet köp
               </p>
             </div>
-
           </div>
         </section>
       </div>

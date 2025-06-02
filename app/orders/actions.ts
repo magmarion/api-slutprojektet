@@ -1,9 +1,11 @@
 // app/orders/actions.ts
+
 'use server';
 import { db } from '@/prisma/client';
 import { orderSchema, updateOrderSchema } from '@/lib/schemas';
 
-// Type för order med relationer
+
+// Typ för order med relationer
 export type OrderWithRelations = {
   id: string;
   total: number;
@@ -28,7 +30,9 @@ export async function getOrders(): Promise<OrderWithRelations[]> {
       orderBy: { createdAt: 'desc' },
     });
   } catch (error) {
-    console.error('Error fetching orders:', error);
+
+    console.error("Fel vid hämtning av order:", error);
+
     return []; // Returnera en tom lista som fallback
   }
 }
@@ -44,7 +48,9 @@ export async function createOrder(data: {
   if (!result.success) {
     return {
       success: false,
-      error: 'Validation failed',
+
+      error: "Validering misslyckades",
+
       details: result.error.flatten().fieldErrors,
     };
   }
@@ -54,7 +60,7 @@ export async function createOrder(data: {
   if (!user) {
     return {
       success: false,
-      error: `User with id ${data.userId} not found`,
+      error: `Användare med id ${data.userId} hittades inte`,
     };
   }
 
@@ -66,7 +72,7 @@ export async function createOrder(data: {
     if (!product) {
       return {
         success: false,
-        error: `Product with id ${item.productId} not found`,
+        error: `Produkt med id ${item.productId} hittades inte`,
       };
     }
   }
@@ -93,8 +99,10 @@ export async function createOrder(data: {
 
     return { success: true, order };
   } catch (error) {
-    console.error('Error creating order:', error);
-    return { success: false, error: 'Failed to create order' };
+
+    console.error("Fel vid skapande av order:", error);
+    return { success: false, error: "Det gick inte att skapa ordern" };
+
   }
 }
 
@@ -110,7 +118,9 @@ export async function getOrderById(
       },
     });
   } catch (error) {
-    console.error('Error fetching order by ID:', error);
+
+    console.error("Fel vid hämtning av order med ID:", error);
+
     return null;
   }
 }
@@ -128,7 +138,9 @@ export async function updateOrder(
   if (!result.success) {
     return {
       success: false,
-      error: 'Validation failed',
+
+      error: "Validering misslyckades",
+
       details: result.error.flatten().fieldErrors,
     };
   }
@@ -139,7 +151,7 @@ export async function updateOrder(
     total?: number;
     status?: string;
   };
-  // Skapa en kopia och filtrera undefined
+  // Skapa en kopia och filtrera bort undefined
   const filteredData = Object.fromEntries(
     Object.entries(result.data).filter(([_, value]) => value !== undefined)
   ) as UpdateData;
@@ -182,8 +194,10 @@ export async function updateOrder(
 
     return { success: true, updatedOrder };
   } catch (error) {
-    console.error('Error updating order:', error);
-    return { success: false, error: 'Failed to update order' };
+
+    console.error("Fel vid uppdatering av order:", error);
+    return { success: false, error: "Det gick inte att uppdatera ordern" };
+
   }
 }
 
@@ -192,10 +206,13 @@ export async function deleteOrder(id: string) {
     await db.order.delete({ where: { id } });
     return { success: true };
   } catch (error) {
-    console.error('Error deleting order:', error);
-    return { success: false, error: 'Failed to delete order' };
+
+    console.error("Fel vid radering av order:", error);
+    return { success: false, error: "Det gick inte att ta bort ordern" };
+
   }
 }
+
 export async function getOrdersByUserId(
   userId: string
 ): Promise<OrderWithRelations[]> {
@@ -208,15 +225,18 @@ export async function getOrdersByUserId(
     orderBy: { createdAt: 'desc' },
   });
 }
+
 export async function getOrderCount(): Promise<number> {
   return db.order.count();
 }
+
 export async function getTotalSales(): Promise<number> {
   const result = await db.order.aggregate({
     _sum: { total: true },
   });
   return result._sum.total || 0;
 }
+
 export async function getOrdersWithPagination(
   page: number,
   limit: number
@@ -235,6 +255,7 @@ export async function getOrdersWithPagination(
   ]);
   return { orders, totalCount };
 }
+
 export async function getOrdersByStatus(
   status: string
 ): Promise<OrderWithRelations[]> {
@@ -247,6 +268,7 @@ export async function getOrdersByStatus(
     orderBy: { createdAt: 'desc' },
   });
 }
+
 export async function getOrdersByDateRange(
   startDate: Date,
   endDate: Date
@@ -265,6 +287,7 @@ export async function getOrdersByDateRange(
     orderBy: { createdAt: 'desc' },
   });
 }
+
 export async function getOrdersByUserIdWithPagination(
   userId: string,
   page: number,
@@ -285,6 +308,7 @@ export async function getOrdersByUserIdWithPagination(
   ]);
   return { orders, totalCount };
 }
+
 export async function getOrderTotalByUserId(userId: string): Promise<number> {
   const result = await db.order.aggregate({
     where: { userId },
@@ -292,4 +316,3 @@ export async function getOrderTotalByUserId(userId: string): Promise<number> {
   });
   return result._sum.total || 0;
 }
-//           <td className='border px-4 py-2'>

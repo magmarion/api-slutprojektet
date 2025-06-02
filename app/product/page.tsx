@@ -24,7 +24,7 @@ export default async function ProductsPage() {
                 {products.length === 0 ? (
                     <div className="text-center py-20">
                         <FaBoxOpen className="w-24 h-24 text-slate-400 mx-auto mb-6" />
-                        <p className="text-2xl text-slate-600">No products found</p>
+                        <p className="text-2xl text-slate-600">Inga produkter hittades</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-2 gap-4 px-4 py-6 md:grid-cols-3 lg:grid-cols-4">

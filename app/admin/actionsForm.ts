@@ -1,7 +1,7 @@
 "use server";
 
 import { createProduct, deleteProduct, updateProduct } from "./actions";
-import { productSchema } from "@/lib/schemas"
+import { productSchema } from "@/lib/schemas";
 
 // Wrapper for creating a product via form submission.
 export async function createProductAction(formData: FormData) {
@@ -17,7 +17,7 @@ export async function createProductAction(formData: FormData) {
     if (!result.success) {
         return {
             success: false,
-            error: "Validation failed",
+            error: "Validering misslyckades",
             details: result.error.flatten().fieldErrors,
         };
     }
@@ -26,8 +26,8 @@ export async function createProductAction(formData: FormData) {
         await createProduct(result.data);
         return { success: true };
     } catch (error) {
-        console.error("Error creating product:", error);
-        return { success: false, error: "Failed to create product" };
+        console.error("Fel vid skapande av produkt:", error);
+        return { success: false, error: "Det gick inte att skapa produkten" };
     }
 }
 
@@ -48,7 +48,7 @@ export async function updateProductAction(
     if (!result.success) {
         return {
             success: false,
-            error: "Validation failed",
+            error: "Validering misslyckades",
             details: result.error.flatten().fieldErrors,
         };
     }
@@ -57,8 +57,8 @@ export async function updateProductAction(
         await updateProduct(articleNumber, result.data);
         return { success: true };
     } catch (error) {
-        console.error("Error updating product:", error);
-        return { success: false, error: "Failed to update product" };
+        console.error("Fel vid uppdatering av produkt:", error);
+        return { success: false, error: "Det gick inte att uppdatera produkten" };
     }
 }
 
@@ -67,14 +67,14 @@ export async function deleteProductAction(formData: FormData) {
     const articleNumber = formData.get("articleNumber") as string;
 
     if (!articleNumber) {
-        return { success: false, error: "Article number is missing" };
+        return { success: false, error: "Artikelnummer saknas" };
     }
 
     try {
         await deleteProduct(articleNumber);
         return { success: true };
     } catch (error) {
-        console.error("Error deleting product:", error);
-        return { success: false, error: "Failed to delete product" };
+        console.error("Fel vid radering av produkt:", error);
+        return { success: false, error: "Det gick inte att ta bort produkten" };
     }
 }
