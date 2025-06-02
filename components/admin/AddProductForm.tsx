@@ -15,7 +15,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-
 type ProductFormData = z.infer<typeof productSchema>;
 
 export default function AddProductForm() {
@@ -35,6 +34,7 @@ export default function AddProductForm() {
       price: 0,
       description: "",
       category: "",
+      stock: 0,
     },
   });
 
@@ -45,8 +45,8 @@ export default function AddProductForm() {
         const categoriesData = await getCategories();
         setCategories(categoriesData);
       } catch (error) {
-        console.error("Failed to load categories:", error);
-        toast.error("Failed to load categories");
+        console.error("Fel vid inläsning av kategorier:", error);
+        toast.error("Kunde inte ladda kategorier");
       } finally {
         setIsLoadingCategories(false);
       }
@@ -55,22 +55,24 @@ export default function AddProductForm() {
     loadCategories();
   }, []);
 
-  // Handle form submission - nu med direkt anrop till server action
+  // Hantera formulärinlämning
   const onSubmit = async (data: ProductFormData) => {
     try {
-      // Anropa server action direkt
-      await createProduct({
-        title: data.title,
-        image: data.image,
-        price: data.price,
-        description: data.description,
-      }, data.category); // Skicka kategorin som en separat parameter
+      await createProduct(
+        {
+          title: data.title,
+          image: data.image,
+          price: data.price,
+          description: data.description,
+        },
+        data.category
+      );
 
-      toast.success(+ data.title + " skapad!");
-      router.push("/admin/dashboard");
+      toast.success("Produkten skapades!");
+      router.push("/admin");
     } catch (error) {
-      console.error(error);
-      toast.error("Fel vid skapande av produkt. Försök igen.");
+      console.error("Fel:", error);
+      toast.error("Det gick inte att skapa produkten");
     }
   };
 
@@ -86,12 +88,12 @@ export default function AddProductForm() {
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-6"
         >
-          {/* Title */}
+          {/* Rubrik */}
           <div>
             <Label htmlFor="title">Rubrik</Label>
             <Input
               id="title"
-              placeholder="Rubrik för produkten"
+              placeholder="Produkttitel"
               {...register("title")}
             />
             {errors.title && (
@@ -103,7 +105,7 @@ export default function AddProductForm() {
             )}
           </div>
 
-          {/* Image URL */}
+          {/* Bild URL */}
           <div>
             <Label htmlFor="image">Bild-URL</Label>
             <Input
@@ -120,7 +122,7 @@ export default function AddProductForm() {
             )}
           </div>
 
-          {/* Price */}
+          {/* Pris */}
           <div>
             <Label htmlFor="price">Pris</Label>
             <Input
@@ -130,16 +132,13 @@ export default function AddProductForm() {
               {...register("price", { valueAsNumber: true })}
             />
             {errors.price && (
-              <p
-                data-cy="product-price-error"
-                className="text-red-500 text-sm mt-1"
-              >
+              <p className="text-red-500 text-sm mt-1">
                 {errors.price.message}
               </p>
             )}
           </div>
 
-          {/* Description */}
+          {/* Beskrivning */}
           <div>
             <Label htmlFor="description">Beskrivning</Label>
             <Input
@@ -156,7 +155,28 @@ export default function AddProductForm() {
             )}
           </div>
 
+
+          {/* Stock (Saldo i lager) */}
+<div>
+  <Label htmlFor="stock">Saldo i lager</Label>
+  <Input
+    id="stock"
+    type="number"
+    placeholder="Antal i lager"
+    {...register("stock", { valueAsNumber: true })}
+  />
+  {errors.stock && (
+    <p
+      className="text-red-500 text-sm mt-1"
+    >
+      {errors.stock.message}
+    </p>
+  )}
+</div>
+
+
           {/* Kategori fält */}
+
           <div className="space-y-2">
             <Label htmlFor="category">Kategori</Label>
             <select
@@ -175,12 +195,10 @@ export default function AddProductForm() {
             {errors.category && (
               <p className="text-red-500 text-sm">{errors.category.message}</p>
             )}
-            {isLoadingCategories && (
-              <p className="text-sm">Laddar kategorier...</p>
-            )}
+            {isLoadingCategories && <p className="text-sm">Laddar kategorier...</p>}
           </div>
-
-          {/* Submit */}
+          
+          {/* Skicka */}
           <Button type="submit">
             Spara
           </Button>

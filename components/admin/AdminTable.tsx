@@ -41,14 +41,13 @@ export default function AdminProductsGrid({
       formData.append("articleNumber", articleNumber);
 
       await deleteProductAction(formData);
-
-      toast.success("Produkt raderad.");
+      toast.success("Produkten raderades!");
       startTransition(() => {
         router.refresh();
       });
     } catch (error) {
       console.error(error);
-      toast.error("Något gick fel vid radering av produkten.");
+      toast.error("Fel vid radering av produkt.");
     }
   }
 
@@ -130,7 +129,7 @@ export default function AdminProductsGrid({
                   onClick={() => setOpenDeleteDialog(product.articleNumber)}
                 >
                   <Trash size={16} />
-                  Radera
+                  Ta bort
                 </Button>
               </ConfirmDeleteDialog>
             </CardFooter>

@@ -3,9 +3,8 @@ import { Button } from "@/components/ui/button";
 import { db } from "@/prisma/client";
 import Link from "next/link";
 
-export default async function DashboardPage() {
-  // Kontroll av ADMIN-session avslagen för att testa ADMIN-dashboard
-  // await requireAdminSession();
+export default async function AdminPage() {
+  await requireAdminSession();
 
   const products: ProductWithCategory[] = await db.product.findMany({
     include: { categories: true },

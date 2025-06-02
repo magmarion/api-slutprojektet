@@ -1,54 +1,60 @@
-// app/categories/[slug]/page.tsx
-
 import ProductCard from "@/components/products/ProductCard";
 import { db } from "@/prisma/client";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-type Props = {
-  params: Promise<{ slug: string }>;
-};
+export default async function CategoryPage({ params }: { params: { slug: string } }) {
+    const { slug } = params;
+    const category = decodeURIComponent(slug);
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const category = decodeURIComponent(slug);
-  return {
-    title: `Produkter i kategorin "${category}"`,
-    description: `Utforska alla produkter i kategorin "${category}". Hitta det du behöver bland vårt breda sortiment.`,
-  };
-}
-
-export default async function CategoryPage({ params }: Props) {
-  const { slug } = await params;
-  const category = decodeURIComponent(slug);
-
-  // Hämta produkter i denna kategori
-  const products = await db.product.findMany({
-    where: {
-      categories: {
-        some: {
-          name: category,
+    // Hämta produkter i denna kategori (befintlig kod)
+    const products = await db.product.findMany({
+        where: {
+            categories: {
+                some: {
+                    name: category,
+                },
+            },
         },
-      },
-    },
-    include: {
-      categories: true,
-    },
-  });
+        include: {
+            categories: true,
+        },
+    });
 
-  if (!products.length) {
-    notFound();
-  }
+    if (!products.length) {
+        notFound();
+    }
 
-  return (
-    <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400] p-6">
-      <h1 className="text-3xl font-bold text-center mb-8">{category}</h1>
+    return (
+        <main className="min-h-screen bg-gradient-to-b from-[#FEFAE1] to-[#daa400] px-4 py-8">
+            {/* Förbättrad rubriksektion */}
+            <section className="max-w-6xl mx-auto text-center mb-12">
+                <h1 className="text-4xl md:text-5xl font-bold text-[#4B352A] mb-3 font-playfair">
+                    {category}
+                </h1>
+                <p className="text-lg text-[#516036] max-w-2xl mx-auto">
+                    Upptäck vårt utsökta urval av {category.toLowerCase()}. Naturligt sköna och vackra val för ditt hem.
+                </p>
+            </section>
 
-      <div className="grid grid-cols-2 gap-4 px-4 py-6 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-    </main>
-  );
+            {/* Produktgrid med förbättringar */}
+            <section className="max-w-7xl mx-auto">
+                <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+                    {products.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
+                </div>
+
+                {/* Kategoriinfo-fotter */}
+                <div className="mt-16 p-8 bg-white/50 rounded-xl text-center border border-[#F4D794]">
+                    <h3 className="text-xl font-semibold text-[#3D5300] mb-3">
+                        Om våra {category.toLowerCase()}
+                    </h3>
+                    <p className="text-[#4B352A] max-w-3xl mx-auto">
+                        Alla våra {category.toLowerCase()} odlas med omsorg och hållbarhet i fokus.
+                        Vi arbetar direkt med lokala odlare för att garantera fräschhet och kvalitet.
+                    </p>
+                </div>
+            </section>
+        </main>
+    );
 }

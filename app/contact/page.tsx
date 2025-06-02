@@ -36,7 +36,7 @@ export default function Contact() {
                 toast.error("Kunde inte skicka meddelandet.");
             }
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Fel:", error);
             toast.error("Något gick fel.");
         }
     };
