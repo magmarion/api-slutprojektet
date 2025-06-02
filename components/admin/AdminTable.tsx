@@ -22,7 +22,7 @@ import { Edit, Trash } from "lucide-react";
 import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 
 // 🆕 Korrekt typ med relation
-type ProductWithCategory = Product & {
+export type ProductWithCategory = Product & {
   categories: Category[];
 };
 
@@ -41,7 +41,6 @@ export default function AdminProductsGrid({
       formData.append("articleNumber", articleNumber);
 
       await deleteProductAction(formData);
-
       toast.success("Produkten raderades!");
       startTransition(() => {
         router.refresh();
@@ -54,42 +53,54 @@ export default function AdminProductsGrid({
 
   return (
     <section className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {products.map((product) => (
           <Card
             key={product.articleNumber}
-            data-cy="product"
-            className="border hover:shadow-md transition-shadow ease-in-out"
+            className="border hover:shadow-md transition-shadow ease-in-out flex flex-col justify-between h-full"
           >
-            <CardHeader>
-              <CardTitle data-cy="product-title">{product.title}</CardTitle>
-              <CardDescription data-cy="product-id">
-                {product.articleNumber}
-              </CardDescription>
-            </CardHeader>
+            <div>
+              <CardHeader>
+                <CardTitle>
+                  {product.title.includes("(") ? (
+                    <>
+                      {product.title.replace(/\s*\(.*\)$/, "")}
+                      <br />
+                      <span className="text-sm">
+                        {product.title.match(/\(.*\)$/)?.[0]}
+                      </span>
+                    </>
+                  ) : (
+                    product.title
+                  )}
+                </CardTitle>
+                <CardDescription>
+                  {product.articleNumber}
+                </CardDescription>
+              </CardHeader>
 
-            <CardContent className="flex flex-col items-start space-y-3">
-              <Image
-                src={product.image}
-                alt={product.title}
-                width={96}
-                height={96}
-                className="w-32 h-32 object-fit rounded-md"
-              />
-              <p
-                className="text-sm text-gray-700 font-semibold"
-                data-cy="product-price"
-              >
-                {product.price} SEK
-              </p>
+              <CardContent className="flex flex-col items-start">
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  width={96}
+                  height={96}
+                  className="w-full h-auto aspect-square object-cover"
+                />
+                <p
+                  className="text-sm text-gray-700 font-semibold"
+                >
+                  {product.price} SEK
+                </p>
 
-              {/* 🆕 Visa kategorier */}
-              <p className="text-xs text-gray-600">
-                {product.categories.map((c) => c.name).join(", ")}
-              </p>
-            </CardContent>
+                {/* 🆕 Visa kategorier */}
+                <p className="text-xs text-gray-600">
+                  {product.categories.map((c) => c.name).join(", ")}
+                </p>
+              </CardContent>
+            </div>
 
-            <CardFooter className="flex items-center justify-between space-x-2">
+            <CardFooter className="flex flex-wrap gap-2 items-center justify-between">
               <Link href={`admin/product/${product.articleNumber}`}>
                 <Button
                   variant="outline"

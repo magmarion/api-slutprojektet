@@ -10,10 +10,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { createProduct, getCategories } from "@/app/admin/actions";
+import { productSchema } from "@/lib/schemas";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { productSchema } from "@/lib/schemas";
 
 type ProductFormData = z.infer<typeof productSchema>;
 
@@ -83,7 +83,11 @@ export default function AddProductForm() {
       </CardHeader>
 
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} data-cy="product-form" className="space-y-6">
+        {/* Product Form */}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-6"
+        >
           {/* Rubrik */}
           <div>
             <Label htmlFor="title">Rubrik</Label>
@@ -91,10 +95,11 @@ export default function AddProductForm() {
               id="title"
               placeholder="Produkttitel"
               {...register("title")}
-              data-cy="product-title"
             />
             {errors.title && (
-              <p data-cy="product-title-error" className="text-red-500 text-sm mt-1">
+              <p
+                className="text-red-500 text-sm mt-1"
+              >
                 {errors.title.message}
               </p>
             )}
@@ -102,15 +107,16 @@ export default function AddProductForm() {
 
           {/* Bild URL */}
           <div>
-            <Label htmlFor="image">Bild URL</Label>
+            <Label htmlFor="image">Bild-URL</Label>
             <Input
               id="image"
               placeholder="https://example.com/image.jpg"
               {...register("image")}
-              data-cy="product-image"
             />
             {errors.image && (
-              <p data-cy="product-image-error" className="text-red-500 text-sm mt-1">
+              <p
+                className="text-red-500 text-sm mt-1"
+              >
                 {errors.image.message}
               </p>
             )}
@@ -124,10 +130,9 @@ export default function AddProductForm() {
               type="number"
               placeholder="999"
               {...register("price", { valueAsNumber: true })}
-              data-cy="product-price"
             />
             {errors.price && (
-              <p data-cy="product-price-error" className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 text-sm mt-1">
                 {errors.price.message}
               </p>
             )}
@@ -140,10 +145,11 @@ export default function AddProductForm() {
               id="description"
               placeholder="Kort beskrivning..."
               {...register("description")}
-              data-cy="product-description"
             />
             {errors.description && (
-              <p data-cy="product-description-error" className="text-red-500 text-sm mt-1">
+              <p
+                className="text-red-500 text-sm mt-1"
+              >
                 {errors.description.message}
               </p>
             )}
@@ -158,11 +164,9 @@ export default function AddProductForm() {
     type="number"
     placeholder="Antal i lager"
     {...register("stock", { valueAsNumber: true })}
-    data-cy="product-stock"
   />
   {errors.stock && (
     <p
-      data-cy="product-stock-error"
       className="text-red-500 text-sm mt-1"
     >
       {errors.stock.message}
@@ -179,7 +183,7 @@ export default function AddProductForm() {
               id="category"
               {...register("category")}
               disabled={isLoadingCategories}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border"
             >
               <option value="">Välj en kategori...</option>
               {categories.map((category) => (
@@ -193,9 +197,9 @@ export default function AddProductForm() {
             )}
             {isLoadingCategories && <p className="text-sm">Laddar kategorier...</p>}
           </div>
-
+          
           {/* Skicka */}
-          <Button type="submit" data-cy="product-submit">
+          <Button type="submit">
             Spara
           </Button>
         </form>

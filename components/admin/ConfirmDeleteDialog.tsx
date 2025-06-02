@@ -19,21 +19,6 @@ interface ConfirmDeleteDialogProps {
   children: React.ReactNode; // The trigger button(s) or element(s)
 }
 
-/**
- * A reusable dialog for confirming product deletion.
- *
- * Usage:
- * <ConfirmDeleteDialog
- *   open={openDeleteDialog === product.articleNumber}
- *   onOpenChange={...}
- *   onConfirm={...}
- *   productTitle={product.title}
- * >
- *   <Button onClick={() => setOpenDeleteDialog(product.articleNumber)}>
- *     Ta bort
- *   </Button>
- * </ConfirmDeleteDialog>
- */
 export default function ConfirmDeleteDialog({
   open,
   onOpenChange,

@@ -48,7 +48,7 @@ export async function createProduct(
       },
     });
 
-    revalidatePath('/admin/dashboard');
+    revalidatePath('/admin');
     return { success: true, product };
   } catch (error) {
     console.error('Error creating product:', error);
