@@ -9,12 +9,14 @@ interface AddToCartButtonProps {
   title: string;
   price: number;
   image: string;
+
   stock: number;
   className?: string;  // Lägg till denna rad
 
 }
 
 export default function AddToCartButton({ id, title, price, image, stock }: AddToCartButtonProps) {
+
   const { addToCart } = useCartStore();
 
 
@@ -23,7 +25,11 @@ const handleAddToCart = () => {
     toast.error(
       <>
         <span>
+
           <strong>{title}</strong> är tyvärr slut i lager.
+
+          <strong>{title}</strong> lades till i varukorgen!
+
         </span>
       </>
     );
@@ -42,7 +48,7 @@ const handleAddToCart = () => {
   return (
     <Button
       onClick={handleAddToCart}
-      className="mt-3 w-full cursor-pointer py-4"
+      className={`${className} mt-3 w-full cursor-pointer py-4`}
     >
       Lägg i varukorg
     </Button>

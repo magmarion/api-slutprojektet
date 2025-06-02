@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.font-dancingScript {
+  font-family: 'Dancing Script', cursive;
+}
+ 
 :root {
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);

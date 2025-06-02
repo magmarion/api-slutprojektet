@@ -18,16 +18,13 @@ interface ConfirmationPageProps {
   };
 }
 
-
 export default function ConfirmationPage({ params: { orderNumber } }: ConfirmationPageProps) {
   const { checkoutItems, checkoutInfo } = useCartStore();
-
 
   const orderTotal = checkoutItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -41,11 +38,10 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
           <CardHeader>
             <CardTitle>Tack för din beställning!</CardTitle>
             <CardDescription>
-              Vi har tagit emot din beställning. Du får ett bekräftelsemejl på angivet mejl..
-
+              Vi har tagit emot din beställning. Du får ett bekräftelsemejl på angivet mejl.
               {/* Order Number */}
               <p className="text-sm mt-2">
-                Order Number: <span className="font-semibold">${orderNumber}</span>
+                Ordernummer: <span className="font-semibold">${orderNumber}</span>
               </p>
             </CardDescription>
           </CardHeader>
@@ -107,7 +103,7 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
               </p>
             )}
 
-            {/* 2) Display Customer Info (if provided) */}
+            {/* Display Customer Info (if provided) */}
             {checkoutInfo && checkoutInfo.name && (
               <div className="mt-6 bg-gray-100 p-4 rounded-md">
                 <h2 className="text-base font-semibold mb-2">
@@ -139,18 +135,14 @@ export default function ConfirmationPage({ params: { orderNumber } }: Confirmati
           <CardContent className="flex flex-col gap-2">
             {/* Button linking back to homepage */}
             <Button asChild>
-
               <Link href="/" data-cy="continue-shopping-button">
                 Fortsätt handla
               </Link>
-
             </Button>
             {/* Additional post-checkout details if needed */}
           </CardContent>
         </Card>
       </main>
-
     </div>
   );
 }
-
