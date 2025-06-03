@@ -1,24 +1,45 @@
 // components/ProfileDropdown.tsx
 "use client";
-import { signOut } from "@/lib/auth-client";
+import { signOut, useSession } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FaGithub, FaListAlt, FaUser } from "react-icons/fa";
+import { FaListAlt, FaUser, FaUserAstronaut, FaUserSecret, FaUserTie } from "react-icons/fa";
 
 interface ProfileDropdownProps {
     showDropdown: boolean;
-    setShowDropdown: (value: boolean) => void; // Typsäkerhet här
+    setShowDropdown: (value: boolean) => void;
 }
 
 export function ProfileDropdown({ showDropdown, setShowDropdown }: ProfileDropdownProps) {
     const router = useRouter();
+    const { data: session } = useSession();
+
+    const getAvatarIcon = () => {
+        if (!session?.user) return <FaUser />;
+
+        // Kontrollera om användarens profilbild innehåller "github"
+        if (session.user.image && session.user.image.includes("github")) {
+            return <FaUserSecret />;
+        }
+
+        // Google / Gmail inloggning
+        if (session.user.email && session.user.email.toLowerCase().endsWith("gmail.com")) {
+            return <FaUserAstronaut />;
+        }
+
+        // Annan inloggning (e-post)
+        return <FaUserTie />;
+    };
+
+
+
     return (
         <div className="relative">
             <button
                 onClick={() => setShowDropdown(!showDropdown)}
                 className="w-9 h-9 rounded-full border-2 border-[#FEFAE1] flex items-center justify-center text-[#FEFAE1] hover:border-[#F4D794] transition"
             >
-                <FaGithub />
+                {getAvatarIcon()}
             </button>
             {showDropdown && (
                 <div className="absolute right-0 mt-2 w-64 bg-white text-slate-900 rounded shadow-lg z-50 p-4 space-y-2">
