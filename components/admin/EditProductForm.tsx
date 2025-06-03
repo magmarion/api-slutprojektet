@@ -61,7 +61,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
 
     },
   });
-      
+
   useEffect(() => {
     if (!isLoadingCategories) {
       reset({
@@ -77,9 +77,19 @@ export default function EditProductForm({ product }: EditProductFormProps) {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await updateProduct(product.articleNumber, data, data.category);
-      toast.success("Produkten uppdaterades!");
-      router.push("/admin");
+      const result = await updateProduct(product.articleNumber, data, data.category);
+
+      if (!result.success) {
+        toast.success("Produkten uppdaterades!");
+        router.push("/admin");
+      } else {
+        if (result.error?.includes("Obehörig") || result.error?.includes("Förbjudet")) {
+          toast.error("Du har inte behörighet för denna åtgärd");
+          router.push("/signin");
+        } else {
+          toast.error(result.error || "Det gick inte att skapa produkten");
+        }
+      }
     } catch (error) {
       console.error("Fel:", error);
       toast.error("Det gick inte att uppdatera produkten");
