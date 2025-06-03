@@ -28,8 +28,6 @@ const handleAddToCart = () => {
 
           <strong>{title}</strong> är tyvärr slut i lager.
 
-          <strong>{title}</strong> lades till i varukorgen!
-
         </span>
       </>
     );
