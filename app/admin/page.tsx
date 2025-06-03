@@ -1,9 +1,11 @@
 import AdminProductsGrid, { ProductWithCategory } from "@/components/admin/AdminTable";
 import { Button } from "@/components/ui/button";
+import { requireAdminSession } from "@/lib/requiredSession";
 import { db } from "@/prisma/client";
 import Link from "next/link";
 
 export default async function AdminPage() {
+  await requireAdminSession();
 
   const products: ProductWithCategory[] = await db.product.findMany({
     include: { categories: true },
