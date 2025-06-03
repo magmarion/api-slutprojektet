@@ -1,9 +1,10 @@
 'use client';
 
 import { OrderWithRelations, deleteOrder, updateOrder } from '@/app/orders/actions';
-import { useTransition } from 'react';
-import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react'; // valfri ikon
+import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
+import { toast } from 'sonner';
 
 interface Props {
     orders: OrderWithRelations[];
@@ -16,15 +17,46 @@ export default function OrdersTable({ orders }: Props) {
     const onDelete = (id: string) => {
         if (!confirm('Är du säker på att du vill radera den här ordern?')) return;
         startTransition(async () => {
-            await deleteOrder(id);
-            router.refresh();
+            try {
+                const result = await deleteOrder(id);
+
+                if (result.success) {
+                    toast.success('Ordern har raderats.');
+                    router.refresh();
+                } else {
+                    if (result.error?.includes('Obehörig') || result.error?.includes('Förbjudet')) {
+                        toast.error("Du har inte behörighet för denna åtgärd");
+                        router.push("/signin");
+                    } else {
+                        toast.error(result.error || "Det gick inte att radera ordern");
+                    }
+                }
+            } catch (error) {
+                console.error("Det gick inte att radera ordern:", error);
+                toast.error("Det gick inte att radera ordern");
+            }
         });
     };
 
     const onMarkSent = (id: string) => {
         startTransition(async () => {
-            await updateOrder(id, { status: 'skickat' });
-            router.refresh();
+            try {
+                const result = await updateOrder(id, { status: 'skickat' });
+                if (result.success) {
+                    toast.success('Ordern har markerats som skickad.');
+                    router.refresh();
+                } else {
+                    if (result.error?.includes('Obehörig') || result.error?.includes('Förbjudet')) {
+                        toast.error("Du har inte behörighet för denna åtgärd");
+                        router.push("/signin");
+                    } else {
+                        toast.error(result.error || "Det gick inte att uppdatera ordern");
+                    }
+                }
+            } catch (error) {
+                console.error("Det gick inte att uppdatera ordern:", error);
+                toast.error("Det gick inte att uppdatera ordern");
+            }
         });
     };
 
