@@ -58,7 +58,7 @@ export default function SignInPage() {
                     </div>
 
                     <p className="text-xs text-center text-gray-500 mt-6">
-                        Har du inget konto? <a href="#" className="text-[#3D5300] underline">Skapa ett här</a>
+                        Har du inget konto? <a href="/signin/register" className="text-[#3D5300] underline">Skapa ett här</a>
                     </p>
                 </motion.div>
             </div>
