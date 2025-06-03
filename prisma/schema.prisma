@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -24,6 +23,7 @@ model User {
 
   @@map("user")
 }
+
 model Product {
   id            String      @id @default(cuid())
   articleNumber String      @unique
@@ -31,7 +31,7 @@ model Product {
   title         String
   description   String
   price         Float
-  stock         Int  @default(0)
+  stock         Int         @default(0)
   categories    Category[]  @relation("ProductCategories")
   orderItems    OrderItem[]
   createdAt     DateTime    @default(now())
@@ -69,7 +69,6 @@ model OrderItem {
 
   @@map("order_item")
 }
-
 
 model Session {
   id        String   @id
