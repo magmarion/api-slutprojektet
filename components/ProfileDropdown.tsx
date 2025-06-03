@@ -3,7 +3,9 @@
 import { signOut, useSession } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FaListAlt, FaUser, FaUserAstronaut, FaUserSecret, FaUserTie } from "react-icons/fa";
+import { FaCat, FaGhost, FaListAlt, FaUser } from "react-icons/fa";
+import { ImUser } from "react-icons/im";
+
 
 interface ProfileDropdownProps {
     showDropdown: boolean;
@@ -19,16 +21,16 @@ export function ProfileDropdown({ showDropdown, setShowDropdown }: ProfileDropdo
 
         // Kontrollera om användarens profilbild innehåller "github"
         if (session.user.image && session.user.image.includes("github")) {
-            return <FaUserSecret className="w-6 h-6 text-[#FEFAE1]" />;
+            return <FaCat className="w-6 h-6 text-[#FEFAE1]" />;
         }
 
         // Google / Gmail inloggning
         if (session.user.email && session.user.email.toLowerCase().endsWith("gmail.com")) {
-            return <FaUserAstronaut className="w-6 h-6 text-[#FEFAE1]" />;
+            return <FaGhost className="w-6 h-6 text-[#FEFAE1]" />;
         }
 
         // Annan inloggning (e-post)
-        return <FaUserTie className="w-6 h-6 text-[#FEFAE1]" />;
+        return <ImUser className="w-6 h-6 text-[#FEFAE1]" />;
     };
 
 
@@ -38,7 +40,7 @@ export function ProfileDropdown({ showDropdown, setShowDropdown }: ProfileDropdo
         <div className="relative">
             <button
                 onClick={() => setShowDropdown(!showDropdown)}
-                className="w-10 h-10 border-2 rounded-full flex items-center justify-center text-[#FEFAE1] hover:text-[#F4D794] transition pb-1"
+                className="w-9 h-12 border-2 rounded-full flex items-center justify-center text-[#FEFAE1] hover:text-[#F4D794] transition"
             >
                 {getAvatarIcon()}
             </button>

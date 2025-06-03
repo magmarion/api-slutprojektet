@@ -6,8 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import { FcBusinessman } from "react-icons/fc";
 import { HiMenu, HiX } from "react-icons/hi";
-import { RiAdminFill } from "react-icons/ri";
 import { useCategories } from "../hooks/useCategories";
 import useCartStore from "../stores/cartStore";
 import CartPopup from "./CartPopup";
@@ -77,7 +77,7 @@ export default function Header() {
                         data-cy="admin-link"
                         className="text-[#FEFAE1] hover:text-[#F4D794] transition-colors"
                     >
-                        <RiAdminFill className="w-6 h-6 cursor-pointer" />
+                        <FcBusinessman className="w-8 h-8 cursor-pointer" />
                     </Link>
                 )}
 
