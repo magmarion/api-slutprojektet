@@ -15,21 +15,22 @@ export function ProfileDropdown({ showDropdown, setShowDropdown }: ProfileDropdo
     const { data: session } = useSession();
 
     const getAvatarIcon = () => {
-        if (!session?.user) return <FaUser />;
+        if (!session?.user) return null;
 
         // Kontrollera om användarens profilbild innehåller "github"
         if (session.user.image && session.user.image.includes("github")) {
-            return <FaUserSecret />;
+            return <FaUserSecret className="w-6 h-6 text-[#FEFAE1]" />;
         }
 
         // Google / Gmail inloggning
         if (session.user.email && session.user.email.toLowerCase().endsWith("gmail.com")) {
-            return <FaUserAstronaut />;
+            return <FaUserAstronaut className="w-6 h-6 text-[#FEFAE1]" />;
         }
 
         // Annan inloggning (e-post)
-        return <FaUserTie />;
+        return <FaUserTie className="w-6 h-6 text-[#FEFAE1]" />;
     };
+
 
 
 
@@ -37,7 +38,7 @@ export function ProfileDropdown({ showDropdown, setShowDropdown }: ProfileDropdo
         <div className="relative">
             <button
                 onClick={() => setShowDropdown(!showDropdown)}
-                className="w-9 h-9 rounded-full border-2 border-[#FEFAE1] flex items-center justify-center text-[#FEFAE1] hover:border-[#F4D794] transition"
+                className="w-10 h-10 border-2 rounded-full flex items-center justify-center text-[#FEFAE1] hover:text-[#F4D794] transition pb-1"
             >
                 {getAvatarIcon()}
             </button>
