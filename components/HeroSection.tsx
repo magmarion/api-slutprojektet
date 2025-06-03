@@ -46,7 +46,7 @@ export default async function HeroSection() {
                     ))}
                 </div>
                 <Link href="#all-products">
-                    <button className="my-3 bg-[#3D5300] hover:bg-[#2C3E00] text-[#FEFAE1] px-4 py-2 rounded cursor-pointer">
+                    <button className="my-3 bg-[#d9d076] hover:bg-[#aea75f] text-[#000000] px-4 py-2 rounded cursor-pointer">
                         Se våra produkter
                     </button>
                 </Link>
