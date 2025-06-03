@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: PropsWithChildren) {
   return (
 
-    <html lang="sv">
+    <html lang="sv" className="scroll-smooth">
       <body className={`flex flex-col min-h-screen ${nunito.className}`}>
 
         <QueryProvider >

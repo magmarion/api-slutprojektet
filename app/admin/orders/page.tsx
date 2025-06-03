@@ -5,8 +5,8 @@ import OrdersTable from './OrdersTable';
 export default async function OrdersPage() {
   const orders = await getOrders();
   return (
-    <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Ordrar</h1>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4 ml-4 underline">Ordrar</h1>
       <OrdersTable orders={orders} />
     </div>
   );

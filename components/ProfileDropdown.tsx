@@ -2,7 +2,8 @@
 "use client";
 import { signOut } from "@/lib/auth-client";
 import Link from "next/link";
-import { FaGithub, FaUser, FaListAlt } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { FaGithub, FaListAlt, FaUser } from "react-icons/fa";
 
 interface ProfileDropdownProps {
     showDropdown: boolean;
@@ -10,6 +11,7 @@ interface ProfileDropdownProps {
 }
 
 export function ProfileDropdown({ showDropdown, setShowDropdown }: ProfileDropdownProps) {
+    const router = useRouter();
     return (
         <div className="relative">
             <button
@@ -38,7 +40,13 @@ export function ProfileDropdown({ showDropdown, setShowDropdown }: ProfileDropdo
                     </Link>
                     <hr className="my-2" />
                     <button
-                        onClick={() => signOut()}
+                        onClick={() => signOut({
+                            fetchOptions: {
+                                onSuccess: () => {
+                                    router.push("/signin");
+                                },
+                            },
+                        })}
                         className="w-full bg-[#AF3E3E] hover:bg-[#8B322C] text-white px-4 py-2 rounded transition-all cursor-pointer"
                     >
                         Logga ut
