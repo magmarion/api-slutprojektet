@@ -1,6 +1,7 @@
 'use server';
 
 import { Product } from '@/generated/prisma';
+import { verifyAdminAccess } from '@/lib/auth-utils';
 import { productSchema } from '@/lib/schemas';
 import { db } from '@/prisma/client';
 import { nanoid } from 'nanoid';
@@ -14,37 +15,38 @@ export async function getAllProducts() {
       title: true,
       image: true,
       price: true,
-      stock: true, 
+      stock: true,
       categories: true,
     },
   });
 }
 
-
 export async function createProduct(
   data: Partial<Product> & { stock?: number },
   categoryName?: string
 ) {
-  const result = productSchema.safeParse({
-    title: data.title,
-    image: data.image,
-    price: data.price,
-    description: data.description,
-    category: categoryName,
-    stock: data.stock,
-  });
-
-  if (!result.success) {
-    return {
-      success: false,
-      error: 'Validation failed',
-      details: result.error.format(),
-    };
-  }
-
-  const shortId = nanoid(8);
-
   try {
+    await verifyAdminAccess();
+
+    const result = productSchema.safeParse({
+      title: data.title,
+      image: data.image,
+      price: data.price,
+      description: data.description,
+      category: categoryName,
+      stock: data.stock,
+    });
+
+    if (!result.success) {
+      return {
+        success: false,
+        error: 'Validering misslyckades',
+        details: result.error.format(),
+      };
+    }
+
+    const shortId = nanoid(8);
+
     const product = await db.product.create({
       data: {
         articleNumber: shortId,
@@ -59,13 +61,22 @@ export async function createProduct(
       },
     });
 
-    revalidatePath('/admin/dashboard');
+    revalidatePath('/admin');
     return { success: true, product };
   } catch (error) {
-    console.error('Error creating product:', error);
+    console.error('Det gick inte att skapa produkten:', error);
+
+    if (
+      error instanceof Error &&
+      (error.message.includes('Obehörig') ||
+        error.message.includes('Förbjudet'))
+    ) {
+      return { success: false, error: error.message };
+    }
+
     return {
       success: false,
-      error: 'Failed to create product',
+      error: 'Misslyckades med att skapa produkte',
     };
   }
 }
@@ -75,24 +86,25 @@ export async function updateProduct(
   data: Partial<Product> & { stock?: number },
   categoryName?: string
 ) {
-  const result = productSchema.safeParse({
-    title: data.title,
-    image: data.image,
-    price: data.price,
-    description: data.description,
-    category: categoryName,
-    stock: data.stock,
-  });
-
-  if (!result.success) {
-    return {
-      success: false,
-      error: 'Validation failed',
-      details: result.error.format(),
-    };
-  }
-
   try {
+    await verifyAdminAccess();
+    const result = productSchema.safeParse({
+      title: data.title,
+      image: data.image,
+      price: data.price,
+      description: data.description,
+      category: categoryName,
+      stock: data.stock,
+    });
+
+    if (!result.success) {
+      return {
+        success: false,
+        error: 'Validation failed',
+        details: result.error.format(),
+      };
+    }
+
     const product = await db.product.update({
       where: { articleNumber },
       data: {
@@ -103,7 +115,7 @@ export async function updateProduct(
         stock: result.data.stock,
         categories: categoryName
           ? {
-              set: [], 
+              set: [],
               connect: [{ name: categoryName }],
             }
           : undefined,
@@ -113,16 +125,38 @@ export async function updateProduct(
     revalidatePath('/admin');
     return { success: true, product };
   } catch (error) {
-    console.error('Error updating product:', error);
-    return { success: false, error: 'Failed to update product' };
+    console.error('Fel vid uppdatering av produkten:', error);
+    return {
+      success: false,
+      error: 'Misslyckades med att uppdatera produkten',
+    };
   }
 }
 
 export async function deleteProduct(articleNumber: string) {
-  await db.product.delete({
-    where: { articleNumber },
-  });
-  revalidatePath('/admin');
+  try {
+    await verifyAdminAccess();
+    await db.product.delete({
+      where: { articleNumber },
+    });
+    revalidatePath('/admin');
+    return { success: true };
+  } catch (error) {
+    console.error('Fel vid radering av produkten:', error);
+
+    if (
+      error instanceof Error &&
+      (error.message.includes('Obehörig') ||
+        error.message.includes('Förbjudet'))
+    ) {
+      return { success: false, error: error.message };
+    }
+
+    return {
+      success: false,
+      error: 'Misslyckades med att radera produkten',
+    };
+  }
 }
 
 export async function getCategories() {
@@ -131,6 +165,4 @@ export async function getCategories() {
   });
 }
 
-export async function updateOrderStatus() {
-  
-}
+export async function updateOrderStatus() {}
