@@ -17,7 +17,7 @@ interface AllProductsGridProps {
 
 export default function AllProductsGrid({ products }: AllProductsGridProps) {
   return (
-    <section className="w-full px-4 py-6">
+    <section id="all-products" className="w-full px-4 py-6 scroll-mt-20">
       <h2 className="text-2xl font-semibold mb-4 text-center text-[#594100]">
         Alla produkter
       </h2>
