@@ -1,6 +1,7 @@
 "use client";
 
 import { signUp } from "@/lib/auth-client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -41,7 +42,7 @@ export default function RegisterPage() {
     return (
         <main className="min-h-screen bg-[#f8e5be] relative overflow-hidden flex items-center justify-center px-4">
             {/* Bakgrund */}
-            <img
+            <Image
                 src="/blad-bakgrund.png"
                 alt="Bakgrund"
                 className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none z-0"

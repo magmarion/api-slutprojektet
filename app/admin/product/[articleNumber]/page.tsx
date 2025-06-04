@@ -4,7 +4,7 @@ import type { Product } from "@/generated/prisma";
 import { db } from "@/prisma/client";
 
 interface PageProps {
-    params: { articleNumber: string };
+    params: Promise<{ articleNumber: string }>;
 }
 
 export default async function EditProductPage({ params }: PageProps) {

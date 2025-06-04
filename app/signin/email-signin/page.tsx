@@ -1,5 +1,6 @@
 "use client";
 import { signIn } from "@/lib/auth-client";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -29,7 +30,7 @@ export default function EmailSignInPage() {
 
     return (
         <main className="min-h-screen bg-[#f8e5be] relative overflow-hidden flex items-center justify-center">
-            <img
+            <Image
                 src="/blad-bakgrund.png"
                 alt="Bakgrund"
                 className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none z-0"
@@ -41,7 +42,7 @@ export default function EmailSignInPage() {
                     className="bg-[#FEFAE1] border border-[#e0d9c5] rounded-lg shadow-xl p-6 md:p-8 w-full space-y-4"
                 >
                     <h1 className="text-2xl font-semibold text-center text-[#3D5300] mb-2">Logga in</h1>
-                    
+
                     <input
                         id="email"
                         name="email"

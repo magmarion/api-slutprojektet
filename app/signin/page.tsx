@@ -1,16 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { FaLeaf } from "react-icons/fa";
 import EmailSignInButton from "./providers/email-button";
 import GitHubSignInButton from "./providers/github-button";
 import GoogleSignInButton from "./providers/google-button";
-import { FaLeaf } from "react-icons/fa";
 
 export default function SignInPage() {
     return (
         <main className="min-h-screen bg-[#f8e5be] relative overflow-hidden">
             {/* Bakgrundsbild */}
-            <img
+            <Image
                 src="/blad-bakgrund.png"
                 alt="Bakgrundsblad"
                 className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none z-0"

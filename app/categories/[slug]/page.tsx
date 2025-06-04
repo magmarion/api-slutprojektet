@@ -2,8 +2,8 @@ import ProductCard from "@/components/products/ProductCard";
 import { db } from "@/prisma/client";
 import { notFound } from "next/navigation";
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
-    const { slug } = params;
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const category = decodeURIComponent(slug);
 
     // Hämta produkter i denna kategori (befintlig kod)
