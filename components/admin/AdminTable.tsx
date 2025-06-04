@@ -135,7 +135,7 @@ export default function AdminProductsGrid({
                 <Button
                   variant="destructive"
                   data-cy="admin-remove-product"
-                  className="flex items-center gap-1 bg-red-700 cursor-pointer"
+                  className="flex items-center gap-1 bg-[#d73d3d] cursor-pointer"
                   onClick={() => setOpenDeleteDialog(product.articleNumber)}
                 >
                   <Trash size={16} />
