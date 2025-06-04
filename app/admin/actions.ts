@@ -62,7 +62,7 @@ export async function createProduct(
     });
 
     revalidatePath('/');
-    revalidatePath('/admin');
+    revalidatePath(`/product`);
     revalidatePath('/categories/[slug]/page', "page");
     revalidatePath(`/product/${product.articleNumber}/${product.title}`);
     return { success: true, product };
@@ -126,8 +126,8 @@ export async function updateProduct(
     });
 
     revalidatePath('/');
-    revalidatePath('/admin');
     revalidatePath('/categories/[slug]/page', "page");
+    revalidatePath(`/product`);
     revalidatePath(`/product/${product.articleNumber}/${product.title}`);
     return { success: true, product };
   } catch (error) {
@@ -156,7 +156,7 @@ export async function deleteProduct(articleNumber: string) {
     });
 
     revalidatePath('/');
-    revalidatePath('/admin');
+    revalidatePath(`/product`);
     revalidatePath('/categories/[slug]/page', "page");
     return { success: true };
   } catch (error) {

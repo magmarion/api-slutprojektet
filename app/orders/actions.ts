@@ -122,6 +122,7 @@ export async function createOrder(data: {
 
     revalidatePath('/');
     revalidatePath('/orders');
+    revalidatePath('/products');
     revalidatePath('categories/[slug]/page', "page");
     return { success: true, order };
   } catch (error) {
