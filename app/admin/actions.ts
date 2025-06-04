@@ -126,6 +126,15 @@ export async function updateProduct(
     return { success: true, product };
   } catch (error) {
     console.error('Fel vid uppdatering av produkten:', error);
+
+    if (
+      error instanceof Error &&
+      (error.message.includes('Obehörig') ||
+        error.message.includes('Förbjudet'))
+    ) {
+      return { success: false, error: error.message };
+    }
+
     return {
       success: false,
       error: 'Misslyckades med att uppdatera produkten',
