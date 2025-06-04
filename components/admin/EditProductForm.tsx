@@ -79,7 +79,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
     try {
       const result = await updateProduct(product.articleNumber, data, data.category);
 
-      if (!result.success) {
+      if (result.success) {
         toast.success("Produkten uppdaterades!");
         router.push("/admin");
       } else {
@@ -87,7 +87,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
           toast.error("Du har inte behörighet för denna åtgärd");
           router.push("/signin");
         } else {
-          toast.error(result.error || "Det gick inte att skapa produkten");
+          toast.error(result.error || "Hmm, Det gick inte att skapa produkten");
         }
       }
     } catch (error) {
