@@ -7,6 +7,15 @@ interface ProductDetailProps {
     params: Promise<{ articleNumber: string; }>;
 }
 
+export async function generateStaticParams() {
+    const products = await db.product.findMany({});
+    return products.map(product => ({
+        articleNumber: product.articleNumber,
+        title: product.title,
+    }));
+}
+
+
 export default async function ProductDetail({ params }: ProductDetailProps) {
     // Await params before using its properties
     const { articleNumber } = await params;

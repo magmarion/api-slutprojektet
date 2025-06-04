@@ -3,6 +3,7 @@ import { getSession } from '@/lib/auth'; // Hämta userId på serversidan
 import { verifyAdminAccess } from '@/lib/auth-utils';
 import { orderSchema, updateOrderSchema } from '@/lib/schemas';
 import { db } from '@/prisma/client';
+import { revalidatePath } from 'next/cache';
 
 export type OrderWithRelations = {
   id: string;
@@ -96,6 +97,8 @@ export async function createOrder(data: {
       where: { id: item.productId },
       data: { stock: product.stock - item.quantity },
     });
+
+    revalidatePath(`/product/${product.articleNumber}/${product.title}`);
   }
 
   try {
@@ -117,6 +120,9 @@ export async function createOrder(data: {
       },
     });
 
+    revalidatePath('/');
+    revalidatePath('/orders');
+    revalidatePath('categories/[slug]/page', "page");
     return { success: true, order };
   } catch (error) {
     console.error('Fel vid skapande av order:', error);

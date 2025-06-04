@@ -61,7 +61,10 @@ export async function createProduct(
       },
     });
 
+    revalidatePath('/');
     revalidatePath('/admin');
+    revalidatePath('/categories/[slug]/page', "page");
+    revalidatePath(`/product/${product.articleNumber}/${product.title}`);
     return { success: true, product };
   } catch (error) {
     console.error('Det gick inte att skapa produkten:', error);
@@ -115,14 +118,17 @@ export async function updateProduct(
         stock: result.data.stock,
         categories: categoryName
           ? {
-              set: [],
-              connect: [{ name: categoryName }],
-            }
+            set: [],
+            connect: [{ name: categoryName }],
+          }
           : undefined,
       },
     });
 
+    revalidatePath('/');
     revalidatePath('/admin');
+    revalidatePath('/categories/[slug]/page', "page");
+    revalidatePath(`/product/${product.articleNumber}/${product.title}`);
     return { success: true, product };
   } catch (error) {
     console.error('Fel vid uppdatering av produkten:', error);
@@ -148,7 +154,10 @@ export async function deleteProduct(articleNumber: string) {
     await db.product.delete({
       where: { articleNumber },
     });
+
+    revalidatePath('/');
     revalidatePath('/admin');
+    revalidatePath('/categories/[slug]/page', "page");
     return { success: true };
   } catch (error) {
     console.error('Fel vid radering av produkten:', error);
@@ -174,4 +183,4 @@ export async function getCategories() {
   });
 }
 
-export async function updateOrderStatus() {}
+export async function updateOrderStatus() { }

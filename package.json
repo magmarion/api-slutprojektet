@@ -8,7 +8,7 @@
     "postinstall": "prisma db push",
     "dev": "next dev --turbopack --port 5173",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --port 5173",
     "lint": "next lint",
     "push": "prisma db push",
     "seed": "tsx prisma/seed.ts",
