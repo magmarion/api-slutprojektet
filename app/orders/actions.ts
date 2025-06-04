@@ -1,8 +1,8 @@
-
-"use server"
-import { getSession } from "@/lib/auth"; // Hämta userId på serversidan
-import { orderSchema, updateOrderSchema } from "@/lib/schemas";
-import { db } from "@/prisma/client";
+'use server';
+import { getSession } from '@/lib/auth'; // Hämta userId på serversidan
+import { verifyAdminAccess } from '@/lib/auth-utils';
+import { orderSchema, updateOrderSchema } from '@/lib/schemas';
+import { db } from '@/prisma/client';
 
 export type OrderWithRelations = {
   id: string;
@@ -20,6 +20,8 @@ export type OrderWithRelations = {
 
 export async function getOrders(): Promise<OrderWithRelations[]> {
   try {
+    await verifyAdminAccess();
+
     return await db.order.findMany({
       include: {
         user: { select: { id: true, name: true } },
@@ -28,8 +30,7 @@ export async function getOrders(): Promise<OrderWithRelations[]> {
       orderBy: { createdAt: 'desc' },
     });
   } catch (error) {
-
-    console.error("Fel vid hämtning av order:", error);
+    console.error('Fel vid hämtning av order:', error);
 
     return []; // Returnera en tom lista som fallback
   }
@@ -40,10 +41,12 @@ export async function createOrder(data: {
   total: number;
   status: string;
 }) {
-
   const session = await getSession(); // Hämtar aktiv session
   if (!session?.user?.id) {
-    return { success: false, error: "Du behöver logga in för att göra en beställning!" };
+    return {
+      success: false,
+      error: 'Du behöver logga in för att göra en beställning!',
+    };
   }
 
   const userId = session.user.id;
@@ -54,13 +57,11 @@ export async function createOrder(data: {
     return {
       success: false,
 
-      error: "Validering misslyckades",
+      error: 'Validering misslyckades',
 
       details: result.error.flatten().fieldErrors,
     };
   }
-
-
 
   // Kontrollera att användaren finns
   const user = await db.user.findUnique({ where: { id: userId } });
@@ -70,8 +71,6 @@ export async function createOrder(data: {
       error: `Användare med id ${userId} hittades inte`,
     };
   }
-
-
 
   for (const item of data.items) {
     const product = await db.product.findUnique({
@@ -83,7 +82,6 @@ export async function createOrder(data: {
         success: false,
 
         error: `Produkt med id ${item.productId} hittas ej`,
-
       };
     }
 
@@ -121,10 +119,8 @@ export async function createOrder(data: {
 
     return { success: true, order };
   } catch (error) {
-
-    console.error("Fel vid skapande av order:", error);
-    return { success: false, error: "Det gick inte att skapa ordern" };
-
+    console.error('Fel vid skapande av order:', error);
+    return { success: false, error: 'Det gick inte att skapa ordern' };
   }
 }
 
@@ -140,8 +136,7 @@ export async function getOrderById(
       },
     });
   } catch (error) {
-
-    console.error("Fel vid hämtning av order med ID:", error);
+    console.error('Fel vid hämtning av order med ID:', error);
 
     return null;
   }
@@ -156,51 +151,51 @@ export async function updateOrder(
     status?: string;
   }
 ) {
-  const result = updateOrderSchema.safeParse(data);
-  if (!result.success) {
-    return {
-      success: false,
-
-      error: "Validering misslyckades",
-
-      details: result.error.flatten().fieldErrors,
-    };
-  }
-
-  type UpdateData = {
-    userId?: string;
-    items?: { productId: string; quantity: number }[];
-    total?: number;
-    status?: string;
-  };
-  // Skapa en kopia och filtrera bort undefined
-  const filteredData = Object.fromEntries(
-    Object.entries(result.data).filter(([_, value]) => value !== undefined)
-  ) as UpdateData;
-
-  const prismaData: any = { ...filteredData };
-
-  // Om userId finns, använd relationsformat
-  if (filteredData.userId) {
-    prismaData.user = { connect: { id: filteredData.userId } };
-    delete prismaData.userId;
-  }
-
-  // Om items finns, använd create + set (eller updateMany)
-  if (filteredData.items) {
-    prismaData.items = {
-      set: [], // Rensar gamla rader
-      create: filteredData.items.map(
-        (item: { productId: string; quantity: number }) => ({
-          productId: item.productId,
-          quantity: item.quantity,
-        })
-      ),
-    };
-    delete prismaData.items;
-  }
-
   try {
+    await verifyAdminAccess();
+
+    const result = updateOrderSchema.safeParse(data);
+    if (!result.success) {
+      return {
+        success: false,
+        error: 'Validering misslyckades',
+        details: result.error.flatten().fieldErrors,
+      };
+    }
+
+    type UpdateData = {
+      userId?: string;
+      items?: { productId: string; quantity: number }[];
+      total?: number;
+      status?: string;
+    };
+    // Skapa en kopia och filtrera bort undefined
+    const filteredData = Object.fromEntries(
+      Object.entries(result.data).filter(([_, value]) => value !== undefined)
+    ) as UpdateData;
+
+    const prismaData: any = { ...filteredData };
+
+    // Om userId finns, använd relationsformat
+    if (filteredData.userId) {
+      prismaData.user = { connect: { id: filteredData.userId } };
+      delete prismaData.userId;
+    }
+
+    // Om items finns, använd create + set (eller updateMany)
+    if (filteredData.items) {
+      prismaData.items = {
+        set: [], // Rensar gamla rader
+        create: filteredData.items.map(
+          (item: { productId: string; quantity: number }) => ({
+            productId: item.productId,
+            quantity: item.quantity,
+          })
+        ),
+      };
+      delete prismaData.items;
+    }
+
     const updatedOrder = await db.order.update({
       where: { id },
       data: prismaData,
@@ -216,22 +211,38 @@ export async function updateOrder(
 
     return { success: true, updatedOrder };
   } catch (error) {
+    console.error('Fel vid uppdatering av order:', error);
 
-    console.error("Fel vid uppdatering av order:", error);
-    return { success: false, error: "Det gick inte att uppdatera ordern" };
+    if (
+      error instanceof Error &&
+      (error.message.includes('Obehörig') ||
+        error.message.includes('Förbjudet'))
+    ) {
+      return { success: false, error: error.message };
+    }
 
+    return { success: false, error: 'Det gick inte att uppdatera ordern' };
   }
 }
 
 export async function deleteOrder(id: string) {
   try {
+    await verifyAdminAccess();
+
     await db.order.delete({ where: { id } });
     return { success: true };
   } catch (error) {
+    console.error('Fel vid radering av order:', error);
 
-    console.error("Fel vid radering av order:", error);
-    return { success: false, error: "Det gick inte att ta bort ordern" };
+    if (
+      error instanceof Error &&
+      (error.message.includes('Obehörig') ||
+        error.message.includes('Förbjudet'))
+    ) {
+      return { success: false, error: error.message };
+    }
 
+    return { success: false, error: 'Det gick inte att ta bort ordern' };
   }
 }
 

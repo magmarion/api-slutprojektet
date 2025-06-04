@@ -58,7 +58,7 @@ export default function AddProductForm() {
   // Hantera formulärinlämning
   const onSubmit = async (data: ProductFormData) => {
     try {
-      await createProduct(
+      const result = await createProduct(
         {
           title: data.title,
           image: data.image,
@@ -69,8 +69,17 @@ export default function AddProductForm() {
         data.category
       );
 
-      toast.success("Produkten skapades!");
-      router.push("/admin");
+      if (result.success) {
+        toast.success("Produkten skapades!");
+        router.push("/admin");
+      } else {
+        if (result.error?.includes("Obehörig") || result.error?.includes("Förbjudet")) {
+          toast.error("Du har inte behörighet för denna åtgärd");
+          router.push("/signin");
+        } else {
+          toast.error(result.error || "Det gick inte att skapa produkten");
+        }
+      }
     } catch (error) {
       console.error("Fel:", error);
       toast.error("Det gick inte att skapa produkten");

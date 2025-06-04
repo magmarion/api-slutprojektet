@@ -40,11 +40,21 @@ export default function AdminProductsGrid({
       const formData = new FormData();
       formData.append("articleNumber", articleNumber);
 
-      await deleteProductAction(formData);
-      toast.success("Produkten raderades!");
-      startTransition(() => {
-        router.refresh();
-      });
+      const result = await deleteProductAction(formData);
+
+      if (result?.success) {
+        toast.success("Produkten raderades!");
+        startTransition(() => {
+          router.refresh();
+        });
+      } else {
+        if (result.error?.includes("Obehörig") || result.error?.includes("Förbjudet")) {
+          toast.error("Du har inte behörighet för denna åtgärd.");
+          router.push("/signin");
+        } else {
+          toast.error(result.error || "Fel vid radering av produkt.");
+        }
+      }
     } catch (error) {
       console.error(error);
       toast.error("Fel vid radering av produkt.");
