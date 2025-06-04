@@ -1,76 +1,81 @@
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-# 🛒 Tech Gear Webshop
+# 🛒 Bloom Webshop
 
 ## 📌 Project Description
-Tech Gear is a modern e-commerce platform for tech gadgets. The webshop provides a smooth shopping experience with dynamic product listings, a shopping cart, secure payments, and user authentication. 
 
-The project is built using **Next.js**, **TypeScript**, **Tailwind CSS**, and **ShadCN UI**, with **Zustand** for cart state management, **Prisma** for database interaction, and **Zod** for form validation. Additionally, **Framer Motion** is used to enhance the UI with animations.
+Bloom is a modern and user-friendly webshop that offers a carefully selected range of flowers and plants for both indoors and outdoors. We focus on quality and simplicity. Customers should be able to easily find, order and have their favorite plants delivered to their home. With a clear category system, personal shopping cart and a smooth checkout, BLOOM makes it easy to spread green joy – all year round.
 
-Check out the **"package.json"-file** för scripts and dependencies.
+The project is built using **Next.js** and **Server Actions**, **TypeScript**, **Tailwind CSS**, and **ShadCN UI**, with **Zustand** for cart state management, **Prisma** for database interaction, and **Zod** for form validation. Additionally, **Framer Motion** is used to enhance the UI with animations.
+
+Check out the **"package.json"-file** for scripts and dependencies.
 
 ---
 
 ## 🚀 Technologies Used
-| Technology       | Purpose and documentation
-|-----------------|---------|
-| **Next.js**      | React framework for SSR & SSG https://nextjs.org/docs |
-| **Tailwind CSS** | Utility-first CSS framework for styling https://tailwindcss.com/docs |
-| **ShadCN UI**    | Component library for UI elements https://ui.shadcn.com |
-| **Framer Motion** | Animations and UI transitions https://www.framer.com/motion |
-| **Zustand**      | State management for cart functionality https://docs.pmnd.rs/zustand |
-| **Prisma**       | ORM for database management https://www.prisma.io/docs |
-| **Zod**         | Form validation and schema definition https://zod.dev
- |
+
+| Technology        | Purpose and documentation                                            |
+| ----------------- | -------------------------------------------------------------------- |
+| **Next.js**       | React framework for SSR & SSG https://nextjs.org/docs                |
+| **Tailwind CSS**  | Utility-first CSS framework for styling https://tailwindcss.com/docs |
+| **ShadCN UI**     | Component library for UI elements https://ui.shadcn.com              |
+| **Framer Motion** | Animations and UI transitions https://www.framer.com/motion          |
+| **Zustand**       | State management for cart functionality https://docs.pmnd.rs/zustand |
+| **Prisma**        | ORM for database management https://www.prisma.io/docs               |
+| **Zod**           | Form validation and schema definition https://zod.dev                |
+|  |
 
 ---
 
 ## 🔧 Installation & Setup
 
 ### **1. Clone the repository**
-```sh
-git clone https://github.com/plugga-tech/nextjs-webshop-ts-react-theshop.git
 
-cd nextjs-webshop-ts-react-theshop
+```sh
+git clone https://github.com/magmarion/api-slutprojektet.git
+
+cd api-slutprojektet
 ```
 
 ### **2. Install dependencies**
-Using npm:
-```sh
+
+```bash
 npm install
 ```
-Using yarn:
-```
+
+```bash
 yarn install
 ```
+
+```bash
+pnpm install
+```
+
+```bash
+bun install
+```
+
 ### **3. Set up environment variables**
-Create a .env.local file in the project root and add the necessary API keys and database connection details:
+
+Create a .env.local file in the project root and add the necessary API keys, credentials and URLs:
 
 ```sh
+# Prisma Accelerate connection
 DATABASE_URL=your_database_url
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_key
-STRIPE_SECRET_KEY=your_secret_key
-NEXTAUTH_SECRET=your_nextauth_secret
+
+# Better Auth secret and URL
+BETTER_AUTH_SECRET=your_secret_key
+BETTER_AUTH_URL=http://localhost:5173
+
+# GitHub OAuth credentials
+GITHUB_CLIENT_ID=your_client_id
+GITHUB_CLIENT_SECRET=your_secret_key
+
+# Google OAuth credentials
+GOOGLE_CLIENT_ID=your_client_id
+GOOGLE_CLIENT_SECRET=your_secret_key
 ```
 
 ### **4. Migrate the database**
+
 If you're using Prisma, apply migrations:
 
 ```sh
@@ -78,11 +83,19 @@ npx prisma migrate dev
 ```
 
 ### **5. Start the development server**
+
 ```sh
 npm run dev
 ```
-or using yarn
+
 ```sh
 yarn dev
 ```
 
+```sh
+pnpm dev
+```
+
+```sh
+bun run dev
+```
