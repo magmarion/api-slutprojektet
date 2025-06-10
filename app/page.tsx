@@ -16,7 +16,7 @@ export default async function Home() {
             <HeroSection />
 
             <h1 className="text-3xl font-bold text-center text-[#594100] m-6">
-                Gröna drömmar blir verklighet hos oss! Köp nu våra blommor för fan!
+                Gröna drömmar blir verklighet hos oss
             </h1>
 
             <USPSection />
