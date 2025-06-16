@@ -1,9 +1,12 @@
 # 🛒 Bloom Webshop
 
+### Live Demo
+
+[Explore Bloomshop](https://bloomshop.vercel.app) – Try the live webshop experience.
+
 ## ⚠️ Authorship Notice
 
 > **This project was originally created and maintained by a team of 5 people:  
-> Elnur Guliyev, Peter Warholm, Simon Månsson, Rich Brandon, and Mali Roshensah.**  
 >  
 > Any forks or copies by others **do not indicate collaboration or shared authorship** unless explicitly stated by the original team.  
 >  
