@@ -1,5 +1,15 @@
 # 🛒 Bloom Webshop
 
+## ⚠️ Authorship Notice
+
+> **This project was originally created and maintained by a team of 5 people:  
+> Elnur Guliyev, Peter Warholm, Simon Månsson, Rich Brandon, and Mali Roshensah.**  
+>  
+> Any forks or copies by others **do not indicate collaboration or shared authorship** unless explicitly stated by the original team.  
+>  
+> Please refer to this repository as the **official source.**
+
+
 ## 📌 Project Description
 
 Bloom is a modern and user-friendly webshop that offers a carefully selected range of flowers and plants for both indoors and outdoors. We focus on quality and simplicity. Customers should be able to easily find, order and have their favorite plants delivered to their home. With a clear category system, personal shopping cart and a smooth checkout, BLOOM makes it easy to spread green joy – all year round.
